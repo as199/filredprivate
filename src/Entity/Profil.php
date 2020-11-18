@@ -1,0 +1,135 @@
+<?php
+
+namespace App\Entity;
+
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProfilRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+/**
+ * @ORM\Entity(repositoryClass=ProfilRepository::class)
+ * @ApiResource(itemOperations={
+ *     "get_user_profil":{
+ *      "method":"get",
+ *      "path":"/admin/profils/{id}/users",
+ *      "normalization_context"={"groups":"admin_profil_id:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') )",
+ *       "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *      "put":{"access_control"="(is_granted('ROLE_ADMIN'))"},
+ *     "get":{"path":"/admin/profils/{id}","access_control"="(is_granted('ROLE_ADMIN') )",
+ *               "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *            },
+ *     }
+ *     ,collectionOperations={
+ *
+ *      "admin_profil":{
+ *              "method": "GET",
+ *               "path":"/admin/profils",
+ *               "normalization_context"={"groups":"admin_profil:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') )",
+ *               "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *         },
+ *          "post": {"path": "/admin/profils",
+ *              "access_control"="(is_granted('ROLE_ADMIN') )",
+ *               "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *         }})
+ * @ApiFilter(SearchFilter::class, properties={"status": "exact"})
+ */
+class Profil
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     */
+    private $libelle;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
+     * @Groups({"admin_profil_id:read"})
+     */
+    private $users;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     */
+    private $status;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setProfil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getProfil() === $this) {
+                $user->setProfil(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+}
