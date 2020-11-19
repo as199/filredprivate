@@ -31,6 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "admin_profil":{
  *              "method": "GET",
  *               "path":"/admin/profils",
+ *              "pagination_enabled"=true,
  *               "normalization_context"={"groups":"admin_profil:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
@@ -39,7 +40,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
  *         }})
- * @ApiFilter(SearchFilter::class, properties={"status": "exact"})
+ *
+ * @ApiFilter (SearchFilter::class, properties={"status": "exact"})
  */
 class Profil
 {
@@ -64,7 +66,7 @@ class Profil
     private $users;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
      */
     private $status;
@@ -121,12 +123,12 @@ class Profil
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(?int $status): self
+    public function setStatus(?bool $status): self
     {
         $this->status = $status;
 

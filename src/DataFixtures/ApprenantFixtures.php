@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\ProfilFixtures;
+use App\Entity\Apprenant;
 use App\Entity\User;
 use App\Repository\ProfilRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,7 +22,7 @@ class ApprenantFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         for ($i = 1; $i <= 3; $i++) {
-            $user = new User();
+            $user = new Apprenant();
             $profil = $this->getReference(ProfilFixtures::APPRENANT_REFERENCE);
 
             $user->setProfil($profil)
@@ -29,7 +30,8 @@ class ApprenantFixtures extends Fixture implements DependentFixtureInterface
                 ->setUsername('apprenant'.$i )
                 ->setNomComplete($faker->name)
                 ->setTelephone($faker->phoneNumber)
-                ->setAdresse($faker->email);
+                ->setAdresse($faker->email)
+                ->setStatus(1);
 
             //Génération des User
             $password = $this->encoder->encodePassword($user, 'pass1234');

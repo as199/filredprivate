@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\User;
+use App\Service\InscriptionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,6 +17,19 @@ use Symfony\Component\Serializer\SerializerInterface;
 class AdminController extends AbstractController
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $manager;
+
+    /**
+     * AdminController constructor.
+     */
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    /**
      * @Route(
      *     "api/admin/users",
      *      name="addUser",
@@ -26,18 +40,10 @@ class AdminController extends AbstractController
      *     }
      *     )
      */
-    public function AddUser(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, Request $request,SerializerInterface $serializer)
+    public function AddUser(InscriptionService $service, Request $request)
     {
-
-        $userReq = $request->request->all();
-        $file = $request->files->get('avartar')->getRealPath();
-        $avartar = fopen($file,'r+');
-        $userReq['avartar']=$avartar;
-        $newUser = $serializer->denormalize($userReq, Admin::class);
-        $newUser->setPassword($encoder->encodePassword($newUser,$userReq['password']));
-        $newUser->setRoles(['ROLE_ADMIN']);
-        $manager->persist($newUser);
-        $manager->flush();
+        $utilisateur = $service->NewUser("Admin",$request);
+        $this->manager->persist($utilisateur);
         return new JsonResponse("success",200,[],true);
 
     }

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Admin;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -20,7 +21,7 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         for ($i = 1; $i <= 3; $i++) {
-            $user = new User();
+            $user = new Admin();
             $profil = $this->getReference(ProfilFixtures::ADMIN_REFERENCE);
 
             $user->setProfil($profil)
@@ -28,7 +29,8 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface
                 ->setUsername('admin'.$i )
                 ->setNomComplete($faker->name)
                 ->setTelephone($faker->phoneNumber)
-                ->setAdresse($faker->email);
+                ->setAdresse($faker->email)
+                ->setStatus(1);
 
             //Génération des User
             $password = $this->encoder->encodePassword($user, 'pass1234');

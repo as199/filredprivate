@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  *          "path":"/apprenants/{id}",
  *              "access_control"="(is_granted('ROLE_ADMIN')  or is_granted('ROLE_FORMATEUR'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
- *              "deserialize" = false
  *          },"put_apprenant_id":{
  *           "method":"put",
  *          "path":"/apprenants/{id}",

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type_id", type="integer")
- * @ORM\DiscriminatorMap({1 ="Admin",2="Formateur", 3="Cm", 4="Apprenant", "user"="User"})
+ * @ORM\DiscriminatorMap({1 ="Admin",2="Formateur", 3="Cm", 4="Apprenant", 5="User"})
  * @ApiResource(attributes={"pagination_enabled"=true},
  *     itemOperations={
  *     "get_user_id":{
@@ -95,16 +95,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Groups ({"admin_profil_id:read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * * @Groups ({"admin_profil_id:read"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
+     * * @Groups ({"admin_profil_id:read"})
      */
     private $avartar;
 
@@ -254,8 +257,12 @@ class User implements UserInterface
     }
 
     public function getAvartar()
-    {
+    {   if ($this->avartar != null){
+        return base64_encode(stream_get_contents($this->avartar));
+        }else{
         return $this->avartar;
+    }
+
     }
 
     public function setAvartar($avartar): self
