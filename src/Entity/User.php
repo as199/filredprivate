@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -21,11 +22,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *              "deserialize" = false
- *          },"put_user_id":{
+ *          },"putUserId":{
  *           "method":"put",
  *          "path":"/admin/users/{id}",
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
- *              "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *              "deserialize"= false,
  *          }},
  *     collectionOperations={
  *     "get":{
@@ -46,6 +47,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class User implements UserInterface
 {
+    const GENRES = ['male', 'female'];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -67,6 +69,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -78,12 +81,15 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read"})
+     *  @Assert\NotNull
      */
     private $nomComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read"})
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $adresse;
 
@@ -96,11 +102,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * * @Groups ({"admin_profil_id:read"})
+     *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+     * @Assert\NotNull
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="boolean",  nullable=true)
      * * @Groups ({"admin_profil_id:read"})
      */
     private $status;
@@ -110,6 +118,13 @@ class User implements UserInterface
      * * @Groups ({"admin_profil_id:read"})
      */
     private $avartar;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Choice(choices=User::GENRES, message="Choose a valid genre.")
+     * @Assert\NotNull
+     */
+    private $genre;
 
     public function getId(): ?int
     {
@@ -244,12 +259,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(?string $status): self
+    public function setStatus(?bool $status): self
     {
         $this->status = $status;
 
@@ -268,6 +283,18 @@ class User implements UserInterface
     public function setAvartar($avartar): self
     {
         $this->avartar = $avartar;
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(string $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }

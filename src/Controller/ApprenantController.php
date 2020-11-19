@@ -43,6 +43,7 @@ class ApprenantController extends AbstractController
     {
 
         $utilisateur = $service->NewUser("Apprenant",$request);
+        dd($utilisateur);
         $this->manager->persist($utilisateur);
         $this->manager->flush();
         return new JsonResponse("success",200,[],true);

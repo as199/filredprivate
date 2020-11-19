@@ -31,7 +31,8 @@ class ApprenantFixtures extends Fixture implements DependentFixtureInterface
                 ->setNomComplete($faker->name)
                 ->setTelephone($faker->phoneNumber)
                 ->setAdresse($faker->email)
-                ->setStatus(1);
+                ->setStatus(true)
+                ->setGenre($faker->randomElement(["male", "female"]));
 
             //Génération des User
             $password = $this->encoder->encodePassword($user, 'pass1234');

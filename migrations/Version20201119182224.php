@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201119094942 extends AbstractMigration
+final class Version20201119182224 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -21,11 +21,13 @@ final class Version20201119094942 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE profil CHANGE status status TINYINT(1) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD genre VARCHAR(100) NOT NULL, CHANGE status status TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE profil CHANGE status status VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE user DROP genre, CHANGE status status VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

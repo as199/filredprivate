@@ -2,17 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Admin;
+
 use App\Entity\User;
 use App\Service\InscriptionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class AdminController extends AbstractController
 {
@@ -44,7 +41,27 @@ class AdminController extends AbstractController
     {
         $utilisateur = $service->NewUser("Admin",$request);
         $this->manager->persist($utilisateur);
+        $this->manager->flush();
         return new JsonResponse("success",200,[],true);
+
+    }
+
+    /**
+     * @Route(
+     *     "api/admin/users/{id}",
+     *      name="putUserId",
+     *     methods={"PUT"},
+     *     defaults={
+     *      "_api_resource_class"=User::class,
+     *      "_api_item_operation_name"="putUserId"
+     *     }
+     *     )
+     */
+    public function putUserId(InscriptionService $service, Request $request)
+    {
+        $utilisateur = $service->PutUtilisateur($request,'avartar');
+       dd($request);
+
 
     }
 }
