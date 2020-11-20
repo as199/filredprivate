@@ -31,7 +31,8 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface
                 ->setTelephone($faker->phoneNumber)
                 ->setAdresse($faker->email)
                 ->setStatus(1)
-                ->setGenre($faker->randomElement(["male", "female"]));
+                ->setGenre($faker->randomElement(["male", "female"]))
+                ->setAvartar($faker->imageUrl($width = 640, $height = 480));
 
             //Génération des User
             $password = $this->encoder->encodePassword($user, 'pass1234');

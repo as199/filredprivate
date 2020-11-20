@@ -20,10 +20,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/php.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/GroupeCompetenceRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/SendEmail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/api_platform.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/api_platform.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201117112235.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201117112350.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201117113128.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201117115212.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201118130928.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201118151123.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201119093800.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20201120133113.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201119094417.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201119182224.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApprenantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApprenantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AdminFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AdminFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/InscriptionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/InscriptionService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +182,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1kPvqHDfxbWf1PPGAPW8dnbnMZH" />
@@ -173,7 +207,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -189,7 +223,8 @@
       <workItem from="1605686422085" duration="30455000" />
       <workItem from="1605772466207" duration="25456000" />
       <workItem from="1605800831666" duration="13248000" />
-      <workItem from="1605856505234" duration="6305000" />
+      <workItem from="1605856505234" duration="26879000" />
+      <workItem from="1605890989132" duration="7174000" />
     </task>
     <servers />
   </component>
@@ -212,21 +247,33 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser" timestamp="1605792807961">
+    <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser" timestamp="1605892705249">
       <screen x="46" y="27" width="1320" height="741" />
     </state>
-    <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser/46.27.1320.741@46.27.1320.741" timestamp="1605792807961" />
-    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605859511459">
+    <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser/46.27.1320.741@46.27.1320.741" timestamp="1605892705249" />
+    <state x="843" y="172" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605885804050">
       <screen x="46" y="27" width="1320" height="741" />
     </state>
-    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605859511459" />
-    <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog" timestamp="1605792444164">
+    <state x="843" y="172" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/46.27.1320.741@46.27.1320.741" timestamp="1605885804050" />
+    <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605891239409">
       <screen x="46" y="27" width="1320" height="741" />
     </state>
-    <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog/46.27.1320.741@46.27.1320.741" timestamp="1605792444164" />
-    <state x="179" y="31" width="1022" height="737" key="SettingsEditor" timestamp="1605636920777">
+    <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891239409" />
+    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605893497940">
       <screen x="46" y="27" width="1320" height="741" />
     </state>
-    <state x="179" y="31" width="1022" height="737" key="SettingsEditor/46.27.1320.741@46.27.1320.741" timestamp="1605636920777" />
+    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605893497940" />
+    <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog" timestamp="1605891635482">
+      <screen x="46" y="27" width="1320" height="741" />
+    </state>
+    <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891635482" />
+    <state x="128" y="27" width="1022" height="737" key="SettingsEditor" timestamp="1605891132543">
+      <screen x="46" y="27" width="1320" height="741" />
+    </state>
+    <state x="128" y="27" width="1022" height="737" key="SettingsEditor/46.27.1320.741@46.27.1320.741" timestamp="1605891132543" />
+    <state x="369" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605874758211">
+      <screen x="46" y="27" width="1320" height="741" />
+    </state>
+    <state x="369" y="89" width="672" height="678" key="search.everywhere.popup/46.27.1320.741@46.27.1320.741" timestamp="1605874758211" />
   </component>
 </project>

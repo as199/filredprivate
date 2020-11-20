@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("username")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type_id", type="integer")
  * @ORM\DiscriminatorMap({1 ="Admin",2="Formateur", 3="Cm", 4="Apprenant", 5="User"})
@@ -35,15 +39,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *              "deserialize" = false
  *          },
- *     "addUser":{"method":"post",
+ *     "addUser":{
+ *              "route_name"="adding",
  *              "path":"/admin/users",
  *               "access_control"="(is_granted('ROLE_ADMIN') )",
- *               "deserialize" = false
+ *               "deserialize" = false,
+ *                  "validation_groups"={"Default", "postValidation"}
  *              }
  *
  *      }
  * )
- *
+ * @ApiFilter (SearchFilter::class, properties={"status": "exact"})
  */
 class User implements UserInterface
 {
@@ -59,7 +65,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups ({"admin_profil_id:read"})
-     *
+     * @Assert\NotBlank(message="please enter your username")
+     * @Assert\Length(
+     *     min = 4,
+     * )
      */
     private $username;
 
@@ -69,7 +78,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     *  @Assert\NotBlank(message="please enter your password")
      */
     private $password;
 
@@ -81,29 +90,32 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read"})
-     *  @Assert\NotNull
+     *  @Assert\NotBlank(groups={"postValidation"})
      */
     private $nomComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read"})
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="please enter your address")
+     *
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read"})
+     * @Assert\NotBlank(message="please enter your phoneNumber")
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
      * * @Groups ({"admin_profil_id:read"})
+     * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="please enter your E-mail")
+     *
      */
     private $email;
 
@@ -111,7 +123,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean",  nullable=true)
      * * @Groups ({"admin_profil_id:read"})
      */
-    private $status;
+    private $status=1;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
@@ -121,8 +133,9 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="please enter your gender")
      * @Assert\Choice(choices=User::GENRES, message="Choose a valid genre.")
-     * @Assert\NotNull
+     *
      */
     private $genre;
 

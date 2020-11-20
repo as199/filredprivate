@@ -26,12 +26,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
  *            },
  *     }
- *     ,collectionOperations={
+ *     ,
+ *      attributes={"pagination_items_per_page"=1},
+ *     collectionOperations={
  *
  *      "admin_profil":{
  *              "method": "GET",
  *               "path":"/admin/profils",
- *              "pagination_enabled"=true,
  *               "normalization_context"={"groups":"admin_profil:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",

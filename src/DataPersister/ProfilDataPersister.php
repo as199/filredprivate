@@ -44,8 +44,7 @@ final class ProfilDataPersister  implements ContextAwareDataPersisterInterface
 
     public function remove($data, array $context = [])
     {
-
-        $data->setStatus(0);
+        $data->setStatus(false);
         $id = $data->getId();
         $users =$this->user->findBy(['profil'=>$id]);
         foreach ($users as $user){

@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
-use App\Entity\User;
 use App\Service\InscriptionService;
+use App\Service\SendEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ApprenantController extends AbstractController
@@ -19,13 +18,23 @@ class ApprenantController extends AbstractController
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $manager;
+    /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+    /**
+     * @var SendEmail
+     */
+    private SendEmail $sendEmail;
 
     /**
      * ApprenantController constructor.
      */
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager,SerializerInterface $serializer,SendEmail $sendEmail)
     {
         $this->manager=$manager;
+        $this->serializer=$serializer;
+        $this->sendEmail=$sendEmail;
     }
 
     /**
@@ -43,9 +52,14 @@ class ApprenantController extends AbstractController
     {
 
         $utilisateur = $service->NewUser("Apprenant",$request);
-        dd($utilisateur);
+        //dd($utilisateur);
+        if (!empty($service->ValidatePost($utilisateur))){
+            return $this->json($service->ValidatePost($utilisateur),400);
+        }
         $this->manager->persist($utilisateur);
         $this->manager->flush();
+        $this->sendEmail->send($utilisateur->getEmail(),"registration",'your registration has been successfully completed');
+
         return new JsonResponse("success",200,[],true);
 
     }

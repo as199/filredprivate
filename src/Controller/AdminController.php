@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 
+
 use App\Entity\Admin;
 use App\Entity\User;
 use App\Service\InscriptionService;
+use App\Service\SendEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,20 +25,25 @@ class AdminController extends AbstractController
      * @var SerializerInterface
      */
     private SerializerInterface $serializer;
+    /**
+     * @var SendEmail
+     */
+    private SendEmail $sendEmail;
 
     /**
      * AdminController constructor.
      */
-    public function __construct(EntityManagerInterface $manager,SerializerInterface $serializer)
+    public function __construct(EntityManagerInterface $manager,SerializerInterface $serializer,SendEmail $sendEmail)
     {
         $this->manager = $manager;
         $this->serializer = $serializer;
+        $this->sendEmail = $sendEmail;
     }
 
     /**
      * @Route(
      *     "api/admin/users",
-     *      name="addUser",
+     *      name="adding",
      *     methods={"POST"},
      *     defaults={
      *      "_api_resource_class"=User::class,
@@ -46,11 +53,17 @@ class AdminController extends AbstractController
      */
     public function AddUser(InscriptionService $service, Request $request)
     {
+
         $utilisateur = $service->NewUser("Admin",$request);
+        if (!empty($service->ValidatePost($utilisateur))){
+            return $this->json($service->ValidatePost($utilisateur),400);
+        }
         $this->manager->persist($utilisateur);
         $this->manager->flush();
-        return new JsonResponse("success",200,[],true);
-
+        $this->sendEmail->send($utilisateur->getEmail(),"registration",'your registration has been successfully completed');
+        /*$utilisateur->setAvartar(stream_get_contents($utilisateur['avartar']));
+        $userTr=$this->serializer->serialize($utilisateur,'json');*/
+        return $this->json($utilisateur,200);
     }
 
     /**
