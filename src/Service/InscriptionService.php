@@ -29,10 +29,11 @@ class InscriptionService
      */
     private ProfilRepository $profilRepository;
 
+
     /**
      * InscriptionService constructor.
      */
-    public function __construct(UserPasswordEncoderInterface $encoder,SerializerInterface $serializer,ProfilRepository $profilRepository )
+    public function __construct(UserPasswordEncoderInterface $encoder,SerializerInterface $serializer,ProfilRepository $profilRepository)
     {
         $this->encoder =$encoder;
         $this->serializer = $serializer;
@@ -66,18 +67,30 @@ class InscriptionService
 
         return $newUser;
     }
+
+    /**
+     * @param Request $request
+     * @param string|null $fileName
+     * @return array
+     */
     public function PutUtilisateur(Request $request,string $fileName = null){
         $raw =$request->getContent();
-        $delimiteur = "multipart/form-data; boundary";
+        //dd($raw);
+       //dd($request->headers->get("content-type"));
+        $delimiteur = "multipart/form-data; boundary=";
         $boundary= "--" . explode($delimiteur,$request->headers->get("content-type"))[1];
         $elements = str_replace([$boundary,'Content-Disposition: form-data;',"name="],"",$raw);
+       // dd($elements);
         $elementsTab = explode("\r\n\r\n",$elements);
+        //dd($elementsTab);
         $data =[];
         for ($i=0;isset($elementsTab[$i+1]);$i+=2){
+            //dd($elementsTab[$i+1]);
             $key = str_replace(["\r\n",' "','"'],'',$elementsTab[$i]);
+           // dd($key);
             if (strchr($key,$fileName)){
                 $stream =fopen('php://memory','r+');
-                fwrite($stream, base64_encode($elementsTab[$i +1]));
+                fwrite($stream,$elementsTab[$i +1]);
                 rewind($stream);
                 $data[$fileName] = $stream;
             }else{
@@ -88,4 +101,6 @@ class InscriptionService
         return $data;
 
     }
+
+
 }
