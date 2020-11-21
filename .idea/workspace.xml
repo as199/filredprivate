@@ -20,42 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/php.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/GroupeCompetenceRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/SendEmail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/api_platform.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/api_platform.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201117112235.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201117112350.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201117113128.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201117115212.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201118130928.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201118151123.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201119093800.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20201120133113.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201119094417.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201119182224.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ApprenantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApprenantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AdminFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AdminFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/InscriptionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/InscriptionService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +191,7 @@
       <workItem from="1605772466207" duration="25456000" />
       <workItem from="1605800831666" duration="13248000" />
       <workItem from="1605856505234" duration="26879000" />
-      <workItem from="1605890989132" duration="7174000" />
+      <workItem from="1605890989132" duration="9759000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,62 @@
+*****Symfony*********************
+
+1.prérequis
+.PHP 7.1.9 pour utiliser Symfony 4
+.Composer qui est un gestionnaire de librairie,de dependence pour php,disponible sur getcomposer.org
+
+2.mode de creation projet symfony
+NB:symfony est un framework tres puissant
+
+*aller dans votre invite de commande
+*se rendre dans le dossier ou voulez creer le projet
+*taper sur l'invite de commande : composer create-project symfony/website-skeleton nom_du_projet
+update the database:php bin/console doctrine:schema:update --force
+
+
+/*************************************************************************************************************************************************/
+
+pour installer un server pour y lance le projet lors du developpement : composer require server --dev
+
+
+lancer le serveur : php bin/console server:start
+lancer le serveur : php -S 127.0.0.1:8000 -t public
+		  : php bin/console server:run
+
+pour creer un controller: php bin/console make:controller
+pour creer un base de donnee: php bin/console doctrine:database:create
+pour creer un table dans la base de donnee :php bin/console make:entity
+pour valider la creation de la table en base de donnee: php bin/console make:migration 
+et si on veux valider: php bin/console doctrine:migrations:migrate
+
+pour creer des fausse donnees (fixture) on install le composant:composer require orm-fixtures --dev
+puis on tape: php bin/console make:fixtures
+pour executer les fixtures : php bin/console doctrine:fixtures:load
+pour faker: composer require fzaninotto/faker
+
+pour supprimer le cache :php bin/console cache:clear
+
+pour faire la pagination :composer require knplabs/knp-paginator-bundle
+update schema:php bin/console doctrine:schema:update --force
+installer jwt:composer require lexik/jwt-authentication-bundle
+pour vider la base on fait : symfony console app:clean-db
+clef:youngmoney12345
+
+private clef : openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+public :  openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+
+thiernohd.ndiath@uvs.edu.sn
+Aerelao2020
+
+
+fichier voteur pour mla securite
+
+les tests fonctionnelle (les entites et les fonctions)
+protocole Http et le mvc
+la poo
+
+
+
+
+
+
+ 
