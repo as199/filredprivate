@@ -43,20 +43,68 @@ clef:youngmoney12345
 
 private clef : openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 public :  openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-
+/******** licence phpstorm **********************************/
 thiernohd.ndiath@uvs.edu.sn
 Aerelao2020
 
-
+/*********** directive fil rouge ********************************/
 fichier voteur pour mla securite
 
 les tests fonctionnelle (les entites et les fonctions)
 protocole Http et le mvc
 la poo
 
+/*********Procedure d'installation de la dernier version de composer *******/
+1.  sudo apt install php
+2. sudo apt install curl
+3. curl -Ss https://getcomposer.org/installer | php
+4. sudo mv composer.phar /usr/local/bin/composer
+5. sudo chmod +x /usr/local/bin/composer
+6. composer
+
+***********Procédure installation de Chrome**************************************/
+1. sudo apt update
+2. wget --version
+3. wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+4. sudo dpkg -i google-chrome-stable_current_amd64.deb
+5. google-chrome
+
+/*******************Procedure d'installation de node js version 15 ************/
+1. curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+2. sudo apt-get install -y nodejs
+
+/********** si apache2 ne fonctionne pas ***************************************/
+1. cd /opt/lampp
+2. sudo ./manager-linux-x64.run
+3. sudo systemctl stop apache2
+
+/*********** Procedure pour regler de probleme du ini************************/
+1. To enable extensions, verify that they are enabled in your .ini files:
+    - /etc/php/7.4/cli/php.ini
+    - /etc/php/7.4/cli/conf.d/10-opcache.ini
+    - /etc/php/7.4/cli/conf.d/10-pdo.ini
+    - /etc/php/7.4/cli/conf.d/20-calendar.ini
+    - /etc/php/7.4/cli/conf.d/20-ctype.ini
+    - /etc/php/7.4/cli/conf.d/20-exif.ini
+    - /etc/php/7.4/cli/conf.d/20-ffi.ini
+    - /etc/php/7.4/cli/conf.d/20-fileinfo.ini
+    - /etc/php/7.4/cli/conf.d/20-ftp.ini
+    - /etc/php/7.4/cli/conf.d/20-gettext.ini
+    - /etc/php/7.4/cli/conf.d/20-iconv.ini
+    - /etc/php/7.4/cli/conf.d/20-json.ini
+    - /etc/php/7.4/cli/conf.d/20-phar.ini
+    - /etc/php/7.4/cli/conf.d/20-posix.ini
+    - /etc/php/7.4/cli/conf.d/20-readline.ini
+    - /etc/php/7.4/cli/conf.d/20-shmop.ini
+    - /etc/php/7.4/cli/conf.d/20-sockets.ini
+    - /etc/php/7.4/cli/conf.d/20-sysvmsg.ini
+    - /etc/php/7.4/cli/conf.d/20-sysvsem.ini
+    - /etc/php/7.4/cli/conf.d/20-sysvshm.ini
+    - /etc/php/7.4/cli/conf.d/20-tokenizer.ini
+You can also run `php --ini` inside terminal to see which files are used by PHP in CLI mode.
+2. la solutio :apt install php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
 
 
 
 
 
- 

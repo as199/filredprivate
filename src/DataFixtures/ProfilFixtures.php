@@ -19,7 +19,7 @@ class ProfilFixtures extends Fixture
         foreach ($profils as $key => $libelle) {
             $profil = new Profil();
             $profil->setLibelle($libelle);
-            $profil->setStatus(true);
+            $profil->setStatus(false);
             $manager->persist($profil);
             if($libelle == "ADMIN"){
                 $this->addReference(self::ADMIN_REFERENCE,$profil);

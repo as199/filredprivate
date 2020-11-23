@@ -43,8 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "route_name"="adding",
  *              "path":"/admin/users",
  *               "access_control"="(is_granted('ROLE_ADMIN') )",
- *               "deserialize" = false,
- *                  "validation_groups"={"Default", "postValidation"}
+ *               "deserialize" = false
  *              }
  *
  *      }

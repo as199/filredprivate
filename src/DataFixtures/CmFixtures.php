@@ -30,7 +30,7 @@ class CmFixtures extends Fixture implements DependentFixtureInterface
                 ->setNomComplete($faker->name)
                 ->setTelephone($faker->phoneNumber)
                 ->setAdresse($faker->email)
-                ->setStatus(true)
+                ->setStatus(false)
                 ->setGenre($faker->randomElement(["male", "female"]));
 
             //Génération des User

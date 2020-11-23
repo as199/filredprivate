@@ -24,7 +24,7 @@ class AdminController extends AbstractController
     /**
      * @var SerializerInterface
      */
-    private SerializerInterface $serializer;
+    private  $serializer;
     /**
      * @var SendEmail
      */
@@ -53,17 +53,19 @@ class AdminController extends AbstractController
      */
     public function AddUser(InscriptionService $service, Request $request)
     {
-
+        //$type = $request->get('type'); pour dynamiser
+       // dd($type);
         $utilisateur = $service->NewUser("Admin",$request);
+        //dd($utilisateur);
         if (!empty($service->ValidatePost($utilisateur))){
             return $this->json($service->ValidatePost($utilisateur),400);
         }
         $this->manager->persist($utilisateur);
-        $this->manager->flush();
+         $this->manager->flush();
         $this->sendEmail->send($utilisateur->getEmail(),"registration",'your registration has been successfully completed');
-        /*$utilisateur->setAvartar(stream_get_contents($utilisateur['avartar']));
-        $userTr=$this->serializer->serialize($utilisateur,'json');*/
-        return $this->json($utilisateur,200);
+        $utilisateur->setAvartar($utilisateur->getAvartar());
+        
+        return $utilisateur;
     }
 
     /**

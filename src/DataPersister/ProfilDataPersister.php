@@ -44,18 +44,18 @@ final class ProfilDataPersister  implements ContextAwareDataPersisterInterface
 
     public function remove($data, array $context = [])
     {
-        $data->setStatus(false);
+        $data->setStatus(true);
         $id = $data->getId();
         $users =$this->user->findBy(['profil'=>$id]);
         foreach ($users as $user){
-           $user->setStatus(false);
+           $user->setStatus(true);
             $this->manager->persist($user);
             $this->manager->flush();
         }
         $this->manager->persist($data);
         $this->manager->flush();
 
-        //return new JsonResponse("Archivage successfully!",200,[],true);
-        // call your persistence layer to delete $data
+        return new JsonResponse("Archivage successfully!",200,[],true);
+
     }
 }
