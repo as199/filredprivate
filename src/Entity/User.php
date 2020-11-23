@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type_id", type="integer")
  * @ORM\DiscriminatorMap({1 ="Admin",2="Formateur", 3="Cm", 4="Apprenant", 5="User"})
- * @ApiResource(attributes={"pagination_enabled"=true},
+ * @ApiResource(
  *     itemOperations={
  *     "get_user_id":{
  *           "method":"get",

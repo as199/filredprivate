@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
-use App\Service\InscriptionService;
+use App\Service\GestionImage;
 use App\Service\SendEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,7 +48,7 @@ class ApprenantController extends AbstractController
      *     }
      *     )
      */
-    public function addApprenant(InscriptionService $service,Request $request)
+    public function addApprenant(GestionImage $service, Request $request)
     {
 
         $utilisateur = $service->NewUser("Apprenant",$request);

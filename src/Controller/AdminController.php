@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\User;
+use App\Service\GestionImage;
 use App\Service\InscriptionService;
 use App\Service\SendEmail;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,10 +80,11 @@ class AdminController extends AbstractController
      *     }
      *     )
      */
-    public function putUserId(InscriptionService $service, Request $request)
+    public function putUserId(GestionImage $service, Request $request)
     {
         $userUpdate = $service->PutUtilisateur($request,'avartar');
         $utilisateur = $request ->attributes->get('data');
+
        //dd($userUpdate);
        foreach ($userUpdate as $key=> $valeur){
            $setter = 'set'. ucfirst(strtolower($key));
