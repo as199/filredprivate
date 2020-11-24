@@ -20,14 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/GestionImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Voter/ApprenantVoter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Voter/CompetenceVoter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Voter/FormateurVoter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Voter/GroupeCompetenceVoter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Voter/UserVoter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201123082032.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20201124084546.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ApprenantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApprenantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/ProfilDataPersister.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/GestionImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/GestionImage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/InscriptionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/InscriptionService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,6 +180,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/vendor/bin/simple-phpunit" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -181,7 +190,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -211,6 +220,7 @@
       <workItem from="1605856505234" duration="26879000" />
       <workItem from="1605890989132" duration="9759000" />
       <workItem from="1606129317697" duration="15243000" />
+      <workItem from="1606206675743" duration="20167000" />
     </task>
     <servers />
   </component>
@@ -249,10 +259,11 @@
       <screen x="46" y="27" width="1320" height="741" />
     </state>
     <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891239409" />
-    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605893497940">
-      <screen x="46" y="27" width="1320" height="741" />
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606216030825">
+      <screen x="52" y="27" width="1314" height="741" />
     </state>
     <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605893497940" />
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606216030825" />
     <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606148965848">
       <screen x="52" y="27" width="1314" height="741" />
     </state>
@@ -262,10 +273,11 @@
     </state>
     <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891635482" />
     <state x="367" y="112" width="521" height="568" key="NewPhpClassDialog/52.27.1314.741@52.27.1314.741" timestamp="1606143628958" />
-    <state x="128" y="27" width="1022" height="737" key="SettingsEditor" timestamp="1605891132543">
-      <screen x="46" y="27" width="1320" height="741" />
+    <state x="134" y="27" width="1022" height="737" key="SettingsEditor" timestamp="1606214178409">
+      <screen x="52" y="27" width="1314" height="741" />
     </state>
     <state x="128" y="27" width="1022" height="737" key="SettingsEditor/46.27.1320.741@46.27.1320.741" timestamp="1605891132543" />
+    <state x="134" y="27" width="1022" height="737" key="SettingsEditor/52.27.1314.741@52.27.1314.741" timestamp="1606214178409" />
     <state x="369" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605874758211">
       <screen x="46" y="27" width="1320" height="741" />
     </state>

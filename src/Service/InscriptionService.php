@@ -10,6 +10,7 @@ use App\Entity\Cm;
 use App\Entity\Formateur;
 use App\Entity\User;
 use App\Repository\ProfilRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -74,7 +75,11 @@ class InscriptionService
         return $newUser;
     }
 
-
+    function testType($type){
+        if($type == 'Admin' || $type== 'Apprenant'|| $type== 'Cm' || $type=='Formateur'){
+            return $type;
+        }
+    }
 
 
     public function ValidatePost($utilisateur)

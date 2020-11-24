@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       "access_control_message"="Vous n'avez pas access à cette Ressource",
  *     },
  *      "delete":{"access_control"="(is_granted('ROLE_ADMIN'))"},
- *     "get":{"path":"/admin/profils/{id}","access_control"="(is_granted('ROLE_ADMIN') )",
+ *     "get_on":{"method":"get","path":"/admin/profils/{id}","access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
  *            },
  *     }
@@ -37,10 +37,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
  *         },
- *          "post": {"path": "/admin/profils",
- *              "access_control"="(is_granted('ROLE_ADMIN') )",
- *               "access_control_message"="Vous n'avez pas access à cette Ressource",
- *         }})
+ *          "post",
+ * })
  *
  * @ApiFilter (SearchFilter::class, properties={"status": "exact"})
  */
@@ -56,7 +54,7 @@ class Profil
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
      */
     private $libelle;
 
@@ -68,13 +66,14 @@ class Profil
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
      */
     private $status;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->status = false;
     }
 
     public function getId(): ?int
