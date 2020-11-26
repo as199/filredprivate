@@ -45,6 +45,7 @@ class AdminController extends AbstractController
         $this->sendEmail = $sendEmail;
         $this->encode =$encode;
         $this->profilRepository =$profilRepository;
+        $user = $this->get('security.token_storage')->getToken()->getUser();
     }
 
     /**
@@ -112,8 +113,7 @@ class AdminController extends AbstractController
        }
        $this->manager->persist($utilisateur);
        $this->manager->flush();
-
-        return new JsonResponse("success",200,[],true);
+       return new JsonResponse("success",200,[],true);
 
 
     }

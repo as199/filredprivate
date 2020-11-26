@@ -35,9 +35,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={
  *     "get":{
 *              "path":"/admin/users",
+ *              "normalization_context"={"groups":"admin_user:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
- *              "deserialize" = false
+ *
  *          },
  *     "addUser":{
  *              "route_name"="adding",
@@ -57,13 +58,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"admin_profil_id:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups ({"admin_profil_id:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read"})
      * @Assert\NotBlank(message="please enter your username")
      * @Assert\Length(
      *     min = 4,
@@ -78,6 +79,7 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      *  @Assert\NotBlank(message="please enter your password")
+     * @Groups ({"admin_user:read"})
      */
     private $password;
 
@@ -88,14 +90,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read"})
      *  @Assert\NotBlank(groups={"postValidation"})
      */
     private $nomComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read"})
      * @Assert\NotBlank(message="please enter your address")
      *
      */
@@ -103,14 +105,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profil_id:read"})
+     * * @Groups ({"admin_profil_id:read","admin_user:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")

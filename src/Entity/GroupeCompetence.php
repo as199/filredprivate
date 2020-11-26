@@ -7,6 +7,7 @@ use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -16,13 +17,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * "get_groupe_competence_id":{
  *   "method": "GET",
  *   "path": "/admin/grpecompetences/{id}",
- *   "normalization_context"={"groups":"gprecompetence:read"},
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  * },
- * "update_competence_id":{
+ * "updateCompetenceId":{
  *   "method": "PUT",
- *   "path": "/admin/grpecompetences/{id}",
+ *     "route_name"="putGroupcompetence",
  *   "normalization_context"={"groups":"gprecompetence:read"},
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
@@ -50,16 +50,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
  *   },
- * "add_groupe_competence": {
+ * "AddGroupeCompetences": {
+ *     "route_name"="groupcompadd",
  *    "method": "POST",
  *    "path": "/admin/grpecompetences",
- *    "normalization_context"={"groups":"gprecompetence:read"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
  *
  *   }
  * }
  * )
+ * @UniqueEntity ("libelle")
  */
 class GroupeCompetence
 {
@@ -67,36 +68,42 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read"})
      */
     private $libelle;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
-     *  @Groups ({"gprecompetence:read","gc:read"})
-     */
-    private $competenece;
+
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read"})
+     *  @Groups ({"competence:read","gprecompetence:read"})
+     *
      */
     private $descriptif;
 
     /**
      * @ORM\Column(type="boolean")
+     *  @Groups ({"competence:read","gprecompetence:read"})
      */
     private $status;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
+     * @Groups ({"gprecompetence:read","gc:read"})
+     */
+    private $competences;
+
     public function __construct()
     {
-        $this->competenece = new ArrayCollection();
+
+        $this->status = false;
+        $this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,29 +123,6 @@ class GroupeCompetence
         return $this;
     }
 
-    /**
-     * @return Collection|Competence[]
-     */
-    public function getCompetenece(): Collection
-    {
-        return $this->competenece;
-    }
-
-    public function addCompetenece(Competence $competenece): self
-    {
-        if (!$this->competenece->contains($competenece)) {
-            $this->competenece[] = $competenece;
-        }
-
-        return $this;
-    }
-
-    public function removeCompetenece(Competence $competenece): self
-    {
-        $this->competenece->removeElement($competenece);
-
-        return $this;
-    }
 
     public function getDescriptif(): ?string
     {
@@ -160,6 +144,30 @@ class GroupeCompetence
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competence[]
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competences;
+    }
+
+    public function addCompetence(Competence $competence): self
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences[] = $competence;
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competence $competence): self
+    {
+        $this->competences->removeElement($competence);
 
         return $this;
     }

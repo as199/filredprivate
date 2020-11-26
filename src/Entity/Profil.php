@@ -9,7 +9,9 @@ use App\Repository\ProfilRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
@@ -24,10 +26,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "delete":{"access_control"="(is_granted('ROLE_ADMIN'))"},
  *     "get_on":{"method":"get","path":"/admin/profils/{id}","access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
- *            },
+ *            },"put":{"path":"/admin/profils/{id}"},
  *     }
+ *
  *     ,
- *      attributes={"pagination_items_per_page"=1},
+ *      attributes={"pagination_items_per_page"=5},
  *     collectionOperations={
  *
  *      "admin_profil":{
@@ -41,6 +44,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * })
  *
  * @ApiFilter (SearchFilter::class, properties={"status": "exact"})
+ * @UniqueEntity ("libelle")
  */
 class Profil
 {
@@ -55,6 +59,7 @@ class Profil
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
+     *
      */
     private $libelle;
 

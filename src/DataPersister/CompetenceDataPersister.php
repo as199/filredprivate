@@ -5,12 +5,12 @@ namespace App\DataPersister;
 
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
-use App\Entity\Profil;
+use App\Entity\Competence;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-final class ProfilDataPersister  implements ContextAwareDataPersisterInterface
+final class CompetenceDataPersister  implements ContextAwareDataPersisterInterface
 {
     /**
      * @var EntityManagerInterface
@@ -31,27 +31,29 @@ final class ProfilDataPersister  implements ContextAwareDataPersisterInterface
         $this->user=$user;
     }
 
+
     public function supports($data, array $context = []): bool
     {
-        return $data instanceof Profil;
+        return $data instanceof Competence;
     }
 
     public function persist($data, array $context = [])
     {
-       //dd($data);
-        $data->setLibelle($data->getLibelle());
+       // dd($data);
         $this->manager->persist($data);
         $this->manager->flush();
         return $data;
     }
 
+
     public function remove($data, array $context = [])
     {
+
         $data->setStatus(true);
         $id = $data->getId();
         $users =$this->user->findBy(['profil'=>$id]);
         foreach ($users as $user){
-           $user->setStatus(true);
+            $user->setStatus(true);
             $this->manager->persist($user);
             $this->manager->flush();
         }
@@ -61,4 +63,5 @@ final class ProfilDataPersister  implements ContextAwareDataPersisterInterface
         return new JsonResponse("Archivage successfully!",200,[],true);
 
     }
+
 }

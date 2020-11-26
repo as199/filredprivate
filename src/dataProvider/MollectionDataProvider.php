@@ -9,7 +9,7 @@ use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CollectionDataProvider  implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
+class MollectionDataProvider  implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
 {
     /**
      * @var ManagerRegistry
@@ -22,7 +22,7 @@ class CollectionDataProvider  implements ContextAwareCollectionDataProviderInter
     private $context;
 
     /**
-     * CollectionDataProvider constructor.
+     * MollectionDataProvider constructor.
      */
     public function __construct(PaginationExtension $paginator,ManagerRegistry $manager)
     {
@@ -42,7 +42,7 @@ class CollectionDataProvider  implements ContextAwareCollectionDataProviderInter
             ->getManagerForClass($resourceClass)
             ->getRepository($resourceClass)->createQueryBuilder('item')
             ->where('item.status = :deleted')
-            ->setParameter('deleted',true);
+            ->setParameter('deleted',false);
         $this->paginator->applyToCollection($collection, new QueryNameGenerator(),$resourceClass,$operationName,$this->context);
         return $collection->getQuery()->getResult();
     }

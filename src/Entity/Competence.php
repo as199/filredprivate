@@ -7,7 +7,9 @@ use App\Repository\CompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompetenceRepository::class)
@@ -45,6 +47,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *   }
  * }
  * )
+ * @UniqueEntity ("libelle")
  */
 class Competence
 {
@@ -59,13 +62,11 @@ class Competence
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"competence:read","gc:read","competences:read"})
+     * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, mappedBy="competenece")
-     */
-    private $groupeCompetences;
+
 
     /**
      * @ORM\Column(type="boolean")
@@ -73,8 +74,22 @@ class Competence
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Niveau::class, mappedBy="competence",cascade={"persist"})
+     */
+    private $niveau;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, mappedBy="competences")
+     * @Groups ({"gc:read"})
+     */
+    private $groupeCompetences;
+
     public function __construct()
     {
+
+        $this->status = false;
+        $this->niveau = new ArrayCollection();
         $this->groupeCompetences = new ArrayCollection();
     }
 
@@ -95,6 +110,54 @@ class Competence
         return $this;
     }
 
+
+
+
+
+
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Niveau[]
+     */
+    public function getNiveau(): Collection
+    {
+        return $this->niveau;
+    }
+
+    public function addNiveau(Niveau $niveau): self
+    {
+        if (!$this->niveau->contains($niveau)) {
+            $this->niveau[] = $niveau;
+            $niveau->setCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNiveau(Niveau $niveau): self
+    {
+        if ($this->niveau->removeElement($niveau)) {
+            // set the owning side to null (unless already changed)
+            if ($niveau->getCompetence() === $this) {
+                $niveau->setCompetence(null);
+            }
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection|GroupeCompetence[]
      */
@@ -107,7 +170,7 @@ class Competence
     {
         if (!$this->groupeCompetences->contains($groupeCompetence)) {
             $this->groupeCompetences[] = $groupeCompetence;
-            $groupeCompetence->addCompetenece($this);
+            $groupeCompetence->addCompetence($this);
         }
 
         return $this;
@@ -116,20 +179,8 @@ class Competence
     public function removeGroupeCompetence(GroupeCompetence $groupeCompetence): self
     {
         if ($this->groupeCompetences->removeElement($groupeCompetence)) {
-            $groupeCompetence->removeCompetenece($this);
+            $groupeCompetence->removeCompetence($this);
         }
-
-        return $this;
-    }
-
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
