@@ -117,9 +117,10 @@ class GroupeCompetenceController extends AbstractController
      *     )
      */
     public function AddGroupeCompetences( Request $request ){
+
         $compObject= $this->serializer->decode($request->getContent(),'json');
 
-       //dd($compObject['competence']);
+       //dd($compObject);
         foreach ($compObject['competence'] as $competence){
             //dd($competence['libelle']);
             if($this->competenceRepository->findOneBy(['libelle'=>$competence['libelle']])){

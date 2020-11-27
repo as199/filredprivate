@@ -4,12 +4,12 @@ namespace App\Controller;
 
 
 
-use App\Entity\Admin;
 use App\Entity\User;
 use App\Repository\ProfilRepository;
 use App\Service\GestionImage;
 use App\Service\InscriptionService;
 use App\Service\SendEmail;
+use App\Service\ValidatorPost;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,18 +34,24 @@ class AdminController extends AbstractController
     private SendEmail $sendEmail;
     private $encode;
     private $profilRepository;
+    /**
+     * @var ValidatorPost
+     */
+    private ValidatorPost $validator;
 
     /**
      * AdminController constructor.
      */
-    public function __construct(ProfilRepository $profilRepository,EntityManagerInterface $manager,SerializerInterface $serializer,SendEmail $sendEmail,UserPasswordEncoderInterface $encode)
+    public function __construct(ProfilRepository $profilRepository,EntityManagerInterface $manager
+        ,SerializerInterface $serializer,SendEmail $sendEmail,
+          UserPasswordEncoderInterface $encode,ValidatorPost $validator)
     {
         $this->manager = $manager;
         $this->serializer = $serializer;
         $this->sendEmail = $sendEmail;
         $this->encode =$encode;
         $this->profilRepository =$profilRepository;
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $this->validator =$validator;
     }
 
     /**
@@ -64,7 +70,8 @@ class AdminController extends AbstractController
         $type = $request->get('type'); //pour dynamiser
        // dd($type);
         $utilisateur = $service->NewUser($type,$request);
-        //dd($utilisateur);
+       $this->validator->ValidatePost($utilisateur) ;
+
 
         //dd($utilisateur);
         $this->manager->persist($utilisateur);

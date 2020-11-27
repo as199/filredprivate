@@ -38,5 +38,20 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Apprenant extends User
 {
+    /**
+     * @ORM\ManyToOne(targetEntity=ProfilSorti::class, inversedBy="apprenants")
+     */
+    private $profilSorti;
 
+    public function getProfilSorti(): ?ProfilSorti
+    {
+        return $this->profilSorti;
+    }
+
+    public function setProfilSorti(?ProfilSorti $profilSorti): self
+    {
+        $this->profilSorti = $profilSorti;
+
+        return $this;
+    }
 }

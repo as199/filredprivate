@@ -39,12 +39,11 @@ class InscriptionService
     /**
      * InscriptionService constructor.
      */
-    public function __construct( UserPasswordEncoderInterface $encoder,SerializerInterface $serializer, ProfilRepository $profilRepository,ValidatorInterface $validator)
+    public function __construct( UserPasswordEncoderInterface $encoder,SerializerInterface $serializer, ProfilRepository $profilRepository)
     {
         $this->encoder =$encoder;
         $this->serializer = $serializer;
         $this->profilRepository = $profilRepository;
-        $this->validator = $validator;
     }
     public function NewUser($profil, Request $request){
         $userReq = $request->request->all();
@@ -82,13 +81,7 @@ class InscriptionService
     }
 
 
-    public function ValidatePost($utilisateur)
-    {
-        $errorString ='';
-        $error = $this->validator->validate($utilisateur);
-        if(isset($error) && $error >0){ $errorString = $this->serializer->serialize($error,'json');}
-        return $errorString;
-    }
+
 
 
 }

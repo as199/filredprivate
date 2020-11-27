@@ -107,6 +107,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profil_id:read","admin_user:read"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
+     * @Assert\Unique()
      */
     private $telephone;
 
@@ -116,6 +117,7 @@ class User implements UserInterface
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")
+     * @Assert\Unique ()
      *
      */
     private $email;
