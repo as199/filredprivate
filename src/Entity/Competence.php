@@ -22,13 +22,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  * },
- * "update_competence_id":{
- *   "method": "PUT",
- *   "path": "/admin/competences/{id}",
- *   "normalization_context"={"groups":"competence:read"},
- *   "access_control"="(is_granted('ROLE_ADMIN'))",
- *   "access_control_message"="Vous n'avez pas access à cette Ressource",
- * },
+ *"updateCompetences":{
+ *              "path": "/admin/competences/{id}",
+ *              "route_name"="PutCompetence",
+ *               "access_control"="(is_granted('ROLE_ADMIN') )",
+ *
+ *              },
  * },
  * collectionOperations={
  * "get_competences": {
@@ -38,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT') or is_granted('ROLE_CM') or object==user)",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
+ *
  * "add_competence": {
  *    "method": "POST",
  *    "path": "/admin/competences",
@@ -72,10 +72,16 @@ class Competence
      * @ORM\Column(type="boolean")
      *  @Groups ({"competence:read"})
      */
-    private $status;
+    private $status = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Niveau::class, mappedBy="competence",cascade={"persist"})
+     * @Assert\Count(
+     *      min = 3,
+     *      max = 3,
+     *      minMessage = "You must specify at least three levels",
+     *      maxMessage = "You cannot specify more than {{ limit }} levels"
+     * )
      */
     private $niveau;
 
@@ -88,7 +94,7 @@ class Competence
     public function __construct()
     {
 
-        $this->status = false;
+
         $this->niveau = new ArrayCollection();
         $this->groupeCompetences = new ArrayCollection();
     }

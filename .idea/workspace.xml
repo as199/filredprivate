@@ -20,20 +20,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201127091247.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/GroupeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/PromoRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ReferencielRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ValidatorPost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/veille.odp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201127094218.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201130085600.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/GroupeController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/GroupeTagsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/groupe/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/groupe_tags/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataPersister/CompetenceDataPersister.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataPersister/GroupeTagDataPersister.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Formateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Formateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeTags.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeTags.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tags.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tags.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/InscriptionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/InscriptionService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +233,11 @@
       <workItem from="1606289004783" duration="7929000" />
       <workItem from="1606300493686" duration="20586000" />
       <workItem from="1606384294260" duration="25048000" />
-      <workItem from="1606460346744" duration="4431000" />
+      <workItem from="1606460346744" duration="18534000" />
+      <workItem from="1606581870470" duration="190000" />
+      <workItem from="1606687423471" duration="599000" />
+      <workItem from="1606719244952" duration="20806000" />
+      <workItem from="1606804783538" duration="12308000" />
     </task>
     <servers />
   </component>
@@ -262,11 +278,11 @@
       <screen x="46" y="27" width="1320" height="741" />
     </state>
     <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891239409" />
-    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606413478243">
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606757754149">
       <screen x="52" y="27" width="1314" height="741" />
     </state>
     <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605893497940" />
-    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606413478243" />
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606757754149" />
     <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606148965848">
       <screen x="52" y="27" width="1314" height="741" />
     </state>

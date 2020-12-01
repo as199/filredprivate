@@ -7,10 +7,53 @@ use App\Repository\GroupeTagsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeTagsRepository::class)
- * @ApiResource ()
+ *  @ApiResource(attributes={"pagination_items_per_page"=2},
+ *     itemOperations={
+ *             "get_grptags_id": {
+ *             "method": "GET",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"groups":"grptag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     ,"put_grptags_id": {
+ *             "method": "PUT",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"groups":"grptag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },
+ *     "delete_grptags_id": {
+ *             "method": "DELETE",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"grptag":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     },
+ *     collectionOperations={
+ *       "get_grpstags": {
+ *             "method": "GET",
+ *             "path": "/admin/grptags",
+ *              "normalization_context"={"grptag":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },
+ *     "addGroupeTag":{
+ *              "route_name"="addingGroupstags",
+ *              "path": "/admin/grptags",
+ *               "access_control"="(is_granted('ROLE_ADMIN') )",
+ *               "deserialize" = false
+ *              }
+ *     })
  */
 class GroupeTags
 {
@@ -18,23 +61,28 @@ class GroupeTags
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"grptag:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ({"grptag:read"})
      */
     private $libelle;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $description;
+
 
     /**
      * @ORM\ManyToMany(targetEntity=Tags::class, inversedBy="groupeTags")
      */
     private $tags;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Groups ({"grptag:read"})
+     */
+    private $status = false;
 
     public function __construct()
     {
@@ -58,17 +106,7 @@ class GroupeTags
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
 
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Tags[]
@@ -90,6 +128,18 @@ class GroupeTags
     public function removeTag(Tags $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

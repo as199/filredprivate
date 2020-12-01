@@ -24,6 +24,31 @@ class Referenciel
      */
     private $libelle;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentation;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $programme;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $criteradmission;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $critereEvaluation;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +62,66 @@ class Referenciel
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?string $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getProgramme(): ?string
+    {
+        return $this->programme;
+    }
+
+    public function setProgramme(?string $programme): self
+    {
+        $this->programme = $programme;
+
+        return $this;
+    }
+
+    public function getCriteradmission(): ?string
+    {
+        return $this->criteradmission;
+    }
+
+    public function setCriteradmission(?string $criteradmission): self
+    {
+        $this->criteradmission = $criteradmission;
+
+        return $this;
+    }
+
+    public function getCritereEvaluation(): ?string
+    {
+        return $this->critereEvaluation;
+    }
+
+    public function setCritereEvaluation(?string $critereEvaluation): self
+    {
+        $this->critereEvaluation = $critereEvaluation;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

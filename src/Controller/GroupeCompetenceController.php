@@ -121,23 +121,22 @@ class GroupeCompetenceController extends AbstractController
         $compObject= $this->serializer->decode($request->getContent(),'json');
 
        //dd($compObject);
+        $groupeCompetene = new GroupeCompetence();
+        $groupeCompetene->setLibelle($compObject['libelle']);
+        $groupeCompetene->setDescriptif($compObject['descriptif']);
+        $groupeCompetene->setStatus(false);
         foreach ($compObject['competence'] as $competence){
             //dd($competence['libelle']);
             if($this->competenceRepository->findOneBy(['libelle'=>$competence['libelle']])){
                 $objCompetence =$this->competenceRepository->findOneBy(['libelle'=>$competence['libelle']]);
-                $groupeCompetene = new GroupeCompetence();
-                $groupeCompetene->setLibelle($compObject['libelle']);
-                $groupeCompetene->setDescriptif($compObject['descriptif']);
-                $groupeCompetene->setStatus(false);
+
                 $groupeCompetene->addCompetence($objCompetence);
                 $this->manager->persist($groupeCompetene);
             }else{
-                if ($compObject['competence']){
+                if (isset($compObject['competence'][0]['niveau'])){
                     $data = $compObject['competence'][0]['niveau'];
                         //dd(count($data));
-                    if (count($data) == 2){
-                        return new JsonResponse("Error please enter 3 levels!",400,[],true);
-                    }else{
+                    if (count($data) == 3){
                         foreach ($compObject['competence'] as $objetCompetence){
                             $competence = new Competence();
                             $competence->setLibelle($objetCompetence['libelle']);
@@ -153,16 +152,17 @@ class GroupeCompetenceController extends AbstractController
 
                             }
                             $this->manager->persist($competence);
+                            $groupeCompetene->addCompetence($competence);
+                            $this->manager->persist($groupeCompetene);
                         }
-
-
+                    }else{
+                        return new JsonResponse("Error please enter 3 levels!",400,[],true);
 
                     }
                 }else{
-                    return new JsonResponse("Error please enter levels!",400,[],true);
+                    return new JsonResponse("Error please enter 3 levels!",400,[],true);
                 }
             }
-
             $this->manager->flush();
         }
         return $this->json("valider");
