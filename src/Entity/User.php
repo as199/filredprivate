@@ -6,6 +6,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -58,7 +60,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * @Groups ({"RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      */
     private $id;
 
@@ -90,14 +92,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * @Groups ({"RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      *  @Assert\NotBlank(groups={"postValidation"})
      */
     private $nomComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your address")
      *
      */
@@ -105,7 +107,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
      *
      */
@@ -113,7 +115,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")
@@ -136,11 +138,23 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your gender")
      * @Assert\Choice(choices=User::GENRES, message="Choose a valid genre.")
      *
+     *
      */
     private $genre;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="users")
+     */
+    private $chats;
+
+    public function __construct()
+    {
+        $this->chats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -311,6 +325,36 @@ class User implements UserInterface
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->removeElement($chat)) {
+            // set the owning side to null (unless already changed)
+            if ($chat->getUsers() === $this) {
+                $chat->setUsers(null);
+            }
+        }
 
         return $this;
     }

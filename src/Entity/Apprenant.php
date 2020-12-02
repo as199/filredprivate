@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ApprenantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ApprenantRepository", repositoryClass=ApprenantRepository::class)
@@ -37,6 +40,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"attente": "exact"})
  */
 class Apprenant extends User
 {
@@ -50,9 +54,40 @@ class Apprenant extends User
      */
     private $groupes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CompetencesValides::class, mappedBy="apprenants")
+     */
+    private $competencesValides;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BriefApprenant::class, mappedBy="apprenants")
+     */
+    private $briefApprenants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LivrableAttenduApprenant::class, mappedBy="apprenants")
+     */
+    private $livrableAttenduApprenants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ApprenantLivrablePartiel::class, mappedBy="apprenants")
+     */
+    private $apprenantLivrablePartiels;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Groups ({"promo:read","promo:write"})
+     */
+    private $attente;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
+        $this->competencesValides = new ArrayCollection();
+        $this->briefApprenants = new ArrayCollection();
+        $this->livrableAttenduApprenants = new ArrayCollection();
+        $this->apprenantLivrablePartiels = new ArrayCollection();
+        $this->attente = true;
     }
 
     public function getProfilSorti(): ?ProfilSorti
@@ -90,6 +125,138 @@ class Apprenant extends User
         if ($this->groupes->removeElement($groupe)) {
             $groupe->removeApprenant($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompetencesValides[]
+     */
+    public function getCompetencesValides(): Collection
+    {
+        return $this->competencesValides;
+    }
+
+    public function addCompetencesValide(CompetencesValides $competencesValide): self
+    {
+        if (!$this->competencesValides->contains($competencesValide)) {
+            $this->competencesValides[] = $competencesValide;
+            $competencesValide->setApprenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetencesValide(CompetencesValides $competencesValide): self
+    {
+        if ($this->competencesValides->removeElement($competencesValide)) {
+            // set the owning side to null (unless already changed)
+            if ($competencesValide->getApprenants() === $this) {
+                $competencesValide->setApprenants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BriefApprenant[]
+     */
+    public function getBriefApprenants(): Collection
+    {
+        return $this->briefApprenants;
+    }
+
+    public function addBriefApprenant(BriefApprenant $briefApprenant): self
+    {
+        if (!$this->briefApprenants->contains($briefApprenant)) {
+            $this->briefApprenants[] = $briefApprenant;
+            $briefApprenant->setApprenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBriefApprenant(BriefApprenant $briefApprenant): self
+    {
+        if ($this->briefApprenants->removeElement($briefApprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($briefApprenant->getApprenants() === $this) {
+                $briefApprenant->setApprenants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LivrableAttenduApprenant[]
+     */
+    public function getLivrableAttenduApprenants(): Collection
+    {
+        return $this->livrableAttenduApprenants;
+    }
+
+    public function addLivrableAttenduApprenant(LivrableAttenduApprenant $livrableAttenduApprenant): self
+    {
+        if (!$this->livrableAttenduApprenants->contains($livrableAttenduApprenant)) {
+            $this->livrableAttenduApprenants[] = $livrableAttenduApprenant;
+            $livrableAttenduApprenant->setApprenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivrableAttenduApprenant(LivrableAttenduApprenant $livrableAttenduApprenant): self
+    {
+        if ($this->livrableAttenduApprenants->removeElement($livrableAttenduApprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($livrableAttenduApprenant->getApprenants() === $this) {
+                $livrableAttenduApprenant->setApprenants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ApprenantLivrablePartiel[]
+     */
+    public function getApprenantLivrablePartiels(): Collection
+    {
+        return $this->apprenantLivrablePartiels;
+    }
+
+    public function addApprenantLivrablePartiel(ApprenantLivrablePartiel $apprenantLivrablePartiel): self
+    {
+        if (!$this->apprenantLivrablePartiels->contains($apprenantLivrablePartiel)) {
+            $this->apprenantLivrablePartiels[] = $apprenantLivrablePartiel;
+            $apprenantLivrablePartiel->setApprenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApprenantLivrablePartiel(ApprenantLivrablePartiel $apprenantLivrablePartiel): self
+    {
+        if ($this->apprenantLivrablePartiels->removeElement($apprenantLivrablePartiel)) {
+            // set the owning side to null (unless already changed)
+            if ($apprenantLivrablePartiel->getApprenants() === $this) {
+                $apprenantLivrablePartiel->setApprenants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAttente(): ?bool
+    {
+        return $this->attente;
+    }
+
+    public function setAttente(bool $attente): self
+    {
+        $this->attente = $attente;
 
         return $this;
     }

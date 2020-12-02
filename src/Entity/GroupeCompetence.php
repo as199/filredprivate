@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -30,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * "get_competence_id":{
  *   "method": "GET",
  *   "path": "/admin/grpecompetences/{id}/competences",
- *   "normalization_context"={"groups":"gc:read"},
+ *   "normalization_context"={"groups":"gcf:read"},
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  * }
@@ -46,7 +47,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * "get_lister_competence_dans_groupes": {
  *    "method": "GET",
  *    "path": "/admin/grpecompetences/competences",
- *    "normalization_context"={"groups":"gc:read"},
+ *    "normalization_context"={"groups":"gcu:read"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
  *   },
@@ -68,13 +69,13 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $libelle;
 
@@ -82,28 +83,35 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gprecompetence:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      *
      */
     private $descriptif;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"competence:read","gprecompetence:read"})
+     *  @Groups ({"competence:read","gprecompetence:read","referenciel:write","referencielgroupe:read"})
      */
     private $status;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
-     * @Groups ({"gprecompetence:read","gc:read"})
+     * @Groups ({"gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
+     * @ApiSubresource()
      */
     private $competences;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="groupeCompetence")
+     */
+    private $referenciels;
 
     public function __construct()
     {
 
         $this->status = false;
         $this->competences = new ArrayCollection();
+        $this->referenciels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,6 +176,33 @@ class GroupeCompetence
     public function removeCompetence(Competence $competence): self
     {
         $this->competences->removeElement($competence);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Referenciel[]
+     */
+    public function getReferenciels(): Collection
+    {
+        return $this->referenciels;
+    }
+
+    public function addReferenciel(Referenciel $referenciel): self
+    {
+        if (!$this->referenciels->contains($referenciel)) {
+            $this->referenciels[] = $referenciel;
+            $referenciel->addGroupeCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReferenciel(Referenciel $referenciel): self
+    {
+        if ($this->referenciels->removeElement($referenciel)) {
+            $referenciel->removeGroupeCompetence($this);
+        }
 
         return $this;
     }

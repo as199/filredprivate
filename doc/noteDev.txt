@@ -103,8 +103,21 @@ la poo
     - /etc/php/7.4/cli/conf.d/20-tokenizer.ini
 You can also run `php --ini` inside terminal to see which files are used by PHP in CLI mode.
 2. la solutio :apt install php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
+/*************************Erreur de Extension DOM required ********************/
+1. Extension DOM is required.
+++++++++++SOLUTION: 
+1. sudo apt-get update
+2. sudo apt install php-xml
+3. sudo apt-get install php-mbstring
+
+/**************Eurreur composer update or install******************************/
+1. To enable extensions, verify that they are enabled in your .ini files: - /etc/php/7.4/cli/php.ini - /etc/php/7.4/cli/conf.d/10-opcache.ini - /etc/php/7.4/cli/conf.d/10-pdo.ini - /etc/php/7.4/cli/conf.d/15-xml.ini - /etc/php/7.4/cli/conf.d/20-calendar.ini - /etc/php/7.4/cli/conf.d/20-ctype.ini - /etc/php/7.4/cli/conf.d/20-curl.ini - /etc/php/7.4/cli/conf.d/20-dom.ini - /etc/php/7.4/cli/conf.d/20-exif.ini - /etc/php/7.4/cli/conf.d/20-ffi.ini - /etc/php/7.4/cli/conf.d/20-fileinfo.ini - /etc/php/7.4/cli/conf.d/20-ftp.ini - /etc/php/7.4/cli/conf.d/20-gd.ini - /etc/php/7.4/cli/conf.d/20-gettext.ini - /etc/php/7.4/cli/conf.d/20-iconv.ini - /etc/php/7.4/cli/conf.d/20-intl.ini - /etc/php/7.4/cli/conf.d/20-json.ini - /etc/php/7.4/cli/conf.d/20-mbstring.ini - /etc/php/7.4/cli/conf.d/20-phar.ini - /etc/php/7.4/cli/conf.d/20-posix.ini - /etc/php/7.4/cli/conf.d/20-readline.ini - /etc/php/7.4/cli/conf.d/20-shmop.ini - /etc/php/7.4/cli/conf.d/20-simplexml.ini - /etc/php/7.4/cli/conf.d/20-sockets.ini - /etc/php/7.4/cli/conf.d/20-sysvmsg.ini - /etc/php/7.4/cli/conf.d/20-sysvsem.ini - /etc/php/7.4/cli/conf.d/20-sysvshm.ini - /etc/php/7.4/cli/conf.d/20-tokenizer.ini - /etc/php/7.4/cli/conf.d/20-xmlreader.ini - /etc/php/7.4/cli/conf.d/20-xmlwriter.ini - /etc/php/7.4/cli/conf.d/20-xsl.ini - /etc/php/7.4/cli/conf.d/20-zip.ini You can also run `php --ini` inside terminal to see which files are used by PHP in CLI mode.
+
++++++REPONSE .
+composer update --ignore-platform-reqs
 
 
+/*******In AbstractMySQLDriver.phpAn exception occurred in driver: could not find driver****************************
 
 
 

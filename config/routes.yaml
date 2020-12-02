@@ -11,3 +11,13 @@ api_login_check:
 addingGroupe:
   path: /api/admin/groupes
   controller: App\Controller\GroupeController::addGroupes
+
+putingGroupe:
+  path: /api/admin/groupes/{id}
+  controller: App\Controller\GroupeController::putGroupes
+
+deletingApprenantGroupe:
+  path: /api/admin/groupes/{idA}/apprenant/{idB}
+  controller: App\Controller\GroupeController::retireApprenantGroupe
+
+

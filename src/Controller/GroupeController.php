@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Groupe;
 use App\Repository\ApprenantRepository;
 use App\Repository\FormateurRepository;
+use App\Repository\GroupeRepository;
 use App\Repository\PromoRepository;
 use App\Service\ValidatorPost;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GroupeController extends AbstractController
 {
@@ -35,6 +37,14 @@ class GroupeController extends AbstractController
      * @var ValidatorPost
      */
     private ValidatorPost $validator;
+    /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+    /**
+     * @var GroupeRepository
+     */
+    private GroupeRepository $groupeRepository;
 
     /**
      * GroupeController constructor.
@@ -43,7 +53,9 @@ class GroupeController extends AbstractController
                                 ApprenantRepository $apprenantRepository,
                                 FormateurRepository $formateurRepository,
                                 PromoRepository $promoRepository,
-                                ValidatorPost $validator
+                                ValidatorPost $validator,
+                                SerializerInterface $serializer,
+                                GroupeRepository $groupeRepository
     )
     {
         $this->manager =$manager;
@@ -51,6 +63,8 @@ class GroupeController extends AbstractController
         $this->formateurRepository = $formateurRepository;
         $this->promoRepository = $promoRepository;
         $this->validator = $validator;
+        $this->serializer = $serializer;
+        $this->groupeRepository = $groupeRepository;
     }
 
     public function addGroupes(Request $request)
@@ -89,4 +103,32 @@ class GroupeController extends AbstractController
         return $this->json("success",Response::HTTP_CREATED);
 
     }
+
+    public function putGroupes(Request $request,$id)
+    {
+        $json = json_decode($request->getContent(),true);
+        $groupe = $this->groupeRepository->find($id);
+        if ($groupe && isset($json['apprenants'])) {
+            foreach ($json['apprenants'] as $apprenants){
+                $apprenant = $this->apprenantRepository ->find($apprenants['id']);
+                $groupe->addApprenant($apprenant);
+            }
+        }
+        $this->manager->flush();
+        return $this->json('added succesfully');
+    }
+
+    public function retireApprenantGroupe($idA,$idB)
+    {
+        $groupe = $this->groupeRepository->find($idA);
+        $apprenant = $this->apprenantRepository->find($idB);
+        if ($groupe && $apprenant) {
+            $groupe->removeApprenant($apprenant);
+            $this->manager->flush();
+            return $this->json('remove succesfully');
+        }
+        return $this->json('groupe ou apprenant inexistant');
+    }
+
+
 }

@@ -168,4 +168,7 @@ class GroupeCompetenceController extends AbstractController
         return $this->json("valider");
 
     }
+
+
+
 }

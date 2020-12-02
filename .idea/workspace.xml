@@ -20,28 +20,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/doc/veille.odp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201127094218.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201130085600.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/GroupeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/GroupeTagsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/groupe/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/groupe_tags/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/.~lock.veille mvc.odp#" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/veille mvc.odp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201202133155.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201202140330.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201202163616.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201202180019.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Brief.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/BriefMaPromo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Commentaire.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/EtatBriefGroupe.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/BriefMaPromoRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/BriefRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/DescriptionRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/EtatBriefGroupeRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/noteDev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/doc/noteDev.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/CompetenceDataPersister.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/GroupeTagDataPersister.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/GroupeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GroupeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Formateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Formateur.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeTags.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeTags.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Niveau.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Niveau.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Tags.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tags.php" afterDir="false" />
@@ -190,7 +194,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/vendor/bin/simple-phpunit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -237,7 +241,8 @@
       <workItem from="1606581870470" duration="190000" />
       <workItem from="1606687423471" duration="599000" />
       <workItem from="1606719244952" duration="20806000" />
-      <workItem from="1606804783538" duration="12308000" />
+      <workItem from="1606804783538" duration="27030000" />
+      <workItem from="1606899025827" duration="35402000" />
     </task>
     <servers />
   </component>
@@ -269,24 +274,29 @@
     </state>
     <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser/46.27.1320.741@46.27.1320.741" timestamp="1605892705249" />
     <state x="494" y="76" key="#com.intellij.ide.util.MemberChooser/52.27.1314.741@52.27.1314.741" timestamp="1606410842885" />
-    <state x="845" y="172" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606387559301">
-      <screen x="52" y="27" width="1314" height="741" />
+    <state x="824" y="163" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606917612304">
+      <screen x="0" y="27" width="1366" height="693" />
     </state>
+    <state x="824" y="163" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.1366.693@0.27.1366.693" timestamp="1606917612304" />
     <state x="843" y="172" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/46.27.1320.741@46.27.1320.741" timestamp="1605885804050" />
     <state x="845" y="172" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/52.27.1314.741@52.27.1314.741" timestamp="1606387559301" />
     <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605891239409">
       <screen x="46" y="27" width="1320" height="741" />
     </state>
     <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891239409" />
-    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606757754149">
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606827717064">
       <screen x="52" y="27" width="1314" height="741" />
     </state>
     <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605893497940" />
-    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606757754149" />
+    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606827717064" />
     <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606148965848">
       <screen x="52" y="27" width="1314" height="741" />
     </state>
     <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl/52.27.1314.741@52.27.1314.741" timestamp="1606148965848" />
+    <state x="344" y="227" width="667" height="306" key="FileDocumentManager.FileCacheConflict" timestamp="1606917686795">
+      <screen x="0" y="27" width="1366" height="693" />
+    </state>
+    <state x="344" y="227" width="667" height="306" key="FileDocumentManager.FileCacheConflict/0.27.1366.693@0.27.1366.693" timestamp="1606917686795" />
     <state x="367" y="112" width="585" height="568" key="NewPhpClassDialog" timestamp="1606413363624">
       <screen x="52" y="27" width="1314" height="741" />
     </state>

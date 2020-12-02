@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  * },
  *"updateCompetences":{
+ *              "method":"PUT",
  *              "path": "/admin/competences/{id}",
  *              "route_name"="PutCompetence",
  *               "access_control"="(is_granted('ROLE_ADMIN') )",
@@ -55,13 +56,13 @@ class Competence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"competence:read","gc:read","competences:read"})
+     * @Groups ({"competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read","referenciel:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gc:read","competences:read"})
+     *  @Groups ({"competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read"})
      * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;
@@ -91,12 +92,18 @@ class Competence
      */
     private $groupeCompetences;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CompetencesValides::class, mappedBy="competences")
+     */
+    private $competencesValides;
+
     public function __construct()
     {
 
 
         $this->niveau = new ArrayCollection();
         $this->groupeCompetences = new ArrayCollection();
+        $this->competencesValides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,6 +193,36 @@ class Competence
     {
         if ($this->groupeCompetences->removeElement($groupeCompetence)) {
             $groupeCompetence->removeCompetence($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompetencesValides[]
+     */
+    public function getCompetencesValides(): Collection
+    {
+        return $this->competencesValides;
+    }
+
+    public function addCompetencesValide(CompetencesValides $competencesValide): self
+    {
+        if (!$this->competencesValides->contains($competencesValide)) {
+            $this->competencesValides[] = $competencesValide;
+            $competencesValide->setCompetences($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetencesValide(CompetencesValides $competencesValide): self
+    {
+        if ($this->competencesValides->removeElement($competencesValide)) {
+            // set the owning side to null (unless already changed)
+            if ($competencesValide->getCompetences() === $this) {
+                $competencesValide->setCompetences(null);
+            }
         }
 
         return $this;

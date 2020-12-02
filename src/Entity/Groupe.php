@@ -40,15 +40,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
  *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
- *
- *      "put":{
- *          "path":"admin/groupes/{id}",
- *          "normalization_context"={"groups":"admin_groupe_id:read"},
- *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
- *      },
- *      "delete":{
- *          "path":"admin/groupes/{id}",
+ *     "putGroupe":{
+ *              "method":"POST",
+ *              "route_name"="putingGroupe",
+ *                "normalization_context"={"groups":"admin_groupe_id:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *               "access_control"="(is_granted('ROLE_ADMIN') )",
+ *              },
+ *      "deleteApprenantGroupe":{
+ *          "route_name":"deletingApprenantGroupe",
  *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
  *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *
@@ -62,13 +62,13 @@ class Groupe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"admin_groupe:read"})
+     * @Groups ({"admin_groupe:read","promo:read","promo:write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"admin_groupe:read"})
+     *  @Groups ({"admin_groupe:read","promo:read","promo:write"})
      */
     private $nomGroupe;
 
@@ -76,22 +76,23 @@ class Groupe
      * @ORM\Column(type="boolean")
      *  @Groups ({"admin_groupe:read"})
      */
-    private $status;
+    private $status ;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
-     *  @Groups ({"admin_groupe:read"})
+     * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes", cascade={"persist"})
+     *  @Groups ({"admin_groupe:read","promo:read","promo:write","promoapprenant:read"})
      */
     private $apprenants;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes")
-     *  @Groups ({"admin_groupe:read"})
+     * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes", cascade={"persist"})
+     *  @Groups ({"admin_groupe:read","RefFormGroup:read"})
+     *
      */
     private $formateurs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes")
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes", cascade={"persist"})
      *  @Groups ({"admin_groupe:read"})
      */
     private $promos;
@@ -101,10 +102,19 @@ class Groupe
      */
     private $dateCreation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="groupes", cascade={"persist"})
+     */
+    private $etatBriefGroupes;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
         $this->formateurs = new ArrayCollection();
+        $this->etatBriefGroupes = new ArrayCollection();
+        $this->dateCreation = new \DateTime("now");
+        $this->status =false;
+
     }
 
     public function getId(): ?int
@@ -204,6 +214,36 @@ class Groupe
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EtatBriefGroupe[]
+     */
+    public function getEtatBriefGroupes(): Collection
+    {
+        return $this->etatBriefGroupes;
+    }
+
+    public function addEtatBriefGroupe(EtatBriefGroupe $etatBriefGroupe): self
+    {
+        if (!$this->etatBriefGroupes->contains($etatBriefGroupe)) {
+            $this->etatBriefGroupes[] = $etatBriefGroupe;
+            $etatBriefGroupe->setGroupes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtatBriefGroupe(EtatBriefGroupe $etatBriefGroupe): self
+    {
+        if ($this->etatBriefGroupes->removeElement($etatBriefGroupe)) {
+            // set the owning side to null (unless already changed)
+            if ($etatBriefGroupe->getGroupes() === $this) {
+                $etatBriefGroupe->setGroupes(null);
+            }
+        }
 
         return $this;
     }
