@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\GroupeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -62,7 +63,7 @@ class Groupe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"admin_groupe:read","promo:read","promo:write"})
+     * @Groups ({"admin_groupe:read","promo:read","promo:write","promoapprenant:read"})
      */
     private $id;
 
@@ -80,13 +81,14 @@ class Groupe
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes", cascade={"persist"})
-     *  @Groups ({"admin_groupe:read","promo:read","promo:write","promoapprenant:read"})
-     */
+     *  @Groups ({"formApprentReference:read","promoprincipale:read","promoapprenant:read","admin_groupe:read","promo:read","promo:write","promoapprenant:read"})
+     * @ApiSubresource()
+    */
     private $apprenants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes", cascade={"persist"})
-     *  @Groups ({"admin_groupe:read","RefFormGroup:read"})
+     *  @Groups ({"admin_promo_referenciel_formateur:read","admin_groupe:read","RefFormGroup:read","formApprentReference:read"})
      *
      */
     private $formateurs;
@@ -106,6 +108,11 @@ class Groupe
      * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="groupes", cascade={"persist"})
      */
     private $etatBriefGroupes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
 
     public function __construct()
     {
@@ -244,6 +251,18 @@ class Groupe
                 $etatBriefGroupe->setGroupes(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

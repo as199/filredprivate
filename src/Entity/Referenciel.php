@@ -17,12 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *   routePrefix="/admin/",
  *     normalizationContext={"groups"={"referenciel:read"}},
  *     denormalizationContext={"groups"={"referenciel:write"}},
- *      subresourceOperations={
- *     "api_groupe_competences_referenciel_get_subresource"={
- *         "method"="GET",
- *          "path"="/referenciels/{id1}/grpecompetences/{id}/competences",
  *
- *     }},
  *     collectionOperations={"GET",
  *     "get_groupe_competence"={
  *     "method"="GET",
@@ -46,49 +41,49 @@ class Referenciel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"referenciel:read"})
+     * @Groups ({"referenciel:read","formApprentReference:read","formReference:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"referenciel:read","referenciel:write"})
+     * @Groups ({"referenciel:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write"})
+     *  @Groups ({"referenciel:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $presentation;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write"})
+     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
      */
     private $programme;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write"})
+     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
      */
     private $criteradmission;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write"})
+     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
      */
     private $critereEvaluation;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"referenciel:read","referenciel:write"})
+     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
      */
     private $status;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="referenciels",cascade={"persist"})
-     * @Groups ({"referenciel:read","referenciel:write","referencielgroupe:read"})
+     * @Groups ({"formReference:read","referenciel:read","referenciel:write","referencielgroupe:read"})
      * @ApiSubresource()
      */
     private $groupeCompetence;
@@ -98,10 +93,16 @@ class Referenciel
      */
     private $competencesValides;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Promo::class, mappedBy="referenciels")
+     */
+    private $promos;
+
     public function __construct()
     {
         $this->groupeCompetence = new ArrayCollection();
         $this->competencesValides = new ArrayCollection();
+        $this->promos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +230,36 @@ class Referenciel
             // set the owning side to null (unless already changed)
             if ($competencesValide->getReferenciels() === $this) {
                 $competencesValide->setReferenciels(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Promo[]
+     */
+    public function getPromos(): Collection
+    {
+        return $this->promos;
+    }
+
+    public function addPromo(Promo $promo): self
+    {
+        if (!$this->promos->contains($promo)) {
+            $this->promos[] = $promo;
+            $promo->setReferenciels($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        if ($this->promos->removeElement($promo)) {
+            // set the owning side to null (unless already changed)
+            if ($promo->getReferenciels() === $this) {
+                $promo->setReferenciels(null);
             }
         }
 

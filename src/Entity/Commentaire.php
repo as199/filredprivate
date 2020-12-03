@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DescriptionRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,14 +36,11 @@ class Commentaire
     private $formateurs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=FilDeDiscussion::class, inversedBy="commentaires")
-     */
-    private $filDeDiscussion;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=FildeDiscussion::class, inversedBy="commentaire")
+     * @ORM\ManyToOne(targetEntity=FildeDiscussion::class, inversedBy="commentaires")
      */
     private $fildeDiscussion;
+
+
 
     public function getId(): ?int
     {
@@ -61,12 +59,12 @@ class Commentaire
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

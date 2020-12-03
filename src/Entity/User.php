@@ -60,7 +60,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"admin_promo_referenciel_formateur:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","formApprentReference:read","RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      */
     private $id;
 
@@ -92,14 +92,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"admin_promo_referenciel_formateur:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","formApprentReference:read","RefFormGroup:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      *  @Assert\NotBlank(groups={"postValidation"})
      */
     private $nomComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your address")
      *
      */
@@ -107,7 +107,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write"})
+     * @Groups ({"admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
      *
      */
@@ -115,7 +115,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * * @Groups ({"admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")

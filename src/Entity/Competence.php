@@ -56,13 +56,13 @@ class Competence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read","referenciel:read"})
+     * @Groups ({"formReference:read","competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read","referenciel:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read"})
+     *  @Groups ({"formReference:read","competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read"})
      * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;

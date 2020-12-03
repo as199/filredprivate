@@ -38,7 +38,7 @@ class FildeDiscussion
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="filDeDiscussion")
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="fildeDiscussion")
      */
     private $commentaires;
 

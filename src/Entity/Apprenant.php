@@ -80,6 +80,11 @@ class Apprenant extends User
      */
     private $attente;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="apprenants")
+     */
+    private $promo;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
@@ -257,6 +262,18 @@ class Apprenant extends User
     public function setAttente(bool $attente): self
     {
         $this->attente = $attente;
+
+        return $this;
+    }
+
+    public function getPromo(): ?Promo
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?Promo $promo): self
+    {
+        $this->promo = $promo;
 
         return $this;
     }

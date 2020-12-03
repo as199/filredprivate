@@ -47,4 +47,62 @@ class PromoRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getPromoGroupePrincipal($id = null)
+    {
+        $results= $this->createQueryBuilder('p')
+            ->select('p,g,a')
+            ->leftJoin('p.groupes','g')
+            ->andWhere('g.type =:type')
+            ->setParameter('type', "principale")
+            ->leftJoin('g.apprenants','a')
+            ->andWhere('a.status =:archiver')
+            ->setParameter('archiver', false);
+            if($id){
+                $results->andWhere('p.id =:idpromo')
+                    ->setParameter('idpromo', $id);
+            }
+
+           // dd($results);
+            return $results;
+    }
+
+    public function findApprenantAttente()
+    {
+       return  $this->createQueryBuilder('p')
+            ->select('p,g,a')
+            ->leftJoin('p.groupes','g')
+            ->andWhere('g.type =:type')
+            ->setParameter('type', "principale")
+            ->leftJoin('g.apprenants','a')
+            ->andWhere('a.attente =:attente')
+            ->setParameter('attente', true)
+            ->andWhere('a.status =:status')
+            ->setParameter('status', false);
+
+    }
+
+    public function findFormateur()
+    {
+        return  $this->createQueryBuilder('p')
+            ->select('p,g,f')
+            ->leftJoin('p.groupes','g')
+            ->andWhere('g.status =:type')
+            ->setParameter('type', false)
+            ->leftJoin('g.formateurs','f')
+            ->andWhere('f.status =:status')
+            ->setParameter('status', false);
+
+    }
+
+    public function findApprenantPromoAttente()
+    {
+        return  $this->createQueryBuilder('p')
+            ->select('p,a')
+            ->leftJoin('g.apprenants','g')
+            ->andWhere('g.attente =:attente')
+            ->setParameter('attente', true)
+            ->andWhere('a.status =:status')
+            ->setParameter('status', false);
+
+    }
 }

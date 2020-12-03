@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\PromoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,12 +20,82 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *               "path":"/promo/{id}",
  *                "method":"GET",
  *                 "normalizationContext"={"groups"={"RefFormGroup:read"}},
- *             }
- *          ,"DELETE","PUT"},
+ *             },
+ *             "formApprentReference"={
+ *               "path":"/promo/{id}/principal",
+ *                "method":"GET",
+ *                 "normalizationContext"={"groups"={"formApprentReference:read"}},
+ *             },"formReference"={
+ *               "path":"/promo/{id}/referenciels",
+ *                "method":"GET",
+ *                 "normalizationContext"={"groups"={"formReference:read"}},
+ *             },
+ *   "referenceApprenantAttente":{
+ *      "method":"get",
+ *      "path":"/promo/{id}/apprenents/attente",
+ *      "normalization_context"={"groups":"admin_promo_apprenant:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
+ * "promoGroupeApprenant":{
+ *      "method":"get",
+ *      "path":"/promo/{id1}/groupes/{id}/apprenants",
+ *      "normalization_context"={"groups":"admin_promo_apprenant_groupes:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
+ *  "promoformateur":{
+ *      "method":"get",
+ *      "path":"/promo/{id}/formateurs",
+ *      "normalization_context"={"groups":"admin_promo_referenciel_formateur:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
+ *  "modifierPromoRef":{
+ *          "method":"PUT",
+ *          "path":"/promo/{id}/referenciels",
+ *          "normalization_context"={"groups":"modifierPromoRef:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *  "modifierApprenant":{
+ *          "method":"put",
+ *          "path":"/promo/{id1}/referenciel",
+ *          "normalization_context"={"groups":"apprenant_brief:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *     "ModiefierSupprimerApprenant":{
+ *          "method":"put",
+ *          "path":"/promo/{id}/apprenants",
+ *          "normalization_context"={"groups":"ModiefierSupprimerApprenant:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *
+ *     "ModiefierSupprimerFormateur":{
+ *          "method":"put",
+ *          "path":"/promo/{id1}/formateurs",
+ *          "normalization_context"={"groups":"ModiefierSupprimerFormateur:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *     "ModiefierSupprimerGroupe":{
+ *          "method":"put",
+ *          "path":"/promo/{id1}/groupes/{id}/status",
+ *          "normalization_context"={"groups":"ModiefierSupprimerGroupe:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *     "DELETE","PUT"},
  *     collectionOperations={
- *          "promoapprenant"={
+ *          "get_groupe_principale"={
  *              "method":"GET",
- *              "path":"/promo/principal",
+ *              "path":"/promos/principal",
+ *              "normalizationContext"={"groups"={"promoprincipale:read"}},
+ *          }, "get_apprenant_attente"={
+ *              "method":"GET",
+ *              "path":"/promo/apprenants/attente",
  *              "normalizationContext"={"groups"={"promoapprenant:read"}},
  *          },
  *          "formateurapprenant"={
@@ -46,13 +117,13 @@ class Promo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"promo:read","promoapprenant:read","RefFormGroup:read"})
+     * @Groups ({"promo:read","promoapprenant:read","RefFormGroup:read","promoprincipale:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"promo:read","promo:write","promoapprenant:read","RefFormGroup:read"})
+     * @Groups ({"promo:read","promo:write","promoapprenant:read","RefFormGroup:read","formApprentReference:read"})
      */
     private $nomPromo;
 
@@ -107,8 +178,9 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos", cascade={"persist"})
-     *  @Groups ({"promo:read","promo:write","promoapprenant:read","RefFormGroup:read"})
-     */
+     *  @Groups ({"admin_promo_referenciel_formateur:read","formReference:read","formApprentReference:read","promo:read","promo:write","promoapprenant:read","RefFormGroup:read","promoprincipale:read"})
+     * @ApiSubresource()
+    */
     private $groupes;
 
     /**
@@ -118,6 +190,7 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="promos", cascade={"persist"})
+     * @ApiSubresource ()
      */
     private $chats;
 
@@ -126,12 +199,26 @@ class Promo
      */
     private $briefMaPromos;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Referenciel::class, inversedBy="promos")
+     * @Groups ({"formApprentReference:read","formReference:read"})
+     */
+    private $referenciels;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="promo")
+     * @Groups ({"admin_promo_apprenant:read","admin_promo_apprenant_groupes:read"})
+     *
+     */
+    private $apprenants;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
         $this->competencesValides = new ArrayCollection();
         $this->chats = new ArrayCollection();
         $this->briefMaPromos = new ArrayCollection();
+        $this->apprenants = new ArrayCollection();
 
     }
 
@@ -362,6 +449,48 @@ class Promo
             // set the owning side to null (unless already changed)
             if ($briefMaPromo->getPromos() === $this) {
                 $briefMaPromo->setPromos(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getReferenciels(): ?Referenciel
+    {
+        return $this->referenciels;
+    }
+
+    public function setReferenciels(?Referenciel $referenciels): self
+    {
+        $this->referenciels = $referenciels;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Apprenant[]
+     */
+    public function getApprenants(): Collection
+    {
+        return $this->apprenants;
+    }
+
+    public function addApprenant(Apprenant $apprenant): self
+    {
+        if (!$this->apprenants->contains($apprenant)) {
+            $this->apprenants[] = $apprenant;
+            $apprenant->setPromo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApprenant(Apprenant $apprenant): self
+    {
+        if ($this->apprenants->removeElement($apprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($apprenant->getPromo() === $this) {
+                $apprenant->setPromo(null);
             }
         }
 

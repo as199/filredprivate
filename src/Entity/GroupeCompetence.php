@@ -69,13 +69,13 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $libelle;
 
@@ -83,7 +83,7 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      *
      */
     private $descriptif;
@@ -96,7 +96,7 @@ class GroupeCompetence
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
-     * @Groups ({"gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
+     * @Groups ({"formReference:read","gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
      * @ApiSubresource()
      */
     private $competences;
