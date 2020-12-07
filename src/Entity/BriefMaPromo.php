@@ -39,6 +39,8 @@ class BriefMaPromo
      */
     private $promos;
 
+
+
     public function __construct()
     {
         $this->livrablePartiel = new ArrayCollection();

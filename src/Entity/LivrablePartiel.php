@@ -2,13 +2,92 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LivrablePartielRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LivrablePartielRepository::class)
+ * @ApiResource(
+ * collectionOperations={
+ *    "get_livrablepartiel1"={
+ *     "method"="GET",
+ *     "normalizationContext"={"groups":{"livrablepartiel:read"}},
+ *     "path"="/formateurs/promo/{id}/referentiel/{num}/competences",
+ *     "access_control"="is_granted('ROLE_ADMIN')"
+ *      },
+ *     "get_livrablepartiel2"={
+ *     "method"="GET",
+ *     "normalizationContext"={"groups":{"livrablepartiel_stat:read",}},
+ *     "path"="/formateurs/promo/{id}/referentiel/{num}/statistiques/competences",
+ *     "route_name"="recuperer_stat_referentiel",
+ *      "access_control"="is_granted('ROLE_FORMATEUR')"
+ *      },
+ *     "get_livrablepartiel3"={
+ *     "method"="GET",
+ *     "path"="/formateurs/livrablepartiels/{id}/commentaires",
+ *     "controller":"App\Controller\LivrablePartielController::class",
+ *     "route_name"="recuperer_les_commentaires",
+ *     "access_control"="is_granted('ROLE_FORMATEUR')"
+ *      },
+ *     "post_livrablepartiel3"={
+ *     "method"="POST",
+ *     "normalizationContext"={"groups":{"livrablepartiel_comme:read"}},
+ *     "path"="/formateurs/livrablepartiels/{id}/commentaires",
+ *     "access_control"="is_granted('ROLE_FORMATEUR')"
+ *      },
+ *     "post_livrablepartiel4"={
+ *     "method"="POST",
+ *     "normalizationContext"={"groups":{"livrablepartiel_comme:read"}},
+ *     "path"="/apprenants/livrablepartiels/{id}/commentaires",
+ *     "access_control"="is_granted('ROLE_APPRENANT')"
+ *      },
+ *     "get_livrablepartiel4"={
+ *     "method"="GET",
+ *     "normalizationContext"={"groups":{"competenceV:read"}},
+ *     "path"="/apprenant/{id}/promo/{id_a}/referentiel/{id_b}/competences",
+ *     "controller":"App\Controller\LivrablePartielController::class",
+ *     "route_name"="apprenant_competences",
+ *     "access_control"="(is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))"
+ *      },
+ *     "get_apprenant_brief":{
+ *     "route_name"="apprenant_stat_briefs",
+ *     "path"="/api/apprenants/{id}/promo/{idp}/referentiel/{idr}/statistiques/briefs",
+ *     "methods"={"GET"},
+ *     "normalizationContext"={"groups":{"competenceV:read"}},
+ *     "controller":"App\Controller\LivrablePartielController::class",
+ *     "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))"
+ *     },
+ *
+ *     },
+ *     itemOperations={
+ *      "get"={},
+ *            "get_deux"={
+ *          "method"="PUT",
+ *          "path"="/api/apprenants/{id}/livrablepartiels/{id_d}",
+ *          "route_name"="get_deux",
+ *          "access_control"="(is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))"
+ *     },
+ *     "get_deux_id"={
+ *          "method"="PUT",
+ *          "path"="/formateurs/promo/{id}/brief/{id_l}/livrablepartiels",
+ *         "route_name"="get_deux_id",
+ *         "access_control"="(is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))"
+ * },"get_livrablepartiel4"={
+ *     "method"="GET",
+ *     "normalizationContext"={"groups":{"livrablepartiel_GET:read"}},
+ *     "path"="/apprenants/livrablepartiels/{id}/commentaires",
+ *     "access_control"="is_granted('ROLE_ADMIN')"
+ *      },
+ *     }
+ *
+ * )
+ * @UniqueEntity ("libelle")
  */
 class LivrablePartiel
 {
@@ -16,26 +95,35 @@ class LivrablePartiel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"livrPart:read","livrablepartiel:read","livrablepartiel_GET:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="please enter the libelle")
+     * @Groups ({"livrPart:read","livrablepartiel:read","livrablepartiel_GET:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="please enter the delai")
+     * @Groups ({"livrPart:read","livrablepartiel:read"})
      */
     private $delai;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="please enter the type")
+     * @Groups ({"livrPart:read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="please enter number finished")
+     * @Groups ({"livrPart:read"})
      */
     private $nombreRendu;
 
@@ -56,16 +144,21 @@ class LivrablePartiel
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="please enter your description")
+     * @Groups ({"livrPart:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="please enter count corrige")
+     * @Groups ({"livrPart:read"})
      */
     private $nombreCorrige;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups ({"livrPart:read"})
      */
     private $status;
 

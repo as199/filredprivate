@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DescriptionRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
@@ -17,16 +18,19 @@ class Commentaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *  @Groups ({"commentaire:read","addcommentaire:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Groups ({"commentaire:read","addcommentaire:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     *  @Groups ({"commentaire:read","addcommentaire:read"})
      */
     private $createdAt;
 
@@ -37,6 +41,7 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity=FildeDiscussion::class, inversedBy="commentaires")
+     * @Groups ({"commentaire:read"})
      */
     private $fildeDiscussion;
 

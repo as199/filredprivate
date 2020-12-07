@@ -7,6 +7,7 @@ use App\Repository\FormateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FormateurRepository::class)
@@ -18,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  *                       "access_control_message"="Vous n'avez pas access à cette Ressource",
  *
  *                    },
+ *
  *                  "put_formateur_id":{
  *                       "method":"put",
  *                      "path":"/formateurs/{id}",
@@ -32,6 +34,30 @@ use Doctrine\ORM\Mapping as ORM;
  *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR')or is_granted('ROLE_CM') )",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *               },
+ *              "get_formateur_id_brief":{
+ *                       "method":"get",
+ *                      "path":"/formateurs/{id}/briefs/brouillon",
+ *                        "normalization_context"={"groups":"brief_formateur_brouillon:read"},
+ *                       "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *                       "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *
+ *                    },
+ *                  "get_formateur_id_brief_valide":{
+ *                       "method":"get",
+ *                      "path":"/formateurs/{id}/briefs/valide",
+ *                        "normalization_context"={"groups":"brief_formateur_valide:read"},
+ *                       "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *                       "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *
+ *                    },
+ *                      "get_formateur_id_brief_promo":{
+ *                       "method":"get",
+ *                      "path":"/formateurs/promo/{id}/briefs/{id1}/brief",
+ *                        "normalization_context"={"groups":"brief_formateur_valide:read"},
+ *                       "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *                       "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *
+ *                    },
  *      }
  *     )
  */
@@ -44,6 +70,7 @@ class Formateur extends User
 
     /**
      * @ORM\OneToMany(targetEntity=Brief::class, mappedBy="formateurs")
+     * @Groups ({"brief_formateur_brouillon:read","brief_formateur_valide:read"})
      */
     private $briefs;
 

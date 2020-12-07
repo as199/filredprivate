@@ -8,10 +8,13 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=FildeDiscussionRepository::class)
+ * @UniqueEntity ("titre")
  */
 class FildeDiscussion
 {
@@ -24,11 +27,13 @@ class FildeDiscussion
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank
      */
     private $titre;
 
     /**
      * @ORM\Column(type="datetime")
+     *  @Assert\NotBlank
      */
     private $date;
 

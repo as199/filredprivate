@@ -5,10 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\GroupeRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
@@ -56,6 +60,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      }
  *  }
  * )
+ * @UniqueEntity ("nomGroupe")
  */
 class Groupe
 {
@@ -63,19 +68,23 @@ class Groupe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"admin_groupe:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"brief_groupe:read","admin_groupe:read","promo:read",
+     *     "promo:write","promoapprenant:read","promoprincipale:read",
+     *     "admin_profilsorties:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"admin_groupe:read","promo:read","promo:write"})
+     *  @Groups ({"brief_groupe:read","admin_groupe:read","promo:read",
+     *     "promo:write","promoprincipale:read","admin_profilsorties:read"})
+     * @Assert\NotBlank
      */
     private $nomGroupe;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"admin_groupe:read"})
+     *  @Groups ({"admin_groupe:read","promoprincipale:read","admin_profilsorties:read"})
      */
     private $status ;
 
@@ -93,11 +102,7 @@ class Groupe
      */
     private $formateurs;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes", cascade={"persist"})
-     *  @Groups ({"admin_groupe:read"})
-     */
-    private $promos;
+
 
     /**
      * @ORM\Column(type="date")
@@ -114,13 +119,19 @@ class Groupe
      */
     private $type;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Promo::class, mappedBy="groupes")
+     */
+    private $promos;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
         $this->formateurs = new ArrayCollection();
         $this->etatBriefGroupes = new ArrayCollection();
-        $this->dateCreation = new \DateTime("now");
+        $this->dateCreation = new DateTime("now");
         $this->status =false;
+        $this->promos = new ArrayCollection();
 
     }
 
@@ -201,24 +212,14 @@ class Groupe
         return $this;
     }
 
-    public function getPromos(): ?Promo
-    {
-        return $this->promos;
-    }
 
-    public function setPromos(?Promo $promos): self
-    {
-        $this->promos = $promos;
 
-        return $this;
-    }
-
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): ?DateTimeInterface
     {
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
 
@@ -263,6 +264,33 @@ class Groupe
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Promo[]
+     */
+    public function getPromos(): Collection
+    {
+        return $this->promos;
+    }
+
+    public function addPromo(Promo $promo): self
+    {
+        if (!$this->promos->contains($promo)) {
+            $this->promos[] = $promo;
+            $promo->addGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        if ($this->promos->removeElement($promo)) {
+            $promo->removeGroupe($this);
+        }
 
         return $this;
     }

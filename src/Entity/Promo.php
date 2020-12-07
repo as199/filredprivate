@@ -5,10 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\PromoRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PromoRepository::class)
@@ -117,25 +119,32 @@ class Promo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"promo:read","promoapprenant:read","RefFormGroup:read","promoprincipale:read"})
+     * @Groups ({"brief_groupe:read","profil_sortis_post:write",
+     *     "profil_sortis_get:read","getReferencielApprenantCompetence:read",
+     *     "promo:read","promoapprenant:read","RefFormGroup:read","promoprincipale:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"promo:read","promo:write","promoapprenant:read","RefFormGroup:read","formApprentReference:read"})
-     */
+     * @Groups ({"brief_groupe:read","getReferencielApprenantCompetence:read",
+     *     "promo:read","promo:write","promoapprenant:read","RefFormGroup:read",
+     *     "formApprentReference:read"})
+     *@Assert\NotBlank(message="please enter your Promo name")
+    */
     private $nomPromo;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter your language")
      */
     private $langue;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter your title")
      */
     private $titre;
 
@@ -148,24 +157,28 @@ class Promo
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter your description")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter the lieu")
      */
     private $lieu;
 
     /**
      * @ORM\Column(type="date")
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter your date provisoire")
      */
     private $dateFinProvisoire;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter fabrique name")
      */
     private $fabrique;
 
@@ -173,53 +186,58 @@ class Promo
      * @ORM\Column(type="date")
      * @Groups ({"admin_groupe:read"})
      *  @Groups ({"promo:read","promo:write"})
+     * @Assert\NotBlank(message="please enter end date")
      */
     private $dateFinReel;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos", cascade={"persist"})
-     *  @Groups ({"admin_promo_referenciel_formateur:read","formReference:read","formApprentReference:read","promo:read","promo:write","promoapprenant:read","RefFormGroup:read","promoprincipale:read"})
-     * @ApiSubresource()
-    */
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Groupe::class, inversedBy="promos", cascade="persist")
+     */
     private $groupes;
 
     /**
-     * @ORM\OneToMany(targetEntity=CompetencesValides::class, mappedBy="promos", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=CompetencesValides::class, mappedBy="promo" ,cascade="persist")
      */
-    private $competencesValides;
+    private $competencevalides;
 
     /**
-     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="promos", cascade={"persist"})
-     * @ApiSubresource ()
+     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="promo", cascade="persist")
      */
     private $chats;
 
     /**
-     * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="promos", cascade={"persist"})
-     */
-    private $briefMaPromos;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Referenciel::class, inversedBy="promos")
-     * @Groups ({"formApprentReference:read","formReference:read"})
-     */
-    private $referenciels;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="promo")
-     * @Groups ({"admin_promo_apprenant:read","admin_promo_apprenant_groupes:read"})
+     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="promo", cascade="persist")
+     * @Groups ({"promo:read","promo:write"})
      *
      */
     private $apprenants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Referenciel::class, inversedBy="promos", cascade="persist")
+     */
+    private $referenciels;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="promo",cascade="persist")
+     */
+    private $briefMaPromo;
+
+
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
-        $this->competencesValides = new ArrayCollection();
+        $this->competencevalides = new ArrayCollection();
         $this->chats = new ArrayCollection();
-        $this->briefMaPromos = new ArrayCollection();
         $this->apprenants = new ArrayCollection();
-
+        $this->referenciels = new ArrayCollection();
+        $this->briefMaPromo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,12 +317,12 @@ class Promo
         return $this;
     }
 
-    public function getDateFinProvisoire(): ?\DateTimeInterface
+    public function getDateFinProvisoire(): ?DateTimeInterface
     {
         return $this->dateFinProvisoire;
     }
 
-    public function setDateFinProvisoire(\DateTimeInterface $dateFinProvisoire): self
+    public function setDateFinProvisoire(DateTimeInterface $dateFinProvisoire): self
     {
         $this->dateFinProvisoire = $dateFinProvisoire;
 
@@ -323,14 +341,26 @@ class Promo
         return $this;
     }
 
-    public function getDateFinReel(): ?\DateTimeInterface
+    public function getDateFinReel(): ?DateTimeInterface
     {
         return $this->dateFinReel;
     }
 
-    public function setDateFinReel(\DateTimeInterface $dateFinReel): self
+    public function setDateFinReel(DateTimeInterface $dateFinReel): self
     {
         $this->dateFinReel = $dateFinReel;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -347,7 +377,6 @@ class Promo
     {
         if (!$this->groupes->contains($groupe)) {
             $this->groupes[] = $groupe;
-            $groupe->setPromos($this);
         }
 
         return $this;
@@ -355,12 +384,7 @@ class Promo
 
     public function removeGroupe(Groupe $groupe): self
     {
-        if ($this->groupes->removeElement($groupe)) {
-            // set the owning side to null (unless already changed)
-            if ($groupe->getPromos() === $this) {
-                $groupe->setPromos(null);
-            }
-        }
+        $this->groupes->removeElement($groupe);
 
         return $this;
     }
@@ -368,27 +392,27 @@ class Promo
     /**
      * @return Collection|CompetencesValides[]
      */
-    public function getCompetencesValides(): Collection
+    public function getCompetencevalides(): Collection
     {
-        return $this->competencesValides;
+        return $this->competencevalides;
     }
 
-    public function addCompetencesValide(CompetencesValides $competencesValide): self
+    public function addCompetencevalide(CompetencesValides $competencevalide): self
     {
-        if (!$this->competencesValides->contains($competencesValide)) {
-            $this->competencesValides[] = $competencesValide;
-            $competencesValide->setPromos($this);
+        if (!$this->competencevalides->contains($competencevalide)) {
+            $this->competencevalides[] = $competencevalide;
+            $competencevalide->setPromo($this);
         }
 
         return $this;
     }
 
-    public function removeCompetencesValide(CompetencesValides $competencesValide): self
+    public function removeCompetencevalide(CompetencesValides $competencevalide): self
     {
-        if ($this->competencesValides->removeElement($competencesValide)) {
+        if ($this->competencevalides->removeElement($competencevalide)) {
             // set the owning side to null (unless already changed)
-            if ($competencesValide->getPromos() === $this) {
-                $competencesValide->setPromos(null);
+            if ($competencevalide->getPromo() === $this) {
+                $competencevalide->setPromo(null);
             }
         }
 
@@ -407,7 +431,7 @@ class Promo
     {
         if (!$this->chats->contains($chat)) {
             $this->chats[] = $chat;
-            $chat->setPromos($this);
+            $chat->setPromo($this);
         }
 
         return $this;
@@ -417,52 +441,10 @@ class Promo
     {
         if ($this->chats->removeElement($chat)) {
             // set the owning side to null (unless already changed)
-            if ($chat->getPromos() === $this) {
-                $chat->setPromos(null);
+            if ($chat->getPromo() === $this) {
+                $chat->setPromo(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|BriefMaPromo[]
-     */
-    public function getBriefMaPromos(): Collection
-    {
-        return $this->briefMaPromos;
-    }
-
-    public function addBriefMaPromo(BriefMaPromo $briefMaPromo): self
-    {
-        if (!$this->briefMaPromos->contains($briefMaPromo)) {
-            $this->briefMaPromos[] = $briefMaPromo;
-            $briefMaPromo->setPromos($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBriefMaPromo(BriefMaPromo $briefMaPromo): self
-    {
-        if ($this->briefMaPromos->removeElement($briefMaPromo)) {
-            // set the owning side to null (unless already changed)
-            if ($briefMaPromo->getPromos() === $this) {
-                $briefMaPromo->setPromos(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getReferenciels(): ?Referenciel
-    {
-        return $this->referenciels;
-    }
-
-    public function setReferenciels(?Referenciel $referenciels): self
-    {
-        $this->referenciels = $referenciels;
 
         return $this;
     }
@@ -496,4 +478,61 @@ class Promo
 
         return $this;
     }
+
+    /**
+     * @return Collection|Referenciel[]
+     */
+    public function getReferenciels(): Collection
+    {
+        return $this->referenciels;
+    }
+
+    public function addReferenciel(Referenciel $referenciel): self
+    {
+        if (!$this->referenciels->contains($referenciel)) {
+            $this->referenciels[] = $referenciel;
+        }
+
+        return $this;
+    }
+
+    public function removeReferenciel(Referenciel $referenciel): self
+    {
+        $this->referenciels->removeElement($referenciel);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BriefMaPromo[]
+     */
+    public function getBriefMaPromo(): Collection
+    {
+        return $this->briefMaPromo;
+    }
+
+    public function addBriefMaPromo(BriefMaPromo $briefMaPromo): self
+    {
+        if (!$this->briefMaPromo->contains($briefMaPromo)) {
+            $this->briefMaPromo[] = $briefMaPromo;
+            $briefMaPromo->setPromo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBriefMaPromo(BriefMaPromo $briefMaPromo): self
+    {
+        if ($this->briefMaPromo->removeElement($briefMaPromo)) {
+            // set the owning side to null (unless already changed)
+            if ($briefMaPromo->getPromo() === $this) {
+                $briefMaPromo->setPromo(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\ApprenantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -46,11 +47,14 @@ class Apprenant extends User
 {
     /**
      * @ORM\ManyToOne(targetEntity=ProfilSorti::class, inversedBy="apprenants")
+     * @Groups ({"admin_profilsorties:read"})
+     *
      */
     private $profilSorti;
 
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
+     *  @Groups ({"admin_profilsorties:read"})
      */
     private $groupes;
 
@@ -81,9 +85,11 @@ class Apprenant extends User
     private $attente;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="apprenants")
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="apprenants",cascade="persist")
      */
     private $promo;
+
+
 
     public function __construct()
     {
@@ -277,4 +283,5 @@ class Apprenant extends User
 
         return $this;
     }
+
 }

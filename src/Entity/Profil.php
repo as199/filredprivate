@@ -59,13 +59,14 @@ class Profil
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
-     *
+     *@Assert\NotBlank(message="please enter the libelle")
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
      * @Groups({"admin_profil_id:read"})
+     *
      */
     private $users;
 

@@ -34,8 +34,42 @@ class ApprenantRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
+    */
+    public function recuperApprenants($value,$id): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.promo = :val')
+            ->setParameter('val', $value)
+            ->leftJoin('a.profilSorti', 'p')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ;
+    }
+    public function getApprenantProfilSorti($id1=null): \Doctrine\ORM\QueryBuilder
+    {
+       $resul =  $this->createQueryBuilder('a')
+            ->leftJoin('a.promo', 'p')
+           ->andWhere('p.id=:idP')
+           ->leftJoin('a.profilSorti','pr')
+           ->andWhere('pr.id.id== ')
+           ->setParameter('idP', 1)
+           ->getQuery()
+           ->getResult();
+            /*->andWhere('p.id=:idP')
+            ->setParameter('idP', $id1);*/
+       dd($resul);
+    }
+    public function getApprenantCompetence($id1,$id): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.promo', 'p')
+            ->andWhere('p.id=:idP')
+            ->setParameter('idP', $id1)
+            ->innerJoin('p.referenciels', 'r')
+            ->andWhere('r.id=:idR')
+            ->setParameter('idR', $id);
+    }
     /*
     public function findOneBySomeField($value): ?Apprenant
     {

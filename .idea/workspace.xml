@@ -20,23 +20,70 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201203075155.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201203103515.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201203104227.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/PromoService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dataProvider/PromoCollectionDataProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Devoir JAVA Interface graphique.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Devoir JAVA Interface graphique.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Planning Semaine 07 au 11 Decembre 2020 .pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/qcm java poo.odt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/qcm java poo.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filRougeprivate.postman_collection.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201204093850.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201204114333.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201204115937.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201204121140.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201206053240.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20201206095353.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postman" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/BriefController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ChatController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/LivrablePartielController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ProfilSortiController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/BriefFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ProfilSortiFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PromoFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ReferencielFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/CommentaireRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/ChatService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/LivrablePartielService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/ProfilSortiService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/brief/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/chat/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/livrable_partiel_controlleur/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/profil_sorti/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/.~lock.veille mvc.odp#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/veille mvc.odp" beforeDir="false" afterPath="$PROJECT_DIR$/doc/veille mvc.odp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/ApprenantFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/ApprenantFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/FormateurFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/FormateurFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Brief.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Brief.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/BriefMaPromo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/BriefMaPromo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Chat.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Commentaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Commentaire.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CompetencesValides.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CompetencesValides.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/EtatBriefGroupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/EtatBriefGroupe.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Formateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Formateur.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/LivrableAttendu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LivrableAttendu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/LivrablePartiel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LivrablePartiel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Niveau.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Niveau.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ApprenantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApprenantRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ChatRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ChatRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/FormateurRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FormateurRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProfilSortiRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProfilSortiRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/PromoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PromoRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" afterDir="false" />
     </list>
@@ -192,7 +239,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -232,7 +279,14 @@
       <workItem from="1606719244952" duration="20806000" />
       <workItem from="1606804783538" duration="27030000" />
       <workItem from="1606899025827" duration="40912000" />
-      <workItem from="1606986324055" duration="22323000" />
+      <workItem from="1606986324055" duration="23866000" />
+      <workItem from="1607023853204" duration="1038000" />
+      <workItem from="1607049486719" duration="1199000" />
+      <workItem from="1607065072329" duration="39464000" />
+      <workItem from="1607180880576" duration="5544000" />
+      <workItem from="1607210855526" duration="88000" />
+      <workItem from="1607211026389" duration="49242000" />
+      <workItem from="1607325121962" duration="261000" />
     </task>
     <servers />
   </component>
@@ -253,64 +307,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="294" y="55" width="824" height="691" key="#Test_Frameworks" timestamp="1606148970914">
-      <screen x="52" y="27" width="1314" height="741" />
-    </state>
-    <state x="294" y="55" width="824" height="691" key="#Test_Frameworks/52.27.1314.741@52.27.1314.741" timestamp="1606148970914" />
-    <state x="459" y="73" width="421" height="649" key="#com.intellij.ide.util.MemberChooser" timestamp="1606979392438">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state x="459" y="73" key="#com.intellij.ide.util.MemberChooser/0.27.1366.693@0.27.1366.693" timestamp="1606979392438" />
-    <state x="490" y="76" width="421" height="649" key="#com.intellij.ide.util.MemberChooser/46.27.1320.741@46.27.1320.741" timestamp="1605892705249" />
-    <state x="494" y="76" key="#com.intellij.ide.util.MemberChooser/52.27.1314.741@52.27.1314.741" timestamp="1606410842885" />
-    <state x="824" y="163" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606917612304">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state x="824" y="163" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.1366.693@0.27.1366.693" timestamp="1606917612304" />
-    <state x="843" y="172" width="365" height="465" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/46.27.1320.741@46.27.1320.741" timestamp="1605885804050" />
-    <state x="845" y="172" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/52.27.1314.741@52.27.1314.741" timestamp="1606387559301" />
-    <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605891239409">
-      <screen x="46" y="27" width="1320" height="741" />
-    </state>
-    <state x="439" y="146" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891239409" />
-    <state x="406" y="147" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606979377665">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state x="406" y="147" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1366.693@0.27.1366.693" timestamp="1606979377665" />
-    <state x="439" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/46.27.1320.741@46.27.1320.741" timestamp="1605893497940" />
-    <state x="443" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/52.27.1314.741@52.27.1314.741" timestamp="1606827717064" />
-    <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606148965848">
-      <screen x="52" y="27" width="1314" height="741" />
-    </state>
-    <state x="396" y="229" width="424" height="491" key="FileChooserDialogImpl/52.27.1314.741@52.27.1314.741" timestamp="1606148965848" />
-    <state x="344" y="227" width="667" height="306" key="FileDocumentManager.FileCacheConflict" timestamp="1606917686795">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state x="344" y="227" width="667" height="306" key="FileDocumentManager.FileCacheConflict/0.27.1366.693@0.27.1366.693" timestamp="1606917686795" />
-    <state x="327" y="106" width="641" height="532" key="NewPhpClassDialog" timestamp="1606980186774">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state x="327" y="106" width="641" height="532" key="NewPhpClassDialog/0.27.1366.693@0.27.1366.693" timestamp="1606980186774" />
-    <state x="362" y="112" width="726" height="578" key="NewPhpClassDialog/46.27.1320.741@46.27.1320.741" timestamp="1605891635482" />
-    <state x="367" y="112" width="585" height="568" key="NewPhpClassDialog/52.27.1314.741@52.27.1314.741" timestamp="1606413363624" />
-    <state x="134" y="27" width="1022" height="737" key="SettingsEditor" timestamp="1606214178409">
-      <screen x="52" y="27" width="1314" height="741" />
-    </state>
-    <state x="128" y="27" width="1022" height="737" key="SettingsEditor/46.27.1320.741@46.27.1320.741" timestamp="1605891132543" />
-    <state x="134" y="27" width="1022" height="737" key="SettingsEditor/52.27.1314.741@52.27.1314.741" timestamp="1606214178409" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1606989629064">
-      <screen x="0" y="27" width="1366" height="693" />
-    </state>
-    <state width="498" height="446" key="SwitcherDM/0.27.1366.693@0.27.1366.693" timestamp="1606989629064" />
-    <state x="490" y="312" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606313055506">
-      <screen x="52" y="27" width="1314" height="741" />
-    </state>
-    <state x="490" y="312" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/52.27.1314.741@52.27.1314.741" timestamp="1606313055506" />
-    <state x="369" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605874758211">
-      <screen x="46" y="27" width="1320" height="741" />
-    </state>
-    <state x="369" y="89" width="672" height="678" key="search.everywhere.popup/46.27.1320.741@46.27.1320.741" timestamp="1605874758211" />
   </component>
 </project>

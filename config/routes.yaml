@@ -20,4 +20,20 @@ deletingApprenantGroupe:
   path: /api/admin/groupes/{idA}/apprenant/{idB}
   controller: App\Controller\GroupeController::retireApprenantGroupe
 
+AddingChat:
+  path: /api/users/promo/{id}/apprenant/{id1}/chat
+  controller: App\Controller\ChatController::AddNewChat
+
+gettingChat:
+    path: /api/users/promo/{id}/apprenant/{id1}/chat/date
+    controller: App\Controller\ChatController::gettingChat
+
+gettingBrief:
+    path: /api/formateurs/promo/{promo}/groupe/{id}/briefs
+    controller: App\Controller\BriefController::getBrief
+
+recuperer_stat_referentiel:
+  path: /api/formateurs/promo/{id}/referentiel/{num}/statistiques/competences
+  controller: App\Controller\LivrablePartielController::RecupApprenantRef
+
 

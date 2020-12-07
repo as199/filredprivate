@@ -3,14 +3,26 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\BriefRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ *
  * @ORM\Entity(repositoryClass=BriefRepository::class)
+ * @ApiResource(
+ *     routePrefix="/formateurs/",
+ *     collectionOperations={
+ *          "Get1":{"method":"GET","path":"/briefs","normalization_context"={"groups":"brief:read"}},
+ *          "GetGroupe":{"method":"GET","path":"/promo/{id}/groupe/{id1}/briefs","route_name"="gettingBrief","normalization_context"={"groups":"brief_groupe:read"}},
+ *     "POST",
+ *     }
+ * )
  */
 class Brief
 {
@@ -18,21 +30,25 @@ class Brief
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_brouillon:read","brief_formateur_valide:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_brouillon:read","brief_formateur_valide:read"})
      */
     private $langue;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_brouillon:read","brief_formateur_valide:read"})
      */
     private $nomBrief;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_brouillon:read","brief_formateur_valide:read"})
      */
     private $description;
 
@@ -43,6 +59,7 @@ class Brief
 
     /**
      * @ORM\ManyToMany(targetEntity=Niveau::class, inversedBy="briefs")
+     * @Groups ({"brief:read"})
      */
     private $niveaux;
 
@@ -63,6 +80,7 @@ class Brief
 
     /**
      * @ORM\ManyToMany(targetEntity=LivrableAttendu::class, mappedBy="briefs")
+     * @Groups ({"brief:read"})
      */
     private $livrableAttendus;
 
@@ -73,8 +91,49 @@ class Brief
 
     /**
      * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="briefs")
+     *
      */
     private $briefMaPromos;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_valide:read"})
+     */
+    private $critereEvaluation;
+
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_valide:read"})
+     */
+    private $modalitePedagogique;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_valide:read"})
+     */
+    private $modalitesEvaluation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups ({"brief:read","brief_groupe:read","brief_formateur_brouillon:read","brief_formateur_valide:read"})
+     */
+    private $statusBrief;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $status = false;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ({"brief:read"})
+     */
+    private $etat;
 
     public function __construct()
     {
@@ -84,6 +143,7 @@ class Brief
         $this->livrableAttendus = new ArrayCollection();
         $this->ressources = new ArrayCollection();
         $this->briefMaPromos = new ArrayCollection();
+        $this->createdAt = new DateTime("now");
     }
 
     public function getId(): ?int
@@ -175,12 +235,12 @@ class Brief
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -312,6 +372,90 @@ class Brief
                 $briefMaPromo->setBriefs(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCritereEvaluation(): ?string
+    {
+        return $this->critereEvaluation;
+    }
+
+    public function setCritereEvaluation(string $critereEvaluation): self
+    {
+        $this->critereEvaluation = $critereEvaluation;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getModalitePedagogique(): ?string
+    {
+        return $this->modalitePedagogique;
+    }
+
+    public function setModalitePedagogique(?string $modalitePedagogique): self
+    {
+        $this->modalitePedagogique = $modalitePedagogique;
+
+        return $this;
+    }
+
+    public function getModalitesEvaluation(): ?string
+    {
+        return $this->modalitesEvaluation;
+    }
+
+    public function setModalitesEvaluation(?string $modalitesEvaluation): self
+    {
+        $this->modalitesEvaluation = $modalitesEvaluation;
+
+        return $this;
+    }
+
+    public function getStatusBrief(): ?string
+    {
+        return $this->statusBrief;
+    }
+
+    public function setStatusBrief(string $statusBrief): self
+    {
+        $this->statusBrief = $statusBrief;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

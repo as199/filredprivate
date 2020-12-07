@@ -2,13 +2,31 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use App\Controller\ProfilController;
+use App\Controller\ProfilSortiController;
 use App\Repository\ProfilSortiRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
+ * @ApiResource (
+ *     routePrefix="/admin/",
+ *     collectionOperations={
+  *      "GET":{ "method":"GET","path":"/profil_sortis","normalization_context"={"groups":"profil_sortis:read"}},
+ *        "POST":{ "method":"POST","path":"/profil_sortis","denormalization_context"={"groups":"profil_sortis_post:write"}},
+ *           "afficherAppProfilSorti":{ "method":"GET","path":"/promo/{id}/profilsorties/{id2}/apprenants","normalization_context"={"groups":"profil_sortis_apprenant:read"}},
+ *     },
+ *     itemOperations={
+ *            "GET":{ "method":"GET","path":"/profil_sortis/{id}","normalization_context"={"groups":"profil_sortis_id:read"}},
+ *              "PUT":{ "method":"PUT","path":"/profil_sortis/{id}","denormalization_context"={"groups":"profil_sortis_post:write"}},
+ *
+ *     }
+ * )
  */
 class ProfilSorti
 {
@@ -19,22 +37,26 @@ class ProfilSorti
      */
     private $id;
 
+
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ({"profil_sortis_post:write"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups ({"profil_sortis_post:write"})
      */
-    private $status;
+    private $status = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="profilSorti")
+     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="profilSorti" ,cascade="persist")
+     * @Groups ({"profil_sortis_post:write","profil_sortis_id:read","profil_sortis_apprenant:read"})
      */
     private $apprenants;
 
-    public function __construct()
+    public function __construct(  )
     {
         $this->apprenants = new ArrayCollection();
     }

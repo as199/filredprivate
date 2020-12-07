@@ -35,6 +35,25 @@ class FormateurRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function recupBrief($value): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.id = :val')
+            ->setParameter('val', $value)
+            ->leftJoin('f.briefs', 'b')
+            ->andWhere('b.etat = :id')
+            ->setParameter('id', "brouillon");
+    }
+    public function recupBriefValide($value): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.id = :val')
+            ->setParameter('val', $value)
+            ->leftJoin('f.briefs', 'b')
+            ->andWhere('b.etat = :id')
+            ->setParameter('id', "valide");
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Formateur

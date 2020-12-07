@@ -56,13 +56,17 @@ class Competence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"formReference:read","competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read","referenciel:read"})
+     * @Groups ({"brief:read","formReference:read","competence:read",
+     *     "gc:read","gcu:read","competences:read","gcf:read",
+     *     "referencielgroupe:read","referenciel:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","competence:read","gc:read","gcu:read","competences:read","gcf:read","referencielgroupe:read"})
+     *  @Groups ({"brief:read","formReference:read","competence:read",
+     *     "gc:read","gcu:read","competences:read","gcf:read",
+     *     "referencielgroupe:read"})
      * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;
@@ -96,6 +100,12 @@ class Competence
      * @ORM\OneToMany(targetEntity=CompetencesValides::class, mappedBy="competences")
      */
     private $competencesValides;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *  @Groups ({"brief:read"})
+     */
+    private $descriptif;
 
     public function __construct()
     {
@@ -224,6 +234,18 @@ class Competence
                 $competencesValide->setCompetences(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescriptif(): ?string
+    {
+        return $this->descriptif;
+    }
+
+    public function setDescriptif(?string $descriptif): self
+    {
+        $this->descriptif = $descriptif;
 
         return $this;
     }

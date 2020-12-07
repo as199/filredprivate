@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Brief;
 use App\Entity\Formateur;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,6 +22,18 @@ class FormateurFixtures extends Fixture  implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         for ($i = 1; $i <= 3; $i++) {
+            $brief = new Brief();
+            //$tag = new Tag();
+            $brief->setLangue($faker->randomElement(['FR', 'EN']))
+                ->setDescription($faker->text)
+                ->setCritereEvaluation($faker->text)
+                ->setCreatedAt($faker->dateTime)
+                ->setAvatar($faker->imageUrl(640, 480))
+                ->setModalitePedagogique($faker->text)
+                ->setNomBrief($faker->title)
+                ->setModalitesEvaluation($faker->realText())
+                ->setStatusBrief($faker->randomElement(['assigné', 'non assigné']))
+                ->setEtat($faker->randomElement(['brouillon', 'valide']));
             $user = new Formateur();
             $profil = $this->getReference(ProfilFixtures::FORMATEUR_REFERENCE);
 
@@ -38,6 +51,8 @@ class FormateurFixtures extends Fixture  implements DependentFixtureInterface
             $user->setPassword($password);
 
             $manager->persist($user);
+            $brief->setFormateurs($user);
+            $manager->persist($brief);
             $manager->flush();
         }
     }

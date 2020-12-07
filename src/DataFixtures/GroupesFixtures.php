@@ -3,21 +3,27 @@
 namespace App\DataFixtures;
 
 use App\Entity\Competence;
+use App\Entity\Groupe;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class GroupesFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $competences =["SQL","PHP","CSS","JS"];
-        foreach ($competences as $libelle){
-            $competence = new Competence();
-            $competence->setLibelle($libelle);
-            $manager->persist($competence);
+        $faker = Factory::create('fr_FR');
+        for ($i = 0; $i < 5; $i++) {
+            $groupe = new Groupe();
+            $groupe->setNomGroupe($faker->randomElement(['G1', 'G2', 'G3', 'G4', 'G5']))
+                ->setDateCreation($faker->dateTime)
+                ->setStatus($faker->randomElement([true, false]))
+                ->setType($faker->randomElement(['principal', 'secondaire']));
+            $manager->persist($groupe);
         }
-        // $product = new Product();
-        // $manager->persist($product);
+
+
+
 
         $manager->flush();
     }

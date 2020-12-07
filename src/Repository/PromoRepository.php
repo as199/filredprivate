@@ -49,23 +49,74 @@ class PromoRepository extends ServiceEntityRepository
     */
     public function getPromoGroupePrincipal($id = null)
     {
-        $results= $this->createQueryBuilder('p')
+        $results = $this->createQueryBuilder('p')
             ->select('p,g,a')
-            ->leftJoin('p.groupes','g')
+            ->leftJoin('p.groupes', 'g')
             ->andWhere('g.type =:type')
             ->setParameter('type', "principale")
-            ->leftJoin('g.apprenants','a')
+            ->leftJoin('g.apprenants', 'a')
             ->andWhere('a.status =:archiver')
             ->setParameter('archiver', false);
-            if($id){
-                $results->andWhere('p.id =:idpromo')
-                    ->setParameter('idpromo', $id);
-            }
+        if ($id) {
+            $results->andWhere('p.id =:idpromo')
+                ->setParameter('idpromo', $id);
+        }
 
-           // dd($results);
-            return $results;
+        // dd($results);
+        return $results;
     }
 
+    public function findOneByPomoIdGroupeId($id,$id1): \Doctrine\ORM\Query
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id =:val')
+            ->andWhere('p.groupes =:val2')
+            ->setParameter('val', $id)
+            ->setParameter('val2', $id1)
+            ->getQuery();
+    }
+
+    public function recupBriefidpromo($val,$id): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.briefMaPromo', 'b')
+            ->andWhere('b.promos =:val')
+            ->setParameter('val', $val)
+            ->andWhere('b.briefs = :id')
+            ->setParameter('id', $id);
+    }
+
+    public function getReferencielApprenantCompetences( $id1,$id): \Doctrine\ORM\QueryBuilder
+    {
+        $results= $this->createQueryBuilder('p')
+            ->select('p,r,g,c')
+            ->leftJoin('p.referenciels','r')
+            ->andWhere('r.id =:ids')
+            ->setParameter('ids', $id1)
+            ->leftJoin('p.apprenants','a')
+            ->leftJoin('r.groupeCompetence.', "g")
+            ->leftJoin('g.competences','c')
+            ->andWhere('p.id =:id')
+            ->setParameter('id', $id)
+            ;
+
+
+        //dd($results);
+        return $results;
+    }
+    public function refPromApprenant($idPromo,$idRef): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id=:val')
+            ->andWhere('u.referenciels=:p')
+            ->setParameter('p', $idRef)
+            ->setParameter('val', $idPromo)
+        ;
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function findApprenantAttente()
     {
        return  $this->createQueryBuilder('p')

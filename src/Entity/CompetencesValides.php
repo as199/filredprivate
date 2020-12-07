@@ -20,7 +20,7 @@ class CompetencesValides
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
     private $niveau1;
 
@@ -35,36 +35,38 @@ class CompetencesValides
     private $niveau3;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Competence::class, inversedBy="competencesValides")
+     * @ORM\ManyToOne(targetEntity=Competence::class, inversedBy="competencesValides", cascade="persist")
      */
     private $competences;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="competencesValides")
+     * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="competencesValides", cascade="persist")
      */
     private $apprenants;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Referenciel::class, inversedBy="competencesValides")
+     * @ORM\ManyToOne(targetEntity=Referenciel::class, inversedBy="competencesValides", cascade="persist")
      */
     private $referenciels;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="competencesValides")
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="competencevalides", cascade="persist")
      */
-    private $promos;
+    private $promo;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNiveau1(): ?string
+    public function getNiveau1(): ?bool
     {
         return $this->niveau1;
     }
 
-    public function setNiveau1(string $niveau1): self
+    public function setNiveau1(bool $niveau1): self
     {
         $this->niveau1 = $niveau1;
 
@@ -131,15 +133,16 @@ class CompetencesValides
         return $this;
     }
 
-    public function getPromos(): ?Promo
+    public function getPromo(): ?Promo
     {
-        return $this->promos;
+        return $this->promo;
     }
 
-    public function setPromos(?Promo $promos): self
+    public function setPromo(?Promo $promo): self
     {
-        $this->promos = $promos;
+        $this->promo = $promo;
 
         return $this;
     }
+
 }

@@ -79,7 +79,7 @@ class Referenciel
      * @ORM\Column(type="boolean")
      *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
      */
-    private $status;
+    private $status = false;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="referenciels",cascade={"persist"})
@@ -94,9 +94,13 @@ class Referenciel
     private $competencesValides;
 
     /**
-     * @ORM\OneToMany(targetEntity=Promo::class, mappedBy="referenciels")
+     * @ORM\ManyToMany(targetEntity=Promo::class, mappedBy="referenciels")
      */
     private $promos;
+
+
+
+
 
     public function __construct()
     {
@@ -248,7 +252,7 @@ class Referenciel
     {
         if (!$this->promos->contains($promo)) {
             $this->promos[] = $promo;
-            $promo->setReferenciels($this);
+            $promo->addReferenciel($this);
         }
 
         return $this;
@@ -257,12 +261,13 @@ class Referenciel
     public function removePromo(Promo $promo): self
     {
         if ($this->promos->removeElement($promo)) {
-            // set the owning side to null (unless already changed)
-            if ($promo->getReferenciels() === $this) {
-                $promo->setReferenciels(null);
-            }
+            $promo->removeReferenciel($this);
         }
 
         return $this;
     }
+
+
+
+
 }

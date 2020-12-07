@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EtatBriefGroupeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EtatBriefGroupeRepository::class)
@@ -14,16 +15,19 @@ class EtatBriefGroupe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"livrablepartiel:read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="etatBriefGroupes")
+     *  @Groups ({"livrablepartiel:read"})
      */
     private $brief;
 
     /**
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="etatBriefGroupes")
+     *  @Groups ({"livrablepartiel:read"})
      */
     private $groupes;
 
