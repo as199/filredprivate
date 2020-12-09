@@ -20,72 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/doc/Devoir JAVA Interface graphique.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/Devoir JAVA Interface graphique.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/Planning Semaine 07 au 11 Decembre 2020 .pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/qcm java poo.odt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/qcm java poo.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filRougeprivate.postman_collection.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201204093850.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201204114333.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201204115937.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201204121140.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201206053240.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20201206095353.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/postman" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/BriefController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ChatController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/LivrablePartielController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProfilSortiController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/BriefFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ProfilSortiFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PromoFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ReferencielFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CommentaireRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ChatService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/LivrablePartielService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ProfilSortiService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/brief/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/chat/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/livrable_partiel_controlleur/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/profil_sorti/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/preload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/ApprenantFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/ApprenantFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CompetenceFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/FormateurFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/FormateurFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeCompetetenceFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupesFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TagsFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Brief.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Brief.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/BriefMaPromo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/BriefMaPromo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Chat.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Commentaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Commentaire.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/CompetencesValides.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CompetencesValides.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/EtatBriefGroupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/EtatBriefGroupe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FildeDiscussion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Formateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Formateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/LivrableAttendu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LivrableAttendu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/LivrablePartiel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LivrablePartiel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Niveau.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Niveau.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApprenantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApprenantRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ChatRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ChatRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/FormateurRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FormateurRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProfilSortiRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProfilSortiRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PromoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PromoRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,6 +159,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
     </include_path>
   </component>
   <component name="ProjectId" id="1kPvqHDfxbWf1PPGAPW8dnbnMZH" />
@@ -228,6 +173,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -287,6 +233,9 @@
       <workItem from="1607210855526" duration="88000" />
       <workItem from="1607211026389" duration="49242000" />
       <workItem from="1607325121962" duration="261000" />
+      <workItem from="1607360403422" duration="4245000" />
+      <workItem from="1607377285111" duration="1613000" />
+      <workItem from="1607421888384" duration="92000" />
     </task>
     <servers />
   </component>
