@@ -4,6 +4,7 @@
 namespace App\dataProvider;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\PaginationExtension;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryResultCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
@@ -105,51 +106,68 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
     {
         if ($operationName == "get_groupe_principale"){
             $collection = $this->promoService->getPromoPrincipale();
-        }elseif($operationName =="get_apprenant_attente"){
+        }
+        if($operationName =="get_apprenant_attente"){
             $collection = $this->promoService->getApprenantAttente();
-        }elseif ($operationName == "referenceApprenantAttente"){
+            if ($this->paginator instanceof QueryResultCollectionExtensionInterface
+                && $this->paginator->supportsResult($resourceClass, $operationName, $this->context)) {
+
+                return $this->paginator->getResult($collection, $resourceClass, $operationName, $this->context);
+            }
+
+            return $collection->getQuery()->getResult();
+        }
+        if ($operationName == "referenceApprenantAttente"){
             $collection = $this->promoService->getApprenantAttente();
-        }elseif ($operationName == "promoformateur"){
+        }
+        if ($operationName == "promoformateur"){
             $collection = $this->promoService->getFormateur();
-        }elseif ($operationName =="addLivrable"){
+        }
+        if ($operationName =="addLivrable"){
             //dd("ddfzrfer");
             $data = explode("/",$context["request_uri"]);
             $id =(int)$data[4];
             $id1 =(int)$data[6];
             $collection = $this->livrablePartielService->getReferencielApprenantCompetence($id,$id1);
 
-        }elseif ($operationName == "apprenantProfilSortie"){
+        }
+        if ($operationName == "apprenantProfilSortie"){
             $data = explode("/",$context["request_uri"]);
             dd($data);
             $id = (int)$data[4];
            // dd($id);
             $collection = $this->profilSortiService->getApprenanttProfilSorti($id);
             return $collection;
-        }elseif ($operationName == "afficherAppProfilSorti"){
+        }
+        if ($operationName == "afficherAppProfilSorti"){
             $data = explode("/",$context["request_uri"]);
             $id =(int)$data[4];
             $id1 =(int)$data[6];
             $collection = $this->apprenantRepository->recuperApprenants($id,$id1);
             //dd($collection);
-        }elseif ($operationName == "get_formateur_id_brief"){
+        }
+        if ($operationName == "get_formateur_id_brief"){
             $data = explode("/",$context["request_uri"]);
             //dd($data);
             $id =(int)$data[3];
             $collection = $this->formateurRepository->recupBrief($id);
             //dd($infos);
-        }elseif ($operationName =="get_formateur_id_brief_valide"){
+        }
+        if ($operationName =="get_formateur_id_brief_valide"){
             $data = explode("/",$context["request_uri"]);
             //dd($data);
             $id =(int)$data[3];
             $collection = $this->formateurRepository->recupBriefValide($id);
             //dd($collection);
-        }elseif ($operationName == "get_formateur_id_brief_promo"){
+        }
+        if ($operationName == "get_formateur_id_brief_promo"){
             $data = explode("/",$context["request_uri"]);
             $id =(int)$data[4];
             $id1 =(int)$data[6];
             $collection = $this->briefMaPromoRepository->findOneBySomeField($id,$id1);
             //dd($data);
-        }elseif ($operationName == "get_livrablepartiel1"){
+        }
+        if ($operationName == "get_livrablepartiel1"){
             $data = explode("/",$context["request_uri"]);
             $id =(int)$data[4];
             $id1 =(int)$data[6];
@@ -163,14 +181,19 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
                 ->setParameter('idR',$id1);
 
         }
-        else {
-            $collection = $this->manager
+
+             $repository = $this->manager
                 ->getManagerForClass($resourceClass)
                 ->getRepository($resourceClass)->createQueryBuilder('item')
                 ->where('item.status = :deleted')
                 ->setParameter('deleted', false);
-            $this->paginator->applyToCollection($collection, new QueryNameGenerator(), $resourceClass, $operationName, $this->context);
-        }
-        return $collection->getQuery()->getResult();
+            $this->paginator->applyToCollection($repository, new QueryNameGenerator(), $resourceClass, $operationName, $this->context);
+
+            if ($this->paginator instanceof QueryResultCollectionExtensionInterface
+            && $this->paginator->supportsResult($resourceClass, $operationName, $this->context)) {
+
+            return $this->paginator->getResult($repository, $resourceClass, $operationName, $this->context);
+            }
+             return $repository->getQuery()->getResult();
     }
 }

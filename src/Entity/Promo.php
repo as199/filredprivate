@@ -213,13 +213,14 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="promo", cascade="persist")
-     * @Groups ({"promo:read","promo:write"})
+     * @Groups ({"promo:read","promo:write","promoapprenant:read"})
      *
      */
     private $apprenants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, inversedBy="promos", cascade="persist")
+     * @Groups ({"admin_promo_apprenant:read"})
      */
     private $referenciels;
 

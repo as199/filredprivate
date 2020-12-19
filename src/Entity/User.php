@@ -66,13 +66,13 @@ class User implements UserInterface
      *     "formApprentReference:read","RefFormGroup:read","admin_profil_id:read",
      *     "admin_user:read","promo:read","promo:write","promoapprenant:read","profil_sortis_id:read",
      *     "profil_sortis_apprenant:read","profil_sortis_post:write","profil_sortis_get:read"
-     *      ,"brief_formateur_brouillon:read"})
+     *      ,"brief_formateur_brouillon:read","promoapprenant:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups ({"admin_profil_id:read","admin_user:read"})
+     * @Groups ({"admin_profil_id:read","admin_user:read","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your username")
      * @Assert\Length(
      *     min = 4,
@@ -102,7 +102,7 @@ class User implements UserInterface
  * getReferencielApprenantCompetence:read","admin_promo_referenciel_formateur:read",
  * "admin_promo_apprenant_groupes:read","admin_promo_apprenant:read",
      *     "formApprentReference:read","RefFormGroup:read","admin_profil_id:read",
-     *     "admin_user:read","promo:read","promo:write","promoapprenant:read",
+     *     "admin_user:read","promo:read","promo:write","promoapprenant:read","promoapprenant:read",
      *     "profil_sortis_id:read","profil_sortis_apprenant:read","profil_sortis_get:read","brief_formateur_brouillon:read"})
      *  @Assert\NotBlank(groups={"postValidation"})
      */
@@ -110,7 +110,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"admin_profilsorties:read","getReferencielApprenantCompetence:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"promoapprenant:read","admin_profilsorties:read","getReferencielApprenantCompetence:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your address")
      *
      */
@@ -119,7 +119,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profilsorties:read","admin_promo_apprenant_groupes:read",
-     *     "admin_promo_apprenant:read","admin_profil_id:read","admin_user:read",
+     *     "admin_promo_apprenant:read","admin_profil_id:read","promoapprenant:read","admin_user:read",
      *     "promo:read","promo:write","profil_sortis_apprenant:read"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
      *
@@ -128,7 +128,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profilsorties:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * * @Groups ({"admin_profilsorties:read","promoapprenant:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")

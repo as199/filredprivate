@@ -70,7 +70,7 @@ class AdminController extends AbstractController
         $type = $request->get('type'); //pour dynamiser
        // dd($type);
         $utilisateur = $service->NewUser($type,$request);
-       $this->validator->ValidatePost($utilisateur) ;
+      // $this->validator->ValidatePost($utilisateur) ;
 
 
         //dd($utilisateur);

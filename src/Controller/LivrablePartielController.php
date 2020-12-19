@@ -26,6 +26,7 @@ class LivrablePartielController extends AbstractController
 
     public function RecupApprenantRef($id,CompetencesValidesRepository $competencesValidesRepository,PromoRepository $promoRepository,ReferencielRepository $reporef,$num): JsonResponse
     {
+        dd("chfv");
         $comp = $competencesValidesRepository->findBy(["promo"=>$id]);
         dd($comp[0]->getCompetences());
         $promo = $promoRepository->find($id);
@@ -375,7 +376,7 @@ class LivrablePartielController extends AbstractController
         $groupes = $apprenant->getGroupes();
         foreach ($groupes as $groupe){
             $nbreAssigne=0;$nbreValid=0;$nbreNonValid=0;
-            if($groupe->getStatut()== $id){
+            if($groupe->getStatus()== $id){
                 if ($groupe->getPromo()->getId() == $idp){
                     $briefs = $groupe->getEtatBriefs();
                     foreach ($briefs as $brief){

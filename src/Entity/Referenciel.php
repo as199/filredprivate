@@ -41,7 +41,7 @@ class Referenciel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"referenciel:read","formApprentReference:read","formReference:read"})
+     * @Groups ({"referenciel:read","formApprentReference:read","formReference:read","admin_promo_apprenant:read"})
      */
     private $id;
 

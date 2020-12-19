@@ -51,8 +51,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "method"="GET",
  *     "normalizationContext"={"groups":{"competenceV:read"}},
  *     "path"="/apprenant/{id}/promo/{id_a}/referentiel/{id_b}/competences",
- *     "controller":"App\Controller\LivrablePartielController::class",
- *     "route_name"="apprenant_competences",
  *     "access_control"="(is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))"
  *      },
  *     "get_apprenant_brief":{

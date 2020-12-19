@@ -36,6 +36,21 @@ class ApprenantRepository extends ServiceEntityRepository
     }
 
     */
+    public function findByExampleField($id1,$id2,$id3)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id= :idA')
+            ->setParameter('idA', $id1)
+            ->innerJoin('a.promo', 'p')
+            ->andWhere('p.id= :idP')
+            ->setParameter('idP', $id2)
+            ->innerJoin('p.referentiel', 'r')
+            ->andWhere('r.id= :idR')
+            ->setParameter('idR', $id3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     public function recuperApprenants($value,$id): \Doctrine\ORM\QueryBuilder
     {
         return $this->createQueryBuilder('a')
