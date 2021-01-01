@@ -40,13 +40,13 @@ class ProfilSorti
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"profil_sortis_post:write"})
+     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups ({"profil_sortis_post:write"})
+     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read"})
      */
     private $status = false;
 

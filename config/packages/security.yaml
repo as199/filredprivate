@@ -11,6 +11,7 @@ security:
                 class: App\Entity\User
                 property: username
     firewalls:
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -22,6 +23,13 @@ security:
                 check_path: /login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        refresh:
+              pattern: ^/token/refresh
+              stateless: true
+              anonymous: true
+        main:
+            pattern: ^/
+            anonymous: true
 
         register:
                 pattern: ^/register
@@ -54,6 +62,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         # - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/api,roles: IS_AUTHENTICATED_FULLY }

@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "delete":{"access_control"="(is_granted('ROLE_ADMIN'))"},
  *     "get_on":{"method":"get","path":"/admin/profils/{id}","access_control"="(is_granted('ROLE_ADMIN') )",
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
+*                 "normalization_context"={"groups":"admprofil:read"},
  *            },"put":{"path":"/admin/profils/{id}"},
  *     }
  *
@@ -52,13 +53,13 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read"})
+     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","admprofil:read","admin_user:read","adminv_user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
+     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read","admprofil:read","admin_user:read","adminv_user:read"})
      *@Assert\NotBlank(message="please enter the libelle")
      */
     private $libelle;
@@ -72,7 +73,7 @@ class Profil
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read"})
+     *  @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","profiladd:read","admprofil:read"})
      */
     private $status;
 

@@ -103,6 +103,7 @@ la poo
     - /etc/php/7.4/cli/conf.d/20-tokenizer.ini
 You can also run `php --ini` inside terminal to see which files are used by PHP in CLI mode.
 2. la solutio :apt install php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
+3. La solution est trouvée. Pour une raison quelconque, mon composer.jsoncontenu "ext-http": "*" supprime le.
 /*************************Erreur de Extension DOM required ********************/
 1. Extension DOM is required.
 ++++++++++SOLUTION: 
@@ -119,5 +120,5 @@ composer update --ignore-platform-reqs
 
 /*******In AbstractMySQLDriver.phpAn exception occurred in driver: could not find driver****************************
 
-
+1. sudo apt-get install php-mysql
 

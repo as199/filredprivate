@@ -26,7 +26,6 @@ class LivrablePartielController extends AbstractController
 
     public function RecupApprenantRef($id,CompetencesValidesRepository $competencesValidesRepository,PromoRepository $promoRepository,ReferencielRepository $reporef,$num): JsonResponse
     {
-        dd("chfv");
         $comp = $competencesValidesRepository->findBy(["promo"=>$id]);
         dd($comp[0]->getCompetences());
         $promo = $promoRepository->find($id);

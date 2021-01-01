@@ -110,8 +110,14 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.1"
+    },
     "fzaninotto/faker": {
         "version": "v1.9.1"
+    },
+    "gesdinet/jwt-refresh-token-bundle": {
+        "version": "v0.10.0"
     },
     "laminas/laminas-code": {
         "version": "3.5.0"
@@ -160,9 +166,6 @@
     },
     "nikic/php-parser": {
         "version": "v4.10.2"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.10.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -571,9 +574,6 @@
     },
     "twig/twig": {
         "version": "v3.1.1"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"
