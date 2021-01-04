@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={
  *            "GET":{ "method":"GET","path":"/profil_sortis/{id}","normalization_context"={"groups":"profil_sortis_id:read"}},
  *              "PUT":{ "method":"PUT","path":"/profil_sortis/{id}","denormalization_context"={"groups":"profil_sortis_post:write"}},
+ *              "Delete":{ "method":"DELETE","path":"/profil_sortis/{id}","denormalization_context"={"groups":"profil_sortisd_post:write"}},
  *
  *     }
  * )
@@ -34,19 +35,20 @@ class ProfilSorti
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"profil_sortis:read","profil_sortisd_post:write"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read"})
+     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read","profil_sortisd_post:write"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read"})
+     * @Groups ({"profil_sortis_post:write","profil_sortis:read","profil_sortis_id:read","profil_sortisd_post:write"})
      */
     private $status = false;
 

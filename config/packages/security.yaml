@@ -27,9 +27,7 @@ security:
               pattern: ^/token/refresh
               stateless: true
               anonymous: true
-        main:
-            pattern: ^/
-            anonymous: true
+        
 
         register:
                 pattern: ^/register

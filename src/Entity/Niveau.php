@@ -22,27 +22,28 @@ class Niveau
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"brief:read"})
+     * @Groups ({"brief:read","competence:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="please enter your libelle")
-     * @Groups ({"brief:read"})
+     * @Groups ({"brief:read","competence:write","competence:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="please enter your evaluation critere")
-     * @Groups ({"brief:read"})
+     * @Groups ({"brief:read","competence:write","competence:read"})
      */
     private $critereEvalution;
 
     /**
      * @ORM\Column(type="string", length=255)
      *@Assert\NotBlank(message="please enter your action groups")
+     * @Groups ({"competence:write","competence:read"})
      */
     private $groupeAction;
 

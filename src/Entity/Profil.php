@@ -15,11 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
- * @ApiResource(itemOperations={
- *     "get_user_profil":{
+ * @ApiResource(attributes={"pagination_items_per_page"=5},
+ *itemOperations={
+ *"get_user_profil":{
  *      "method":"get",
  *      "path":"/admin/profils/{id}/users",
- *      "normalization_context"={"groups":"admin_profil_id:read"},
+ *      "normalization_context"={"groups":"admin_profils_id:read"},
  *      "access_control"="(is_granted('ROLE_ADMIN') )",
  *       "access_control_message"="Vous n'avez pas access à cette Ressource",
  *     },
@@ -31,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  *
  *     ,
- *      attributes={"pagination_items_per_page"=5},
+ *
  *     collectionOperations={
  *
  *      "admin_profil":{
@@ -42,6 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *               "access_control_message"="Vous n'avez pas access à cette Ressource",
  *         },
  *          "post",
+ *
  * })
  *
  * @ApiFilter (SearchFilter::class, properties={"status": "exact"})
@@ -53,7 +55,7 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"admin_profil:read","admin_profil_id:read","profil_id:read","admprofil:read","admin_user:read","adminv_user:read"})
+     * @Groups({"admin_profil:read","admin_profils_id:read","admin_profil_id:read","profil_id:read","admprofil:read","admin_user:read","adminv_user:read"})
      */
     private $id;
 
@@ -66,7 +68,7 @@ class Profil
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
-     * @Groups({"admin_profil_id:read"})
+     * @Groups({"admin_profil_id:read","admin_profils_id:read"})
      *
      */
     private $users;

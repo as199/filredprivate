@@ -47,7 +47,7 @@ class GestionImage
      * @param string|null $fileName
      * @return array
      */
-    public function GestionImage(Request $request, string $fileName = null)
+    public function GestionImage(Request $request, string $fileName = null): array
     {
         $raw = $request->getContent();
 

@@ -25,6 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *"updateCompetences":{
  *              "method":"PUT",
  *              "path": "/admin/competences/{id}",
+ *               "denormalization_context"={"groups":"competencer:write"},
  *              "route_name"="PutCompetence",
  *               "access_control"="(is_granted('ROLE_ADMIN') )",
  *
@@ -38,11 +39,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT') or is_granted('ROLE_CM') or object==user)",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
+ *     "get_all_competences": {
+ *   "method": "GET",
+ *   "path": "/competences",
+ *   "normalization_context"={"groups":"competences:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT') or is_granted('ROLE_CM') or object==user)",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
  *
  * "add_competence": {
  *    "method": "POST",
  *    "path": "/admin/competences",
- *    "normalization_context"={"groups":"competence:read"},
+ *    "denormalization_context"={"groups":"competence:write"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
  *   }
@@ -58,7 +66,7 @@ class Competence
      * @ORM\Column(type="integer")
      * @Groups ({"brief:read","formReference:read","competence:read",
      *     "gc:read","gcu:read","competences:read","gcf:read",
-     *     "referencielgroupe:read","referenciel:read"})
+     *     "referencielgroupe:read","referenciel:read","competencer:write"})
      */
     private $id;
 
@@ -66,7 +74,7 @@ class Competence
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"brief:read","formReference:read","competence:read",
      *     "gc:read","gcu:read","competences:read","gcf:read",
-     *     "referencielgroupe:read"})
+     *     "referencielgroupe:read","competence:write"})
      * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;
@@ -75,7 +83,7 @@ class Competence
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"competence:read"})
+     *  @Groups ({"competence:read","competence:read"})
      */
     private $status = false;
 
@@ -87,12 +95,13 @@ class Competence
      *      minMessage = "You must specify at least three levels",
      *      maxMessage = "You cannot specify more than {{ limit }} levels"
      * )
+     * @Groups ({"competence:write","competence:read"})
      */
     private $niveau;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, mappedBy="competences")
-     * @Groups ({"gc:read"})
+     * @Groups ({"gc:read","competence:write","competences:read","competence:read"})
      */
     private $groupeCompetences;
 
@@ -103,7 +112,7 @@ class Competence
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *  @Groups ({"brief:read"})
+     *  @Groups ({"brief:read","competence:read","competence:write"})
      */
     private $descriptif;
 

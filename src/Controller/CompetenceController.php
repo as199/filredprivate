@@ -64,6 +64,7 @@ class CompetenceController extends AbstractController
         }
 
         if (isset($tabCompetences['niveau']))
+//        dd($tabCompetences['niveau']);
         {
             foreach ($tabCompetences['niveau'] as $niveau)
             {

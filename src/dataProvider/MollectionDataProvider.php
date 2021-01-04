@@ -9,11 +9,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\Apprenant;
+use App\Entity\Competence;
+use App\Entity\GroupeCompetence;
+use App\Entity\User;
 use App\Repository\ApprenantRepository;
 use App\Repository\BriefMaPromoRepository;
 use App\Repository\ChatRepository;
 use App\Repository\FormateurRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\UserRepository;
 use App\Repository\PromoRepository;
 use App\Service\LivrablePartielService;
 use App\Service\ProfilSortiService;
@@ -49,6 +53,10 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
      */
     private ApprenantRepository $apprenantRepository;
     /**
+    *@var UserRepository
+    */
+    private UserRepository $userRepo;
+    /**
      * @var ChatRepository
      */
     private ChatRepository $chatRepository;
@@ -80,7 +88,9 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
          PaginationExtension $paginator,ManagerRegistry $manager,ChatRepository $chatRepository,GroupeRepository $groupeRepository
         ,PromoService $promoService,LivrablePartielService $livrablePartielService,
           ProfilSortiService $profilSortiService, FormateurRepository $formateurRepository,
-                                BriefMaPromoRepository $briefMaPromoRepository)
+                                BriefMaPromoRepository $briefMaPromoRepository,
+                                UserRepository $userRepo
+                                )
     {
         $this->paginator = $paginator;
         $this->manager =$manager;
@@ -92,6 +102,7 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
         $this->promoRepository = $promoRepository;
         $this->groupeRepository = $groupeRepository;
         $this->serializer = $serializer;
+        $this->userRepo = $userRepo;
         $this->formateurRepository = $formateurRepository;
         $this->briefMaPromoRepository = $briefMaPromoRepository;
     }
@@ -160,6 +171,14 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
             $collection = $this->formateurRepository->recupBriefValide($id);
             //dd($collection);
         }
+        if($operationName =='get_all_competences'){
+           return $this->manager->getRepository(Competence::class)->findAll();
+
+        }
+        if($operationName =='get_all_groupe_competences'){
+           return $this->manager->getRepository(GroupeCompetence::class)->findAll();
+
+        }
         if ($operationName == "get_formateur_id_brief_promo"){
             $data = explode("/",$context["request_uri"]);
             $id =(int)$data[4];
@@ -179,6 +198,19 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
                 ->innerJoin('p.referenciels','r')
                 ->andWhere('r.id = :idR')
                 ->setParameter('idR',$id1);
+
+        }
+        if($operationName === "get_user_profil"){
+        $data = explode("/",$context["request_uri"]);
+        $id =(int)$data[4];
+        $res =  $this->userRepo->findUserByProfil($id);
+        $collection = $this->manager->getRepository(User::class)
+            ->createQueryBuilder('u')
+            ->innerJoin('u.profil','p')
+            ->andWhere('p.id =:id')
+            ->setParameter('id',$id);
+
+
 
         }
 

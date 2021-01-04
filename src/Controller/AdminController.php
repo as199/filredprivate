@@ -70,12 +70,12 @@ class AdminController extends AbstractController
         $type = $request->get('type'); //pour dynamiser
        // dd($type);
         $utilisateur = $service->NewUser($type,$request);
-      // $this->validator->ValidatePost($utilisateur) ;
+       $this->validator->ValidatePost($utilisateur) ;
 
 
-        //dd($utilisateur);
+        $utilisateur->setStatus(false);
         $this->manager->persist($utilisateur);
-       // dd($utilisateur);
+       //dd($utilisateur);
          $this->manager->flush();
         $this->sendEmail->send($utilisateur->getEmail(),"registration",'your registration has been successfully completed');
        // $utilisateur->setAvartar($utilisateur->getAvartar());

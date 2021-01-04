@@ -66,7 +66,7 @@ class User implements UserInterface
      *     "formApprentReference:read","RefFormGroup:read","admin_profil_id:read",
      *     "admin_user:read","promo:read","promo:write","promoapprenant:read","profil_sortis_id:read",
      *     "profil_sortis_apprenant:read","profil_sortis_post:write","profil_sortis_get:read"
-     *      ,"brief_formateur_brouillon:read","promoapprenant:read","adminv_user:read"})
+     *      ,"brief_formateur_brouillon:read","promoapprenant:read","adminv_user:read","admin_profils_id:read"})
      */
     private $id;
 
@@ -102,7 +102,7 @@ class User implements UserInterface
      * @Groups ({"profil_sortis_post:write","admin_profilsorties:read","
  * getReferencielApprenantCompetence:read","admin_promo_referenciel_formateur:read",
  * "admin_promo_apprenant_groupes:read","admin_promo_apprenant:read",
-     *     "formApprentReference:read","RefFormGroup:read","admin_profil_id:read",
+     *     "formApprentReference:read","admin_profils_id:read","RefFormGroup:read","admin_profil_id:read",
      *     "admin_user:read","promo:read","promo:write","promoapprenant:read","promoapprenant:read",
      *     "profil_sortis_id:read","profil_sortis_apprenant:read","profil_sortis_get:read","brief_formateur_brouillon:read","adminv_user:read"})
      *  @Assert\NotBlank(groups={"postValidation"})
@@ -111,7 +111,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"promoapprenant:read","admin_profilsorties:read","getReferencielApprenantCompetence:read","adminv_user:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * @Groups ({"promoapprenant:read","admin_profils_id:read","admin_profilsorties:read","getReferencielApprenantCompetence:read","adminv_user:read","admin_promo_apprenant_groupes:read","admin_promo_apprenant:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank(message="please enter your address")
      *
      */
@@ -120,7 +120,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups ({"admin_profilsorties:read","admin_promo_apprenant_groupes:read",
-     *     "admin_promo_apprenant:read","admin_profil_id:read","promoapprenant:read","adminv_user:read","admin_user:read",
+     *     "admin_promo_apprenant:read","admin_profils_id:read","admin_profil_id:read","promoapprenant:read","adminv_user:read","admin_user:read",
      *     "promo:read","promo:write","profil_sortis_apprenant:read"})
      * @Assert\NotBlank(message="please enter your phoneNumber")
      *
@@ -129,7 +129,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profilsorties:read","promoapprenant:read","admin_promo_apprenant:read","adminv_user:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * * @Groups ({"admin_profilsorties:read","admin_profils_id:read","promoapprenant:read","admin_promo_apprenant:read","adminv_user:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")
@@ -142,17 +142,17 @@ class User implements UserInterface
      * @ORM\Column(type="boolean",  nullable=true)
      * * @Groups ({"admin_profil_id:read"})
      */
-    private $status=1;
+    private $status= 0;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     * * @Groups ({"admin_profil_id:read","adminv_user:read","admin_user:read"})
+     * * @Groups ({"admin_profil_id:read","admin_profils_id:read","adminv_user:read","admin_user:read"})
      */
     private $avartar;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups ({"admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read","adminv_user:read"})
+     * @Groups ({"admin_profil_id:read","admin_profils_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read","adminv_user:read"})
      * @Assert\NotBlank(message="please enter your gender")
      * @Assert\Choice(choices=User::GENRES, message="Choose a valid genre.")
      *
@@ -168,6 +168,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->chats = new ArrayCollection();
+         $this->status = 0;
     }
 
     public function getId(): ?int

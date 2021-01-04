@@ -44,6 +44,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
+ *     "get_all_groupe_competences": {
+ *   "method": "GET",
+ *   "path": "/grpecompetences",
+ *   "normalization_context"={"groups":"gprecompetence:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
  * "get_lister_competence_dans_groupes": {
  *    "method": "GET",
  *    "path": "/admin/grpecompetences/competences",
@@ -69,13 +76,13 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","competence:read","competences:read","competence:write","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","competences:read","competence:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $libelle;
 
