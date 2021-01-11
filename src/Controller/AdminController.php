@@ -94,7 +94,7 @@ class AdminController extends AbstractController
      *     }
      *     )
      */
-    public function putUserId(GestionImage $service, Request $request)
+    public function putUserId(GestionImage $service, Request $request): JsonResponse
     {
         $profil = $request->get('profil'); //pour dynamiser
         //dd($profil);

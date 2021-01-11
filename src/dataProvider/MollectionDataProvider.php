@@ -11,6 +11,7 @@ use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\Apprenant;
 use App\Entity\Competence;
 use App\Entity\GroupeCompetence;
+use App\Entity\Referenciel;
 use App\Entity\User;
 use App\Repository\ApprenantRepository;
 use App\Repository\BriefMaPromoRepository;
@@ -172,11 +173,34 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
             //dd($collection);
         }
         if($operationName =='get_all_competences'){
-           return $this->manager->getRepository(Competence::class)->findAll();
+            return $this->manager
+                ->getRepository(Competence::class)->createQueryBuilder('item')
+                ->where('item.status = :deleted')
+                ->setParameter('deleted', false)
+                ->getQuery()
+                ->getResult();
+           //return $this->manager->getRepository(Competence::class)->findAll();
 
         }
         if($operationName =='get_all_groupe_competences'){
-           return $this->manager->getRepository(GroupeCompetence::class)->findAll();
+
+            return $this->manager
+                ->getRepository(GroupeCompetence::class)->createQueryBuilder('item')
+                ->where('item.status = :deleted')
+                ->setParameter('deleted', false)
+                ->getQuery()
+                ->getResult();
+//           return $this->manager->getRepository(GroupeCompetence::class)->findAll();
+
+        }
+        if($operationName =='getAllReferenciel'){
+            return $this->manager
+                ->getRepository(Referenciel::class)->createQueryBuilder('item')
+                ->where('item.status = :deleted')
+                ->setParameter('deleted', false)
+                ->getQuery()
+                ->getResult();
+           // $this->manager->getRepository(Referenciel::class)->findAll();
 
         }
         if ($operationName == "get_formateur_id_brief_promo"){

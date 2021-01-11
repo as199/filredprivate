@@ -19,7 +19,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     routePrefix="/formateurs/",
  *     collectionOperations={
  *          "Get1":{"method":"GET","path":"/briefs","normalization_context"={"groups":"brief:read"}},
- *          "GetGroupe":{"method":"GET","path":"/promo/{id}/groupe/{id1}/briefs","route_name"="gettingBrief","normalization_context"={"groups":"brief_groupe:read"}},
+ *          "GetGroupe":{
+ *     "method":"GET",
+ *     "path":"/promo/{id}/groupe/{id1}/briefs",
+ *     "route_name"="gettingBrief",
+ *     "normalization_context"={"groups":"brief_groupe:read"}},
  *     "POST",
  *     }
  * )

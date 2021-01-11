@@ -126,7 +126,7 @@ class GroupeCompetenceController extends AbstractController
         $groupeCompetene->setDescriptif($compObject['descriptif']);
         $groupeCompetene->setStatus(false);
         foreach ($compObject['competence'] as $competence){
-            //dd($competence['libelle']);
+           // dd($competence);
             if($this->competenceRepository->findOneBy(['libelle'=>$competence['libelle']])){
                 $objCompetence =$this->competenceRepository->findOneBy(['libelle'=>$competence['libelle']]);
 

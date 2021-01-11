@@ -129,7 +129,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups ({"admin_profilsorties:read","admin_profils_id:read","promoapprenant:read","admin_promo_apprenant:read","adminv_user:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
+     * * @Groups ({"admin_profilsorties:read","promo:write","admin_profils_id:read","promoapprenant:read","admin_promo_apprenant:read","adminv_user:read","admin_profil_id:read","admin_user:read","promo:read","promo:write","promoapprenant:read"})
      * @Assert\NotBlank
      *  @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      * @Assert\NotBlank(message="please enter your E-mail")
@@ -316,7 +316,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvartar()
+    public function getAvartar(): string
     {   if ($this->avartar != null){
         return base64_encode(stream_get_contents($this->avartar));
         }else{

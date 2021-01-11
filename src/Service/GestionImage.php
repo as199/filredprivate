@@ -50,8 +50,6 @@ class GestionImage
     public function GestionImage(Request $request, string $fileName = null): array
     {
         $raw = $request->getContent();
-
-         //dd($raw);
         //dd($request->headers->get("content-type"));
         $delimiteur = "multipart/form-data; boundary=";
         $boundary = "--" . explode($delimiteur, $request->headers->get("content-type"))[1];
@@ -74,15 +72,18 @@ class GestionImage
                 //dd($data);
             } else {
                 $val = $elementsTab[$i + 1];
-                //$val = str_replace(["\r\n", "--"],'',base64_encode($elementsTab[$i+1]));
+                $val = str_replace(["\r\n", "--"],'',$elementsTab[$i+1]);
                 //dd($val);
                 $data[$key] = $val;
                 // dd($data[$key]);
             }
         }
         //dd($data);
-        $prof = $this->profilRepository->findOneBy(['libelle' => $data["profil"]]);
-        $data["profil"] = $prof;
+        if (isset($data["profil"])){
+            $prof = $this->profilRepository->findOneBy(['libelle' => $data["profil"]]);
+            $data["profil"] = $prof;
+        }
+
         //dd($data);
         return $data;
     }

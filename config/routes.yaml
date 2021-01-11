@@ -39,4 +39,22 @@ recuperer_stat_referentiel:
   path: /api/formateurs/promo/{id}/referentiel/{num}/statistiques/competences
   controller: App\Controller\LivrablePartielController::RecupApprenantRef
 
+addReferenciel:
+  path: /api/admin/referenciels
+  controller: App\Controller\ReferencielController::AddReferenciel
 
+editReferenciel:
+  path: /api/admin/referenciels/{id}
+  controller: App\Controller\ReferencielController::EditReferenciel
+
+deleteReferenciel:
+  path: /api/admin/referenciel/{id}
+  controller: App\Controller\ReferencielController::DeleteReferenciel
+
+editPromo:
+  path: /api/admin/promo/{id}
+  controller: App\Controller\PromoController::EditPromo
+
+addPromo:
+  path: /api/admin/promo
+  controller: App\Controller\PromoController::AddPromo

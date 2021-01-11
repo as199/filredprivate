@@ -66,7 +66,7 @@ class Competence
      * @ORM\Column(type="integer")
      * @Groups ({"brief:read","formReference:read","competence:read",
      *     "gc:read","gcu:read","competences:read","gcf:read",
-     *     "referencielgroupe:read","referenciel:read","competencer:write"})
+     *     "referencielgroupe:read","referenciel:read","competencer:write","gcuadd:read"})
      */
     private $id;
 
@@ -74,7 +74,7 @@ class Competence
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"brief:read","formReference:read","competence:read",
      *     "gc:read","gcu:read","competences:read","gcf:read",
-     *     "referencielgroupe:read","competence:write"})
+     *     "referencielgroupe:read","gcfr:read","gcuadd:write","competence:write"})
      * @Assert\NotBlank (message="please enter the competence")
      */
     private $libelle;
@@ -95,7 +95,7 @@ class Competence
      *      minMessage = "You must specify at least three levels",
      *      maxMessage = "You cannot specify more than {{ limit }} levels"
      * )
-     * @Groups ({"competence:write","competence:read"})
+     * @Groups ({"competence:write","competence:read","gcuadd:write"})
      */
     private $niveau;
 
@@ -112,7 +112,7 @@ class Competence
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *  @Groups ({"brief:read","competence:read","competence:write"})
+     *  @Groups ({"brief:read","gcuadd:write","competence:read","competence:write"})
      */
     private $descriptif;
 

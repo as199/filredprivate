@@ -89,7 +89,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
  *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
- *     "DELETE","PUT"},
+ *     "DELETE","PUTPromo":{
+ *      "method":"PUT",
+ *     "path":"/promo/{id}",
+ *     "route_name"="editPromo",
+ *      "denormalizationContext"={"groups"={"promo:write"}},
+ *          "access_control"="(is_granted('ROLE_ADMIN'))",
+ *     "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *     }},
  *     collectionOperations={
  *          "get_groupe_principale"={
  *              "method":"GET",
@@ -102,12 +109,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          },
  *          "formateurapprenant"={
  *               "method":"GET",
- *               "path":"/promo/",
+ *               "path":"/promo",
  *               "normalizationContext"={"groups"={"formateurapprenant:read"}},
  *           },
  *           "addpromo"={
  *               "method":"POST",
  *                "path":"/promo",
+ *                 "route_name"="addPromo",
  *                "denormalizationContext"={"groups"={"promo:write"}},
  *            }
  *      }
@@ -184,8 +192,7 @@ class Promo
 
     /**
      * @ORM\Column(type="date")
-     * @Groups ({"admin_groupe:read"})
-     *  @Groups ({"promo:read","promo:write"})
+     * @Groups ({"admin_groupe:read","promo:read","promo:write"})
      * @Assert\NotBlank(message="please enter end date")
      */
     private $dateFinReel;
@@ -193,6 +200,7 @@ class Promo
 
     /**
      * @ORM\Column(type="blob", nullable=true)
+     *  @Groups ({"admin_groupe:read","promo:read","promo:write"})
      */
     private $avatar;
 
@@ -239,6 +247,7 @@ class Promo
         $this->apprenants = new ArrayCollection();
         $this->referenciels = new ArrayCollection();
         $this->briefMaPromo = new ArrayCollection();
+        $this->setStatus(false);
     }
 
     public function getId(): ?int

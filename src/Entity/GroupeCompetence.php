@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * itemOperations={
  * "get_groupe_competence_id":{
  *   "method": "GET",
+ *     "normalization_context"={"groups":"gcfr:read"},
  *   "path": "/admin/grpecompetences/{id}",
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
@@ -62,6 +63,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "route_name"="groupcompadd",
  *    "method": "POST",
  *    "path": "/admin/grpecompetences",
+ *     "denormalization_context"={"groups":"gcuadd:read"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
  *
@@ -76,13 +78,13 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"formReference:read","competence:read","competences:read","competence:write","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","renciel:read","gcfr:read","competence:read","gcfr:read","competences:read","competence:write","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","competences:read","competence:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","renciel:read","gcfr:read","gcuadd:write","competences:read","competence:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $libelle;
 
@@ -90,7 +92,7 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","renciel:read","gcfr:read","gcuadd:write","competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      *
      */
     private $descriptif;
@@ -103,13 +105,14 @@ class GroupeCompetence
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
-     * @Groups ({"formReference:read","gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
+     * @Groups ({"formReference:read","gcfr:read","gcuadd:write","gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
      * @ApiSubresource()
      */
     private $competences;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="groupeCompetence")
+     * @Groups ({"gcuadd:write"})
      */
     private $referenciels;
 

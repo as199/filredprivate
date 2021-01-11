@@ -23,21 +23,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DataPersister/ProfilSortiDataPersister.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/PromoController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ReferencielController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/promo/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/referenciel/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mis_a_niveau_Fil_rouge.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201126122316.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201126171155.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20210107150013.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201127091247.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201127093954.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201127094218.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201127095939.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201130085600.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201201080540.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201202092048.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201202133155.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201202140330.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201202163616.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201202180019.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20210108105443.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201203075155.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20210108103346.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201203103515.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201203104227.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201203110416.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201203133253.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204093850.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204114333.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204115937.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121140.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121255.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121352.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121514.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121652.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201204121735.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201206024519.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201206031422.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201206053240.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201206095353.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CompetenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CompetenceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GroupeCompetenceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Brief.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Brief.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Competence.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Niveau.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Niveau.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ProfilSorti.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/GestionImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/GestionImage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/InscriptionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/InscriptionService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/PromoService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PromoService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,6 +218,17 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/vendor/gesdinet/jwt-refresh-token-bundle" />
       <path value="$PROJECT_DIR$/vendor/friendsofphp/proxy-manager-lts" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpexcel" />
     </include_path>
   </component>
   <component name="ProjectId" id="1kPvqHDfxbWf1PPGAPW8dnbnMZH" />
@@ -269,7 +320,14 @@
       <workItem from="1609584811109" duration="10172000" />
       <workItem from="1609715312773" duration="168000" />
       <workItem from="1609747177307" duration="1614000" />
-      <workItem from="1609749048041" duration="9827000" />
+      <workItem from="1609749048041" duration="12853000" />
+      <workItem from="1609930365281" duration="4418000" />
+      <workItem from="1610031347626" duration="10078000" />
+      <workItem from="1610105090097" duration="149000" />
+      <workItem from="1610106671345" duration="10020000" />
+      <workItem from="1610180456410" duration="3215000" />
+      <workItem from="1610203904468" duration="3289000" />
+      <workItem from="1610372534303" duration="14778000" />
     </task>
     <servers />
   </component>

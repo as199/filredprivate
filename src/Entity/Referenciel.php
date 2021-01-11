@@ -25,13 +25,43 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "normalizationContext"={"groups"={"referencielgroupe:read"}},
  *     "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))"
  *     },
- *     "POST"},
+ *     "getAllReferenciel"={
+*       "method":"GET",
+ *     "path":"/all/referenciels",
+ *      "normalizationContext"={"groups"={"referencielGet:read"}},
+ *       "access_control"="(is_granted('ROLE_ADMIN') )",
+ *     },
+ *
+ *     "SelectAll"={
+ *     "method":"POST",
+ *     "path":"api/admin/referenciels",
+ *     "route_name"="addReferenciel",
+ *      "denormalizationContext"={"groups"={"referenciel:write"}},
+ *       "access_control"="(is_granted('ROLE_ADMIN') )",
+ *
+ *     }
+ *     },
  *     itemOperations={
  *     "GET"={
  *            "method":"GET",
  *           "path":"/referenciels/{id}",
+ *     "normalizationContext"={"groups"={"renciel:read"}},
  *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))"
- *     },"PUT",
+ *     },
+ *     "deletedd"={
+ *      "method":"DELETE",
+ *       "path":"/referenciel/{id}",
+ *        "route_name"="deleteReferenciel",
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))"
+ *     },
+ *     "editerref"={
+ *     "method":"PUT",
+ *     "path":"api/admin/referenciels/{id}",
+ *     "route_name"="editReferenciel",
+ *      "denormalizationContext"={"groups"={"referenciel:write"}},
+ *       "access_control"="(is_granted('ROLE_ADMIN') )",
+ *
+ *     },
  *     }
  * )
  */
@@ -41,49 +71,44 @@ class Referenciel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"referenciel:read","formApprentReference:read","formReference:read","admin_promo_apprenant:read"})
+     * @Groups ({"referenciel:read","referencielGet:read","renciel:read","formApprentReference:read","formReference:read","admin_promo_apprenant:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"referenciel:read","referenciel:write","formApprentReference:read","formReference:read"})
+     * @Groups ({"referenciel:read","referencielGet:read","renciel:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write","formApprentReference:read","formReference:read"})
+     *  @Groups ({"referenciel:read","renciel:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $presentation;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
-     */
-    private $programme;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
+     *  @Groups ({"referenciel:read","renciel:read","referenciel:write","formReference:read"})
      */
     private $criteradmission;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
+     *  @Groups ({"referenciel:read","renciel:read","referenciel:write","formReference:read"})
      */
     private $critereEvaluation;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
+     *  @Groups ({"referenciel:read","renciel:read","referenciel:write","formReference:read"})
      */
     private $status = false;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="referenciels",cascade={"persist"})
-     * @Groups ({"formReference:read","referenciel:read","referenciel:write","referencielgroupe:read"})
+     * @Groups ({"formReference:read","renciel:read","referenciel:read","referenciel:write","referencielgroupe:read"})
      * @ApiSubresource()
      */
     private $groupeCompetence;
@@ -97,6 +122,12 @@ class Referenciel
      * @ORM\ManyToMany(targetEntity=Promo::class, mappedBy="referenciels")
      */
     private $promos;
+
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     *  @Groups ({"referenciel:read","referenciel:write","formReference:read"})
+     */
+    private $programmes;
 
 
 
@@ -138,17 +169,6 @@ class Referenciel
         return $this;
     }
 
-    public function getProgramme(): ?string
-    {
-        return $this->programme;
-    }
-
-    public function setProgramme(?string $programme): self
-    {
-        $this->programme = $programme;
-
-        return $this;
-    }
 
     public function getCriteradmission(): ?string
     {
@@ -263,6 +283,22 @@ class Referenciel
         if ($this->promos->removeElement($promo)) {
             $promo->removeReferenciel($this);
         }
+
+        return $this;
+    }
+
+    public function getProgrammes()
+    {
+        if ($this->programmes != null){
+            return base64_encode(stream_get_contents($this->programmes));
+        }else {
+            return $this->programmes;
+        }
+    }
+
+    public function setProgrammes($programmes): self
+    {
+        $this->programmes = $programmes;
 
         return $this;
     }
