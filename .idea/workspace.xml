@@ -25,6 +25,7 @@
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PromoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PromoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +275,8 @@
       <workItem from="1610106671345" duration="10020000" />
       <workItem from="1610180456410" duration="3215000" />
       <workItem from="1610203904468" duration="3289000" />
-      <workItem from="1610372534303" duration="16053000" />
+      <workItem from="1610372534303" duration="17005000" />
+      <workItem from="1610454074365" duration="1850000" />
     </task>
     <servers />
   </component>

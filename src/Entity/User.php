@@ -316,7 +316,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvartar(): string
+    public function getAvartar()
     {   if ($this->avartar != null){
         return base64_encode(stream_get_contents($this->avartar));
         }else{

@@ -7,6 +7,7 @@ use App\Entity\Promo;
 use App\Repository\ApprenantRepository;
 use App\Repository\ProfilRepository;
 use App\Repository\PromoRepository;
+use App\Repository\ReferencielRepository;
 use App\Service\GestionImage;
 use App\Service\PromoService;
 use DateTime;
@@ -39,13 +40,18 @@ class PromoController extends AbstractController
      * @var ProfilRepository
      */
     private ProfilRepository $profilRepository;
+    /**
+     * @var ReferencielRepository
+     */
+    private ReferencielRepository $referencielRepository;
 
 
     /**
      * PromoController constructor.
      */
     public function __construct(
-        GestionImage $gestionImage,ProfilRepository $profilRepository, EntityManagerInterface $manager,PromoRepository $promoRepository,ApprenantRepository $apprenantReposity
+        GestionImage $gestionImage,ReferencielRepository $referencielRepository,
+        ProfilRepository $profilRepository, EntityManagerInterface $manager,PromoRepository $promoRepository,ApprenantRepository $apprenantReposity
     )
     {
         $this->gestionImage = $gestionImage;
@@ -53,6 +59,7 @@ class PromoController extends AbstractController
         $this->promoReposity = $promoRepository;
         $this->apprenantReposity = $apprenantReposity;
         $this->profilRepository =$profilRepository;
+        $this->referencielRepository =$referencielRepository;
     }
 
     public function EditPromo($id, Request $request,PromoService $promoService): JsonResponse
@@ -66,6 +73,11 @@ class PromoController extends AbstractController
             //dd($value);
             $myPromo->removeApprenant($value);
         }
+        foreach($myPromo->getReferenciels() as  $key=> $value ){
+            //dd($value);
+            $myPromo->removeReferenciel($value);
+        }
+
 
         if( $request->files->get('upload')){
 
@@ -139,6 +151,17 @@ class PromoController extends AbstractController
                 if( $this->apprenantReposity->findOneBy(['email'=>$array[$i]])){
 
                     $myPromo->addApprenant( $this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
+                }
+            }
+        }
+        if(isset($promoreq['referenciel'])){
+            $array = explode(',',$promoreq['referenciel']);
+            //dd($array);
+            for ($i=0;$i< count($array)-1;$i++){
+                // dd($this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
+                if( $this->referencielRepository->findOneBy(['id'=>$array[$i]])){
+
+                    $myPromo->addReferenciel( $this->referencielRepository->findOneBy(['id'=>$array[$i]]));
                 }
             }
         }
@@ -226,10 +249,32 @@ class PromoController extends AbstractController
                 if( $this->apprenantReposity->findOneBy(['email'=>$array[$i]])){
 
                     $myPromo->addApprenant( $this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
+                }else{
+                       $apprenant = new Apprenant();
+                       $apprenant->setNomComplete('null')
+                           ->setUsername($array[$i])
+                           ->setPassword('passer123')
+                           ->setAdresse('null')
+                           ->setEmail($array[$i])
+                           ->setGenre('null')
+                           ->setProfil($this->profilRepository->findOneBy(['libelle'=>'Apprenant']))
+                           ->setTelephone('');
+                       $this->manager->persist($apprenant);
+                       $myPromo->addApprenant($apprenant);
+                   }
+            }
+        }
+        if(isset($promoreq['referenciel'])){
+            $array = explode(',',$promoreq['referenciel']);
+            //dd($array);
+            for ($i=0;$i< count($array)-1;$i++){
+                // dd($this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
+                if( $this->referencielRepository->findOneBy(['id'=>$array[$i]])){
+
+                    $myPromo->addReferenciel( $this->referencielRepository->findOneBy(['id'=>$array[$i]]));
                 }
             }
         }
-
         $this->manager->persist($myPromo);
         $this->manager->flush();
         return new JsonResponse("success",200,[],true);
