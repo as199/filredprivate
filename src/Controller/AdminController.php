@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Entity\Admin;
 use App\Repository\ProfilRepository;
 use App\Service\GestionImage;
 use App\Service\InscriptionService;
@@ -123,5 +124,33 @@ class AdminController extends AbstractController
        return new JsonResponse("success",200,[],true);
 
 
+    }
+
+
+     /**
+     * @Route(
+     *     "api/admin/mailer",
+     *      name="Sending",
+     *     methods={"POST"},
+     *     defaults={
+     *      "_api_resource_class"=Admin::class,
+     *      "_api_collection_operation_name"="SendEmailApp"
+     *     }
+     *     )
+     */
+    public function SendEmailApprenant( Request $request)
+    {
+      $lesMails=$request->get('email');
+      $array = explode('&',$lesMails);
+      //dd($array);
+      for ($i=0;$i< count($array)-1;$i++){
+        $this->sendEmail->send($array[$i],"Activation",'Please can your activate you compte');
+      }
+      return new JsonResponse("success",200,[],true);
+       
+       // $this->sendEmail->send($utilisateur->getEmail(),"registration",'your registration has been successfully completed');
+       // $utilisateur->setAvartar($utilisateur->getAvartar());
+
+       
     }
 }

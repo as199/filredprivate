@@ -26,15 +26,25 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          "path":"/apprenants/{id}",
  *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
- *          }},
+ *          }
+*      },
  *     collectionOperations={
  *     "get":{
  *              "path":"/apprenants",
- *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR')or is_granted('ROLE_CM') )",
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *              "deserialize" = false
  *          },
- *     "addApprenant":{"method":"post",
+*     "getApprenantAttente":{
+ *              "path":"/apprenants/attente",
+ *               "method":"GET",
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource",
+  *           "normalization_context"={"groups":"apprenantAttente:read"},
+ *              
+ *          },
+ *     "addApprenant":{
+ *               "method":"post",
  *              "path":"/apprenants",
  *               "deserialize" = false
  *              }
@@ -80,7 +90,7 @@ class Apprenant extends User
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups ({"promo:read","promo:write"})
+     * @Groups ({"promo:read","promo:write","apprenantAttente:read"})
      */
     private $attente;
 

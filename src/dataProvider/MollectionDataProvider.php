@@ -182,6 +182,19 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
            //return $this->manager->getRepository(Competence::class)->findAll();
 
         }
+
+          if($operationName =='getApprenantAttente'){
+             $collection = $this->manager
+                ->getRepository(Apprenant::class)->createQueryBuilder('item')
+                ->where('item.attente = :deleted')
+                ->setParameter('deleted', true)
+                ->getQuery()
+                ->getResult();
+                return $collection;
+           //return $this->manager->getRepository(Competence::class)->findAll();
+
+        }
+
         if($operationName =='get_all_groupe_competences'){
 
             return $this->manager

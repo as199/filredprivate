@@ -245,7 +245,6 @@ class PromoController extends AbstractController
             $array = explode(',',$promoreq['apprenants']);
             //dd($array);
             for ($i=0;$i< count($array)-1;$i++){
-               // dd($this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
                 if( $this->apprenantReposity->findOneBy(['email'=>$array[$i]])){
 
                     $myPromo->addApprenant( $this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
@@ -266,9 +265,7 @@ class PromoController extends AbstractController
         }
         if(isset($promoreq['referenciel'])){
             $array = explode(',',$promoreq['referenciel']);
-            //dd($array);
             for ($i=0;$i< count($array)-1;$i++){
-                // dd($this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
                 if( $this->referencielRepository->findOneBy(['id'=>$array[$i]])){
 
                     $myPromo->addReferenciel( $this->referencielRepository->findOneBy(['id'=>$array[$i]]));

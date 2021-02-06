@@ -57,4 +57,8 @@ editPromo:
 
 addPromo:
   path: /api/admin/promo
-  controller: App\Controller\PromoController::AddPromo
+  controller: App\Controller\PromoController::AddPromo 
+
+SendEmailApp:
+  path: /api/admin/mailer
+  controller: App\Controller\AdminController::SendEmailApprenant 
