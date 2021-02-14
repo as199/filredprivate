@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Admin;
 use App\Repository\ProfilRepository;
+use App\Repository\UserRepository;
 use App\Service\GestionImage;
 use App\Service\InscriptionService;
 use App\Service\SendEmail;
@@ -124,6 +125,29 @@ class AdminController extends AbstractController
        return new JsonResponse("success",200,[],true);
 
 
+    }
+    
+    /**
+     * @Route(
+     *     "api/admin/users/{id}",
+     *      name="deleting",
+     *     methods={"DELETE"},
+     *     defaults={
+     *      "_api_resource_class"=User::class,
+     *      "_api_item_operation_name"="deleteUserId"
+     *     }
+     *     )
+     */
+    public function DeleteUser($id, UserRepository $userRepository){
+      if ( $user = $userRepository->findOneBy(['id'=>$id])) {
+          $user->setStatus(true);
+          $this->manager->persist($user);
+          $this->manager->flush();
+          return new JsonResponse("success", 200, [], true);
+      }
+      else{
+              return new JsonResponse("error",400,[],true);
+      }
     }
 
 

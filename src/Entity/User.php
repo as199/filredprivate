@@ -33,9 +33,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "path":"/admin/users/{id}",
  *              "access_control"="(is_granted('ROLE_ADMIN') )",
  *              "deserialize"= false,
+ *          },
+*   "deleteUserId":{
+ *           "method":"Delete",
+*            "route_name"="deleting",
+ *          "path":"/admin/users/{id}",
+ *              "access_control"="(is_granted('ROLE_ADMIN') )",
+ *              "deserialize"= false,
  *          }},
  *     collectionOperations={
  *     "get":{
+*               
 *              "path":"/admin/users",
  *              "normalization_context"={"groups":"admin_user:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') )",

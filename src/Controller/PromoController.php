@@ -61,6 +61,21 @@ class PromoController extends AbstractController
         $this->profilRepository =$profilRepository;
         $this->referencielRepository =$referencielRepository;
     }
+    
+
+    public function DeletePromo($id): JsonResponse
+    {
+        
+
+       if($myPromo = $this->promoReposity->find($id)){
+            $myPromo->setStatus(true);
+            $this->manager->persist($myPromo);
+            $this->manager->flush();
+            return new JsonResponse("success",200,[],true);
+        }
+
+    }
+
 
     public function EditPromo($id, Request $request,PromoService $promoService): JsonResponse
     {

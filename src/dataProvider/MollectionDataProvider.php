@@ -256,13 +256,13 @@ class MollectionDataProvider  implements ContextAwareCollectionDataProviderInter
                 ->getRepository($resourceClass)->createQueryBuilder('item')
                 ->where('item.status = :deleted')
                 ->setParameter('deleted', false);
-            $this->paginator->applyToCollection($repository, new QueryNameGenerator(), $resourceClass, $operationName, $this->context);
+           // $this->paginator->applyToCollection($repository, new QueryNameGenerator(), $resourceClass, $operationName, $this->context);
 
-            if ($this->paginator instanceof QueryResultCollectionExtensionInterface
-            && $this->paginator->supportsResult($resourceClass, $operationName, $this->context)) {
-
-            return $this->paginator->getResult($repository, $resourceClass, $operationName, $this->context);
-            }
+//            if ($this->paginator instanceof QueryResultCollectionExtensionInterface
+//            && $this->paginator->supportsResult($resourceClass, $operationName, $this->context)) {
+//
+//            return $this->paginator->getResult($repository, $resourceClass, $operationName, $this->context);
+//            }
              return $repository->getQuery()->getResult();
     }
 }

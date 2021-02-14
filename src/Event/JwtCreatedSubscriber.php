@@ -25,6 +25,7 @@ class JwtCreatedSubscriber
         $res = $this->user->findBy(['username'=>$data['username']]);
         $data['archived'] =$res[0]->getStatus();
         $data['id'] =  $res[0]->getId();
+        $data['nomComplet'] =  $res[0]->getNomComplete();
 
         $event->setData($data);
     }

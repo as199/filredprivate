@@ -51,6 +51,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "deletedd"={
  *      "method":"DELETE",
  *       "path":"/referenciel/{id}",
+ *      "denormalizationContext"={"groups"={"referenciel:write"}},
  *        "route_name"="deleteReferenciel",
  *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))"
  *     },

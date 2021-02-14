@@ -24,12 +24,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5fedcbfe-ac1e-4681-a550-0a7c33d15867" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PromoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PromoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/JwtCreatedSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/JwtCreatedSubscriber.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataProvider/MollectionDataProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utile.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,6 +288,9 @@
       <workItem from="1611256482694" duration="749000" />
       <workItem from="1611260250994" duration="120000" />
       <workItem from="1611787227188" duration="348000" />
+      <workItem from="1612956419405" duration="950000" />
+      <workItem from="1612975833121" duration="1343000" />
+      <workItem from="1613009922680" duration="593000" />
     </task>
     <servers />
   </component>

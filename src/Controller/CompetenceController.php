@@ -7,6 +7,7 @@ use App\Repository\CompetenceRepository;
 use App\Repository\NiveauRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -84,5 +85,14 @@ class CompetenceController extends AbstractController
 
         return $this->json('Success');
 
+    }
+
+    public function DeletCompetence($id){
+        if ($competence = $this->competenceRepository->find($id)) {
+            $competence->setStatus(true);
+            $this->manager->persist($competence);
+            $this->manager->flush();
+            return new JsonResponse("success",200,[],true);
+        }
     }
 }

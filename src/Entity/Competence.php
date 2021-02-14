@@ -30,6 +30,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *               "access_control"="(is_granted('ROLE_ADMIN') )",
  *
  *              },
+ * "deleteupdateCompetences":{
+ *              "method":"DELETE",
+ *              "path": "/admin/competences/{id}",
+ *               "denormalization_context"={"groups":"competencer:write"},
+ *              "route_name"="DeleteCompetence",
+ *               "access_control"="(is_granted('ROLE_ADMIN') )",
+ *
+ *              },
  * },
  * collectionOperations={
  * "get_competences": {
@@ -65,15 +73,15 @@ class Competence
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups ({"brief:read","formReference:read","competence:read",
-     *     "gc:read","gcu:read","competences:read","gcf:read",
-     *     "referencielgroupe:read","referenciel:read","competencer:write","gcuadd:read"})
+     *     "gc:read","gcu:read","competences:read","gcf:read","gcfr:read",
+     *     "referencielgroupe:read","gprecompetence:write","referenciel:read","competencer:write","gcuadd:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"brief:read","formReference:read","competence:read",
-     *     "gc:read","gcu:read","competences:read","gcf:read",
+     *     "gc:read","gcu:read","gprecompetence:write","competences:read","gcf:read",
      *     "referencielgroupe:read","gcfr:read","gcuadd:write","competence:write"})
      * @Assert\NotBlank (message="please enter the competence")
      */
@@ -83,7 +91,7 @@ class Competence
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"competence:read","competence:read"})
+     *  @Groups ({"competence:read","gprecompetence:write","competence:read"})
      */
     private $status = false;
 
@@ -95,7 +103,7 @@ class Competence
      *      minMessage = "You must specify at least three levels",
      *      maxMessage = "You cannot specify more than {{ limit }} levels"
      * )
-     * @Groups ({"competence:write","competence:read","gcuadd:write"})
+     * @Groups ({"competence:write","gprecompetence:write","competence:read","gcuadd:write"})
      */
     private $niveau;
 
@@ -112,7 +120,7 @@ class Competence
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *  @Groups ({"brief:read","gcuadd:write","competence:read","competence:write"})
+     *  @Groups ({"brief:read","gprecompetence:write","gcuadd:write","competence:read","competence:write"})
      */
     private $descriptif;
 

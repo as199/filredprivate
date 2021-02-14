@@ -25,7 +25,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * "updateCompetenceId":{
  *   "method": "PUT",
  *     "route_name"="putGroupcompetence",
- *   "normalization_context"={"groups":"gprecompetence:read"},
+ *   "denormalizationContext"={"groups":"gprecompetence:write"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * },
+ * "deleteGrpCompetenceId":{
+ *    "method": "DELETE",
+ *    "denormalizationContext"={"groups"={"gcudelete:write"}},
+ *    "route_name"="deleteGroupcompetence",
  *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
  *   "access_control_message"="Vous n'avez pas access à cette Ressource",
  * },
@@ -78,13 +85,13 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  @Groups ({"formReference:read","renciel:read","gcfr:read","competence:read","gcfr:read","competences:read","competence:write","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","gcudelete:write","renciel:read","Deletegprecompetence:read","gcfr:read","competence:read","gcfr:read","competences:read","competence:write","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","renciel:read","gcfr:read","gcuadd:write","competences:read","competence:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","gprecompetence:write","renciel:read","gcfr:read","gcuadd:write","competences:read","competence:read","competence:read","gprecompetence:read","gc:read","gprecompetences:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      */
     private $libelle;
 
@@ -92,20 +99,20 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups ({"formReference:read","renciel:read","gcfr:read","gcuadd:write","competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
+     *  @Groups ({"formReference:read","gprecompetence:write","renciel:read","gcfr:read","gcuadd:write","competence:read","gprecompetence:read","referenciel:read","referenciel:write","referencielgroupe:read","referencielgroupeComp:read"})
      *
      */
     private $descriptif;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"competence:read","gprecompetence:read","referenciel:write","referencielgroupe:read"})
+     *  @Groups ({"competence:read","gprecompetence:write","Deletegprecompetence:read","gprecompetence:read","gcudelete:write","referenciel:write","referencielgroupe:read"})
      */
     private $status;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
-     * @Groups ({"formReference:read","gcfr:read","gcuadd:write","gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
+     * @Groups ({"formReference:read","gprecompetence:write","gcfr:read","gcuadd:write","gprecompetence:read","gcu:read","gcf:read","referencielgroupe:read"})
      * @ApiSubresource()
      */
     private $competences;

@@ -19,6 +19,17 @@ class CompetenceRepository extends ServiceEntityRepository
         parent::__construct($registry, Competence::class);
     }
 
+    public function GetAllCompetenceofOneGroupeCompetence($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.groupeCompetence', 'g')
+            ->andWhere('g.id =:val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Competence[] Returns an array of Competence objects
     //  */

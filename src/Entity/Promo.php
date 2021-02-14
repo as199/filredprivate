@@ -89,7 +89,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
  *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
- *     "DELETE","PUTPromo":{
+ *     "delPromo":{
+ *      "method":"DELETE",
+ *     "path":"/promos/{id}",
+ *     "route_name"="deletePromo",
+ *      "denormalizationContext"={"groups"={"promo:write"}},
+ *          "access_control"="(is_granted('ROLE_ADMIN'))",
+ *     "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *  "PUTPromo":{
  *      "method":"PUT",
  *     "path":"/promo/{id}",
  *     "route_name"="editPromo",
@@ -158,7 +166,7 @@ class Promo
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups ({"promo:write"})
+     *  @Groups ({"promo:write","formateurapprenant:read","promo:read"})
      */
     private $status;
 
@@ -365,7 +373,11 @@ class Promo
 
     public function getAvatar()
     {
+        if ($this->avatar != null){
+        return base64_encode(stream_get_contents($this->avatar));
+        }else{
         return $this->avatar;
+        }
     }
 
     public function setAvatar($avatar): self

@@ -48,6 +48,31 @@ class GroupeCompetenceController extends AbstractController
         $this->competenceRepository = $competenceRepository;
         $this->serializer = $serializer;
     }
+    
+        
+    /**
+     * @Route(
+     *     "/api/admin/grpecompetences/{id}",
+     *      name="deleteGroupcompetence",
+     *     methods={"DELETE",},
+     *     defaults={
+     *      "_api_resource_class"=GroupeCompetence::class,
+     *      "_api_item_operation_name"="deleteGrpCompetenceId"
+     *     }
+     *     )
+     */
+    public function deleteGrpCompetenceId($id){
+          if( $groupe =$this->grpecompetences->findOneBy(['id'=>$id])){
+             $groupe->setStatus(true);
+             $this->manager->persist($groupe);
+             $this->manager->flush();
+             return new JsonResponse("success", 200, [], true);
+          }
+          else{
+              return new JsonResponse("error",400,[],true);
+          }
+    }
+        
 
     /**
      * @Route(
@@ -66,6 +91,7 @@ class GroupeCompetenceController extends AbstractController
         $groupecompetence= $this->grpecompetences->find($id);
         //dd($groupecompetence);
         $compObject= json_decode($request->getContent());
+        //dd($compObject);
         if($compObject->option == "add")
         {
             if ($compObject->competences)
@@ -77,13 +103,41 @@ class GroupeCompetenceController extends AbstractController
                         $id =$compObject->competences[$i]->id;
 
                         $comp = $this->competenceRepository->findBy(['id'=>$id]);
+                        //dd($comp);
                         $groupecompetence->addCompetence($comp[0]);
                         //dd($groupecompetence);
                     }else{
-                        $competence = new Competence();
+
+                        if (isset($compObject->competences[$i]->niveau) && isset($compObject->competences[$i]->libelle)){
+                           // dd('je contiens des niveaux');
+                            $competence = new Competence();
+
                         $competence->setLibelle($compObject->competences[$i]->libelle);
-                        $groupecompetence->addCompetence($competence);
+                       
+                        if(count($compObject->competences[$i]->niveau) == 3 ){
+                                foreach( $compObject->competences[$i]->niveau as $item){
+                                    // dd($item);
+                                $niveau = new Niveau();
+                                $niveau->setLibelle($item->libelle);
+                                $niveau->setCritereEvalution($item->critereEvalution);
+                                $niveau->setGroupeAction($item->groupeAction);
+                                $niveau->setStatus(false);
+                                $this->manager->persist($niveau);
+                                $competence->addNiveau($niveau);
+                                }
+                        }
+                        else{
+                            return new JsonResponse("Error le nombre de niveau doit etre egal à 3",500,[],true);
+                          }
                         $this->manager->persist($competence);
+                        $groupecompetence->addCompetence($competence);
+                        
+                        }else{
+                            return new JsonResponse("Error renseigner tous les champs du competence",500,[],true);
+                        }
+                        
+                        
+                        
                     }
 
 
@@ -93,16 +147,33 @@ class GroupeCompetenceController extends AbstractController
                 return $this->json('success');
             }
         }else{
-            for ($i=0;$i<count($compObject->competences); $i++)
-            {
-                if (isset($compObject->competences[$i]->id)){
-                    $comp = $this->competenceRepository->find($compObject->competences[$i]->id);
-                    $groupecompetence->removeCompetence($comp);
-                    $this->manager->flush();
-                }
+            $competencees = $groupecompetence->getCompetences();
+            if ($compObject->competences){
+            foreach($competencees as $compo){
+               
+                
+                $groupecompetence->removeCompetence($compo);
+                    for ($i=0;$i<count($compObject->competences); $i++)
+                    {
+                        if (isset($compObject->competences[$i]->id)){
+                            if($newCompetence= $this->competenceRepository->findBy(['id'=> $compObject->competences[$i]->id])){
+                                $groupecompetence->addCompetence($newCompetence[0]);
+                                $this->manager->persist($groupecompetence);
+                            }else{
+                                return new JsonResponse("Error cette competence n'existe pas",500,[],true);
+                            }
+                            
+                           
+                        }
+                    }
+                
             }
         }
+        $this->manager->flush();
         return $this->json("edit");
+        }
+       
+       
     }
 
     /**
@@ -168,7 +239,8 @@ class GroupeCompetenceController extends AbstractController
         return $this->json("valider");
 
     }
-
+    
+     
 
 
 }

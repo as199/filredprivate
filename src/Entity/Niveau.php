@@ -29,21 +29,21 @@ class Niveau
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="please enter your libelle")
-     * @Groups ({"brief:read","gcuadd:write","competence:write","competence:read"})
+     * @Groups ({"brief:read","gcuadd:write","gprecompetence:write","competence:write","competence:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="please enter your evaluation critere")
-     * @Groups ({"brief:read","gcuadd:write","competence:write","competence:read"})
+     * @Groups ({"brief:read","gprecompetence:write","gcuadd:write","competence:write","competence:read"})
      */
     private $critereEvalution;
 
     /**
      * @ORM\Column(type="string", length=255)
      *@Assert\NotBlank(message="please enter your action groups")
-     * @Groups ({"competence:write","gcuadd:write","competence:read"})
+     * @Groups ({"competence:write","gprecompetence:write","gcuadd:write","competence:read"})
      */
     private $groupeAction;
 
