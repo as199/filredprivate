@@ -215,6 +215,7 @@ class Promo
 
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, inversedBy="promos", cascade="persist")
+     *
      */
     private $groupes;
 
@@ -225,6 +226,7 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="promo", cascade="persist")
+     * @Groups ({"promo:read"})
      */
     private $chats;
 
@@ -237,12 +239,13 @@ class Promo
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, inversedBy="promos", cascade="persist")
-     * @Groups ({"admin_promo_apprenant:read"})
+     * @Groups ({"admin_promo_apprenant:read","promo:read"})
      */
     private $referenciels;
 
     /**
      * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="promo",cascade="persist")
+     * 
      */
     private $briefMaPromo;
 

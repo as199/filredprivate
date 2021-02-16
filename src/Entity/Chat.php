@@ -26,19 +26,19 @@ class Chat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"profil_sortis_get:read"})
+     * @Groups ({"profil_sortis_get:read","promo:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups ({"profil_sortis_post:write","profil_sortis_get:read"})
+     * @Groups ({"profil_sortis_post:write","profil_sortis_get:read","promo:read"})
      */
     private $message;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     * @Groups ({"profil_sortis_post:write"})
+     * @Groups ({"profil_sortis_post:write","promo:read"})
      */
     private $piecesJointes;
 

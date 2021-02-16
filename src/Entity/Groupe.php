@@ -70,14 +70,14 @@ class Groupe
      * @ORM\Column(type="integer")
      * @Groups ({"brief_groupe:read","admin_groupe:read","promo:read",
      *     "promo:write","promoapprenant:read","promoprincipale:read",
-     *     "admin_profilsorties:read"})
+     *     "admin_profilsorties:read","promo:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups ({"brief_groupe:read","admin_groupe:read","promo:read",
-     *     "promo:write","promoprincipale:read","admin_profilsorties:read"})
+     *     "promo:write","promoprincipale:read","promo:read","admin_profilsorties:read"})
      * @Assert\NotBlank
      */
     private $nomGroupe;

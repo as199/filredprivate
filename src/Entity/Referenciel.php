@@ -72,19 +72,19 @@ class Referenciel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"referenciel:read","referencielGet:read","renciel:read","formApprentReference:read","formReference:read","admin_promo_apprenant:read"})
+     * @Groups ({"referenciel:read","referencielGet:read","promo:read","renciel:read","formApprentReference:read","formReference:read","admin_promo_apprenant:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"referenciel:read","referencielGet:read","renciel:read","referenciel:write","formApprentReference:read","formReference:read"})
+     * @Groups ({"referenciel:read","promo:read","referencielGet:read","renciel:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *  @Groups ({"referenciel:read","renciel:read","referenciel:write","formApprentReference:read","formReference:read"})
+     *  @Groups ({"referenciel:read","renciel:read","promo:read","referenciel:write","formApprentReference:read","formReference:read"})
      */
     private $presentation;
 
