@@ -88,12 +88,12 @@ class Commentaire
         return $this;
     }
 
-    public function getFilDeDiscussion(): ?FilDeDiscussion
+    public function getFildeDiscussion(): ?FilDeDiscussion
     {
-        return $this->filDeDiscussion;
+        return $this->fildeDiscussion;
     }
 
-    public function setFilDeDiscussion(?FilDeDiscussion $filDeDiscussion): self
+    public function setFildeDiscussion(?FilDeDiscussion $filDeDiscussion): self
     {
         $this->filDeDiscussion = $filDeDiscussion;
 

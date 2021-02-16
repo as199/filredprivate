@@ -146,7 +146,7 @@ class LivrablePartielController extends AbstractController
             $com= new Commentaire();
             $com->setDescription($commentaire['description'])
                 ->setCreatedAt(new DateTime())
-                ->setFilDeDiscussion($fil);
+                ->setFildeDiscussion($fil);
             if ($user instanceof Formateur){
                 $com->setFormateurs($user);
             }

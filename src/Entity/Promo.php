@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     routePrefix="/admin/",
  *     normalizationContext={"groups"={"promo:read"}},
  *     itemOperations={
+ *          "GET",
  *          "GETRefFormGroup"={
  *               "path":"/promo/{id}",
  *                "method":"GET",
