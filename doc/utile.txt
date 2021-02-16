@@ -1,6 +1,6 @@
 Dans le projet on fait:
 creer un projet symfony : symfony new nomProjet --full
-on creer un fichier docker-compose.yaml et on y met :
+on creer un fichier docker-compose.yaml ou (symfony console make:docker:database) et on y met :
 version: '3'
 
 services:

@@ -290,11 +290,10 @@ class Referenciel
 
     public function getProgrammes()
     {
-        if ($this->programmes != null){
-            return base64_encode(stream_get_contents($this->programmes));
-        }else {
+        if($this->programmes == null){
             return $this->programmes;
         }
+        return base64_encode(stream_get_contents($this->programmes));
     }
 
     public function setProgrammes($programmes): self

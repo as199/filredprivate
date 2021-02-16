@@ -98,10 +98,11 @@ class AdminController extends AbstractController
      */
     public function putUserId(GestionImage $service, Request $request): JsonResponse
     {
-        $profil = $request->get('profil'); //pour dynamiser
-        //dd($profil);
+        // $profil = $request->get('profil'); //pour dynamiser
+      
         $userUpdate = $service->GestionImage($request,'avartar');
         $utilisateur = $request ->attributes->get('data');
+        dd($utilisateur);
        foreach ($userUpdate as $key=> $valeur){
            $setter = 'set'. ucfirst(strtolower($key));
            //dd($setter);

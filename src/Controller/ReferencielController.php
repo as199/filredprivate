@@ -33,7 +33,7 @@ class ReferencielController extends AbstractController
 
        if( $request->files->get('programmes')){
            $programme= $request->files->get('programmes');
-           $programme = fopen($programme->getRealPath(),'r+');
+           $programme = fopen($programme,'rb');
            $myRef->setProgrammes($programme);
        }
 

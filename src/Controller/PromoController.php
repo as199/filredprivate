@@ -197,6 +197,7 @@ class PromoController extends AbstractController
             $file= $request->files->get('upload');
             $user = $promoService->uploadExcel($file);
            $users = $promoService->toArray($user);
+           
            for ($p =0; $p < count($users); $p++){
                if ($users[$p]['email']){
                    if( $this->apprenantReposity->findOneBy(['email'=>$users[$p]['email']])){
@@ -226,7 +227,38 @@ class PromoController extends AbstractController
             $myPromo->setAvatar($avatar);
         }
         foreach ($promoreq as $key=> $valeur){
+            //dd('magui fi');
             $setter = 'set'. ucfirst(strtolower($key));
+            if($setter == 'setApprenants'){
+                $array = explode(',',$promoreq['apprenants']);
+                //dd($array);
+                for ($i=0;$i< count($array)-1;$i++){
+                    if($apprenantExistant = $this->apprenantReposity->findOneBy(['email'=>$array[$i]])){
+    
+                        $myPromo->addApprenant($apprenantExistant);
+                    }else{
+                           $apprenant = new Apprenant();
+                           $apprenant->setNomComplete($array[$i].'null')
+                               ->setUsername($array[$i])
+                               ->setPassword('passer123')
+                               ->setAdresse('null')
+                               ->setEmail($array[$i])
+                               ->setGenre('null')
+                               ->setProfil($this->profilRepository->findOneBy(['libelle'=>'Apprenant']))
+                               ->setTelephone('');
+                           $this->manager->persist($apprenant);
+                           $myPromo->addApprenant($apprenant);
+                       }
+                }
+            }elseif ($setter == 'setReferenciel'){
+                $array = explode(',',$promoreq['referenciel']);
+                for ($i=0;$i< count($array)-1;$i++){
+                    if( $this->referencielRepository->findOneBy(['id'=>$array[$i]])){
+    
+                        $myPromo->addReferenciel( $this->referencielRepository->findOneBy(['id'=>$array[$i]]));
+                    }
+                }
+            }
             //dd($setter);
             if(method_exists(Promo::class, $setter)){
                 if ($key=='dateFinProvisoire'){
@@ -255,38 +287,6 @@ class PromoController extends AbstractController
 
         }
 
-
-        if(isset($promoreq['apprenants'])){
-            $array = explode(',',$promoreq['apprenants']);
-            //dd($array);
-            for ($i=0;$i< count($array)-1;$i++){
-                if( $this->apprenantReposity->findOneBy(['email'=>$array[$i]])){
-
-                    $myPromo->addApprenant( $this->apprenantReposity->findOneBy(['email'=>$array[$i]]));
-                }else{
-                       $apprenant = new Apprenant();
-                       $apprenant->setNomComplete('null')
-                           ->setUsername($array[$i])
-                           ->setPassword('passer123')
-                           ->setAdresse('null')
-                           ->setEmail($array[$i])
-                           ->setGenre('null')
-                           ->setProfil($this->profilRepository->findOneBy(['libelle'=>'Apprenant']))
-                           ->setTelephone('');
-                       $this->manager->persist($apprenant);
-                       $myPromo->addApprenant($apprenant);
-                   }
-            }
-        }
-        if(isset($promoreq['referenciel'])){
-            $array = explode(',',$promoreq['referenciel']);
-            for ($i=0;$i< count($array)-1;$i++){
-                if( $this->referencielRepository->findOneBy(['id'=>$array[$i]])){
-
-                    $myPromo->addReferenciel( $this->referencielRepository->findOneBy(['id'=>$array[$i]]));
-                }
-            }
-        }
         $this->manager->persist($myPromo);
         $this->manager->flush();
         return new JsonResponse("success",200,[],true);

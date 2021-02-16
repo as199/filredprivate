@@ -91,11 +91,20 @@ class GroupeCompetenceController extends AbstractController
         $groupecompetence= $this->grpecompetences->find($id);
         //dd($groupecompetence);
         $compObject= json_decode($request->getContent());
+        $groupecompetence->setLibelle($compObject->libelle);
+        $groupecompetence->setDescriptif($compObject->descriptif);
         //dd($compObject);
+        // on ecrase les competence existant
+       if ($competencees = $groupecompetence->getCompetences()){
+            foreach($competencees as $compo){    
+                $groupecompetence->removeCompetence($compo);
+                $this->manager->persist($competence);
+            }
+       }
+       
         if($compObject->option == "add")
-        {
-            if ($compObject->competences)
-            {
+        {//opticlan center sicap liberti 1 villa no 1109
+           
                 for ($i=0;$i<count($compObject->competences); $i++)
                 {
                     //dd($compObject->competences);
@@ -108,70 +117,68 @@ class GroupeCompetenceController extends AbstractController
                         //dd($groupecompetence);
                     }else{
 
-                        if (isset($compObject->competences[$i]->niveau) && isset($compObject->competences[$i]->libelle)){
-                           // dd('je contiens des niveaux');
-                            $competence = new Competence();
+                            if (isset($compObject->competences[$i]->niveau) && isset($compObject->competences[$i]->libelle)){
+                            // dd('je contiens des niveaux');
+                                $competence = new Competence();
 
-                        $competence->setLibelle($compObject->competences[$i]->libelle);
-                       
-                        if(count($compObject->competences[$i]->niveau) == 3 ){
-                                foreach( $compObject->competences[$i]->niveau as $item){
-                                    // dd($item);
-                                $niveau = new Niveau();
-                                $niveau->setLibelle($item->libelle);
-                                $niveau->setCritereEvalution($item->critereEvalution);
-                                $niveau->setGroupeAction($item->groupeAction);
-                                $niveau->setStatus(false);
-                                $this->manager->persist($niveau);
-                                $competence->addNiveau($niveau);
+                                $competence->setLibelle($compObject->competences[$i]->libelle);
+                            
+                                if(count($compObject->competences[$i]->niveau) == 3 ){
+                                        foreach( $compObject->competences[$i]->niveau as $item){
+                                            // dd($item);
+                                        $niveau = new Niveau();
+                                        $niveau->setLibelle($item->libelle);
+                                        $niveau->setCritereEvalution($item->critereEvalution);
+                                        $niveau->setGroupeAction($item->groupeAction);
+                                        $niveau->setStatus(false);
+                                        $this->manager->persist($niveau);
+                                        $competence->addNiveau($niveau);
+                                        }
                                 }
-                        }
-                        else{
-                            return new JsonResponse("Error le nombre de niveau doit etre egal à 3",500,[],true);
-                          }
-                        $this->manager->persist($competence);
-                        $groupecompetence->addCompetence($competence);
-                        
-                        }else{
-                            return new JsonResponse("Error renseigner tous les champs du competence",500,[],true);
-                        }
-                        
+                                else{
+                                    return new JsonResponse("Error le nombre de niveau doit etre egal à 3",500,[],true);
+                                }
+                                $this->manager->persist($competence);
+                                $groupecompetence->addCompetence($competence);
+                            
+                            }else{
+                                return new JsonResponse("Error renseigner tous les champs du competence",500,[],true);
+                            }
                         
                         
-                    }
+                        
+                     }
 
-
+                    $this->manager->flush();
+                    return $this->json('success');
                 }
 
-                $this->manager->flush();
-                return $this->json('success');
-            }
-        }else{
-            $competencees = $groupecompetence->getCompetences();
-            if ($compObject->competences){
-            foreach($competencees as $compo){
                
-                
-                $groupecompetence->removeCompetence($compo);
-                    for ($i=0;$i<count($compObject->competences); $i++)
-                    {
-                        if (isset($compObject->competences[$i]->id)){
-                            if($newCompetence= $this->competenceRepository->findBy(['id'=> $compObject->competences[$i]->id])){
-                                $groupecompetence->addCompetence($newCompetence[0]);
-                                $this->manager->persist($groupecompetence);
-                            }else{
-                                return new JsonResponse("Error cette competence n'existe pas",500,[],true);
-                            }
-                            
-                           
+            
+        }else{
+            if ($compObject->competences){
+                for ($i=0;$i<count($compObject->competences); $i++)
+                {
+                    if (isset($compObject->competences[$i]->id)){
+                        if($newCompetence= $this->competenceRepository->findBy(['id'=> $compObject->competences[$i]->id])){
+                            $groupecompetence->addCompetence($newCompetence[0]);
+                            $this->manager->persist($groupecompetence);
+                        }else{
+                            return new JsonResponse("Error cette competence n'existe pas",500,[],true);
                         }
+                        
+                    
                     }
-                
+                }
+                            
+            }else{
+                return new JsonResponse("Error cette competence n'existe pas",500,[],true);
             }
-        }
+                
+         }
         $this->manager->flush();
         return $this->json("edit");
-        }
+                
        
        
     }
