@@ -1,0 +1,17 @@
+Processure pour cloner et executer le projet
+
+1. veuillez clone le project 
+
+2. SE PLACER DANS LE REPERTOIRE DU DOSSIER CLONER
+
+3. LANCER DANS LE TERMINAL : COMPOSER INSTALL
+
+4.PUIS CONFIGURER DANS LE .ENV LE DATABASE_URL
+
+5.PUIS LANCER php bin/console doctrine:database:create   pour creer la base de donnees
+
+6. importer le fichier database.sql pour remplire la base de donnees
+
+7. Pour lancer le server faire: php -S 127.0.0.1:8000 -t public ou symfony serve
+
+9.pour ce connecter : login = apprenant@gmail.com  et password = pass1234
